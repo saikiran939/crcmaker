@@ -1,13 +1,16 @@
 import React from 'react';
 
+import Button from './button';
 import Console from './console';
 
 class Car extends React.Component {
     render () {
         return (
             <div>
-                <p>Hello world</p>
                 <Console />
+
+                <Button />
+                <Button />
             </div>
         );
     }

@@ -12,25 +12,28 @@ var babel      = require('babelify'),
     gulp       = require('gulp'),
     sass       = require('gulp-sass'),
     source     = require('vinyl-source-stream'),
-    sourcemaps = require('gulp-sourcemaps'),
     watchify   = require('watchify');
 
+
+var paths = {
+  src_js   : './src/index.js',
+  src_scss : './src/styles/**/*.scss',
+  dest     : './build/'
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // JS compilers                                                               //
 ////////////////////////////////////////////////////////////////////////////////
 
 var compile = function (watch) {
-  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babel));
+  var bundler = watchify(browserify(paths.src_js, { debug: true }).transform(babel));
 
   var rebundle = function () {
     bundler.bundle()
       .on('error', function (err) { console.error(err); this.emit('end'); })
       .pipe(source('script.js'))
       .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./build'));
+      .pipe(gulp.dest(paths.dest));
   }
 
   if (watch) {
@@ -54,14 +57,14 @@ var watch = function () {
 
 // Delete generated files
 gulp.task('clean', function () {
-  del.sync('/build/', { force: true });
+  del.sync(paths.dest, { force: true });
 });
 
 // Process SCSS files
 gulp.task('scss', function () {
-  return gulp.src('./src/styles/*.scss')
+  return gulp.src(paths.src_scss)
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./build/'));
+    .pipe(gulp.dest(paths.dest));
 });
 
 // Compile files
@@ -69,7 +72,7 @@ gulp.task('build', ['scss'], function () { return compile(); });
 
 // Compile files and recompile on changes
 gulp.task('watch', ['scss'], function () {
-  gulp.watch('./src/styles/*.scss', ['scss']);
+  gulp.watch(paths.src_scss, ['scss']);
   return watch();
 });
 
