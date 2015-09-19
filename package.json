@@ -1,0 +1,33 @@
+{
+  "name": "autoboard",
+  "version": "1.0.0",
+  "description": "An intuitive car console.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arkon/autoboard.git"
+  },
+  "author": "Eugene Cheung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arkon/autoboard/issues"
+  },
+  "homepage": "https://github.com/arkon/autoboard#readme",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
