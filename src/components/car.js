@@ -9,8 +9,10 @@ class Car extends React.Component {
             <div>
                 <Console />
 
-                <Button />
-                <Button />
+                <div className="console__buttons">
+                    <Button label="Test" />
+                    <Button label="Test" />
+                </div>
             </div>
         );
     }

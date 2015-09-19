@@ -4,7 +4,8 @@ class Button extends React.Component {
     render () {
         return (
             <div className="button">
-                Button
+                <div className="button__btn"></div>
+                <p>{this.props.label}</p>
             </div>
         );
     }

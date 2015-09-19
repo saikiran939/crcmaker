@@ -1,7 +1,21 @@
 .button {
+    display: inline-block;
+}
+
+.button__btn {
+    background: linear-gradient(to bottom, #fff, #eee);
     border-radius: 50%;
     border: 2px solid #000;
-    height: 2em;
-    text-indent: -3000em;
-    width: 2em;
+    cursor: pointer;
+    height: 5em;
+    margin: 1em;
+    width: 5em;
+
+    &:hover {
+        box-shadow: 0 3px 5px #000;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
 }

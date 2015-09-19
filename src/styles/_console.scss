@@ -1,6 +1,14 @@
 .console {
-    border: 1px solid #000;
+    background: #fff;
+    border: 5px solid #000;
+    border-radius: 5px;
     height: 625px;
-    margin: 0 auto;
+    margin: 3em auto;
+    position: relative;
     width: 1000px;
+}
+
+.console__buttons {
+    color: #fff;
+    text-align: center;
 }
