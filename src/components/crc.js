@@ -45,12 +45,20 @@ class CRC extends React.Component {
         cardsData.push(newCard);
 
         this.setState({
-            cards: cardsData
+            cards: cardsData,
+            newFormVisible: false
         });
     }
 
-    removeCard (id) {
+    removeCard (index) {
+        if (confirm(`Remove card #${index + 1}?`)) {
+            var cardsData = this.state.cards;
+            cardsData.splice(index, 1);
 
+            this.setState({
+                cards: cardsData
+            });
+        }
     }
 
     toggleNewCardForm () {
@@ -91,7 +99,7 @@ class CRC extends React.Component {
                     : null }
 
                 { this.state.cards.map((cardData, i) =>
-                    <Card key={i} data={cardData} />
+                    <Card key={i} data={cardData} onClick={this.removeCard.bind(this, i)} />
                 ) }
             </div>
         );

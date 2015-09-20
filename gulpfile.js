@@ -8,9 +8,12 @@ var babel      = require('babelify'),
     browserify = require('browserify'),
     buffer     = require('vinyl-buffer'),
     del        = require('del'),
+    ghPages    = require('gulp-gh-pages'),
     gulp       = require('gulp'),
+    minifyCss  = require('gulp-minify-css'),
     sass       = require('gulp-sass'),
     source     = require('vinyl-source-stream'),
+    uglify     = require('gulp-uglify'),
     watchify   = require('watchify');
 
 
@@ -36,6 +39,7 @@ var compile = function (watch) {
       .on('error', function (err) { console.error(err); this.emit('end'); })
       .pipe(source('script.js'))
       .pipe(buffer())
+      .pipe(uglify())
       .pipe(gulp.dest(paths.dest));
   }
 
@@ -67,16 +71,23 @@ gulp.task('clean', function () {
 gulp.task('scss', function () {
   return gulp.src(paths.src_scss)
     .pipe(sass().on('error', sass.logError))
+    .pipe(minifyCss())
     .pipe(gulp.dest(paths.dest));
 });
 
 // Compile files
-gulp.task('build', ['scss'], function () { return compile(); });
+gulp.task('build', ['clean', 'scss'], function () { return compile(); });
 
 // Compile files and recompile on changes
-gulp.task('watch', ['scss'], function () {
+gulp.task('watch', ['clean','scss'], function () {
   gulp.watch(paths.src_scss, ['scss']);
   return watch();
+});
+
+// Deploy to GitHub Pages
+gulp.task('deploy', function() {
+  return gulp.src('./build/**/*')
+    .pipe(ghPages());
 });
 
 // Default: watch task
