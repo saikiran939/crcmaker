@@ -9,8 +9,18 @@ class CRC extends React.Component {
 
         this.state = {
             cards: localStorage.cards ? JSON.parse(localStorage.cards) : [],
-            newFormVisible: false
+            newFormVisible: false,
+            uiVisible: true,
         };
+    }
+
+    componentDidMount () {
+        // Toggle print view on `T` key press
+        document.body.addEventListener('keydown', (evt) => {
+            if (evt.keyCode === 84) {
+                this.togglePrint();
+            }
+        });
     }
 
     componentDidUpdate (prevProps, prevState) {
@@ -50,27 +60,35 @@ class CRC extends React.Component {
     }
 
     removeAllCards () {
-        this.setState({
-            cards: []
-        });
+        if (confirm('Remove all cards?')) {
+            this.setState({
+                cards: []
+            });
+        }
     }
 
     togglePrint () {
-        alert('toggleprint');
+        this.setState({
+            uiVisible: !this.state.uiVisible
+        });
     }
 
     render () {
         return (
             <div id='content'>
-                <h1 className='title edit'>CRC Card Generator</h1>
+                { this.state.uiVisible ?
+                    <div>
+                        <h1 className='title edit'>CRC Card Generator</h1>
 
-                <div id='actions'>
-                    <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
-                    <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
-                    <button onClick={this.togglePrint.bind(this)}>Toggle print view</button>
+                        <div id='actions'>
+                            <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
+                            <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
+                            <button onClick={this.togglePrint.bind(this)}>Toggle print view [T key]</button>
 
-                    { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
-                </div>
+                            { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
+                        </div>
+                    </div>
+                    : null }
 
                 { this.state.cards.map((cardData, i) =>
                     <Card key={i} data={cardData} />
