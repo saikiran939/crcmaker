@@ -22,6 +22,7 @@ var babel      = require('babelify'),
 ////////////////////////////////////////////////////////////////////////////////
 ///
 var paths = {
+  src      : './src/index.*',
   src_js   : './src/index.js',
   src_scss : './src/styles/**/*.scss',
   dest     : './build/'
@@ -67,6 +68,12 @@ gulp.task('clean', function () {
   del.sync(paths.dest, { force: true });
 });
 
+// Copy main index files
+gulp.task('copy', function () {
+  return gulp.src(paths.src)
+    .pipe(gulp.dest(paths.dest));
+});
+
 // Process SCSS files
 gulp.task('scss', function () {
   return gulp.src(paths.src_scss)
@@ -76,10 +83,11 @@ gulp.task('scss', function () {
 });
 
 // Compile files
-gulp.task('build', ['clean', 'scss'], function () { return compile(); });
+gulp.task('build', ['clean', 'copy', 'scss'], function () { return compile(); });
 
 // Compile files and recompile on changes
-gulp.task('watch', ['clean','scss'], function () {
+gulp.task('watch', ['clean', 'copy', 'scss'], function () {
+  gulp.watch(paths.src, ['copy']);
   gulp.watch(paths.src_scss, ['scss']);
   return watch();
 });
