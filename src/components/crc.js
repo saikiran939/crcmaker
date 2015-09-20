@@ -18,14 +18,22 @@ class CRC extends React.Component {
     }
 
     addCard (data) {
-        // var cards = this.state.cards;
-        // cards.push(data);
+        var cardData = {
+            name             : data.name,
+            super            : data.super,
+            sub              : data.sub,
+            abstract         : data.type == 2,
+            interface        : data.type == 3,
+            responsibilities : data.responsibilities.split('\n'),
+            collaborators    : data.collaborators.split('\n')
+        };
 
-        // this.setState({
-        //     cards: cards
-        // });
+        var cards = this.state.cards;
+        cards.push(cardData);
 
-        alert('add!');
+        this.setState({
+            cards: cards
+        });
     }
 
     removeCard (id) {
@@ -50,7 +58,9 @@ class CRC extends React.Component {
 
     render () {
         return (
-            <div>
+            <div id='content'>
+                <h1 className='title edit'>CRC Card Generator</h1>
+
                 <div id='actions'>
                     <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                     <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
