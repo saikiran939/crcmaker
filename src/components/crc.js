@@ -73,6 +73,8 @@ class CRC extends React.Component {
     }
 
     render () {
+        var scope = this;
+
         return (
             <div className='wrapper'>
                 { this.state.uiVisible ?
@@ -91,7 +93,10 @@ class CRC extends React.Component {
                 <button onClick={this.togglePrint.bind(this)}>Show/hide header</button>
 
                 { this.state.cards.map((cardData, i) =>
-                    <Card key={i} data={cardData} onClick={this.removeCard.bind(this, i)} />
+                    <div className='card-wrapper'>
+                        <Card key={i} data={cardData} />
+                        <button onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
+                    </div>
                 ) }
             </div>
         );

@@ -22,7 +22,7 @@ var babel      = require('babelify'),
 ////////////////////////////////////////////////////////////////////////////////
 ///
 var paths = {
-  src      : './src/index.*',
+  src      : './src/index.html',
   src_js   : './src/index.js',
   src_scss : './src/styles/**/*.scss',
   dest     : './build/'
