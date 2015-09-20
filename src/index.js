@@ -1,5 +1,5 @@
 import React from 'react';
 
-import Car from './components/car';
+import CRC from './components/crc';
 
-React.render(<Car />, document.getElementById('main'));
+React.render(<CRC />, document.getElementById('main'));
