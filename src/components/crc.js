@@ -66,7 +66,7 @@ class CRC extends React.Component {
                     <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
                     <button onClick={this.togglePrint.bind(this)}>Toggle print view</button>
 
-                    { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard} /> : null }
+                    { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
                 </div>
 
                 { this.state.cards.map(card => {

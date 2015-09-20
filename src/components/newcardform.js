@@ -56,6 +56,10 @@ class NewCardForm extends React.Component {
         });
     }
 
+    handleAdd () {
+        this.props.onAdd(this.state);
+    }
+
     render () {
         return (
             <div id='new-card'>
@@ -73,23 +77,23 @@ class NewCardForm extends React.Component {
                 <label>Type:</label>
                 <label className='new-type'>
                     <input type='radio' name='type'
-                    checked={this.state.type == this.types.NORMAL}
-                    value={this.types.NORMAL}
-                    onChange={this.handleType.bind(this)} />
+                        checked={this.state.type == this.types.NORMAL}
+                        value={this.types.NORMAL}
+                        onChange={this.handleType.bind(this)} />
                     Normal
                 </label>
                 <label className='new-type'>
                     <input type='radio' name='type'
-                    checked={this.state.type == this.types.ABSTRACT}
-                    value={this.types.ABSTRACT}
-                    onChange={this.handleType.bind(this)} />
+                        checked={this.state.type == this.types.ABSTRACT}
+                        value={this.types.ABSTRACT}
+                        onChange={this.handleType.bind(this)} />
                     Abstract
                 </label>
                 <label className='new-type'>
                     <input type='radio' name='type'
-                    checked={this.state.type == this.types.INTERFACE}
-                    value={this.types.INTERFACE}
-                    onChange={this.handleType.bind(this)} />
+                        checked={this.state.type == this.types.INTERFACE}
+                        value={this.types.INTERFACE}
+                        onChange={this.handleType.bind(this)} />
                     Interface
                 </label>
 
@@ -99,7 +103,7 @@ class NewCardForm extends React.Component {
                 <label>Collaborators (1 per line):</label>
                 <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
 
-                <button onClick={this.props.onAdd.bind(null, this.state)}>Add card</button>
+                <button onClick={this.handleAdd.bind(this)}>Add card</button>
             </div>
         );
     }
