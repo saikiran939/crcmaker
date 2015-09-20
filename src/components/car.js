@@ -1,21 +1,23 @@
 import React from 'react';
 
-import Button from './button';
-import Console from './console';
+import Actions from './actions';
+import Card from './card';
 
-class Car extends React.Component {
+class CRC extends React.Component {
+    componentDidMount () {
+        // Fetch card data from localStorage and save in state
+    }
+
     render () {
         return (
             <div>
-                <Console />
+                <Actions />
 
-                <div className="console__buttons">
-                    <Button label="Test" />
-                    <Button label="Test" />
-                </div>
+                // Map card data
+                <Card />
             </div>
         );
     }
 }
 
-export default Car;
+export default CRC;
