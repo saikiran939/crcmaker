@@ -29,16 +29,16 @@ class Card extends React.Component {
                 <section className='card-contents'>
                     <section className='card-responsibilities'>
                         <ul>
-                            { data.responsibilities.map((item, i) => {
+                            { data.responsibilities.map((item, i) =>
                                 <li key={i}>{item}</li>
-                            }) }
+                            ) }
                         </ul>
                     </section>
                     <section className='card-collaborators'>
                         <ul>
-                            { data.collaborators.map((item, i) => {
+                            { data.collaborators.map((item, i) =>
                                 <li key={i}>{item}</li>
-                            }) }
+                            ) }
                         </ul>
                     </section>
                 </section>

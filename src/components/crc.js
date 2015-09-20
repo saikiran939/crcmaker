@@ -14,11 +14,13 @@ class CRC extends React.Component {
     }
 
     componentDidUpdate (prevProps, prevState) {
+        // Sync cards in state object with localStorage
         localStorage.cards = JSON.stringify(this.state.cards);
     }
 
     addCard (data) {
-        var cardData = {
+        // Parse data from form
+        var newCard = {
             name             : data.name,
             super            : data.super,
             sub              : data.sub,
@@ -28,11 +30,12 @@ class CRC extends React.Component {
             collaborators    : data.collaborators.split('\n')
         };
 
-        var cards = this.state.cards;
-        cards.push(cardData);
+        // Add to array in state
+        var cardsData = this.state.cards;
+        cardsData.push(newCard);
 
         this.setState({
-            cards: cards
+            cards: cardsData
         });
     }
 
@@ -69,9 +72,9 @@ class CRC extends React.Component {
                     { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
                 </div>
 
-                { this.state.cards.map((card, i) => {
-                    <Card key={i} data={card} />
-                }) }
+                { this.state.cards.map((cardData, i) =>
+                    <Card key={i} data={cardData} />
+                ) }
             </div>
         );
     }
