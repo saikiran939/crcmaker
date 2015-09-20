@@ -69,8 +69,8 @@ class CRC extends React.Component {
                     { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
                 </div>
 
-                { this.state.cards.map(card => {
-                    <Card data={card} />
+                { this.state.cards.map((card, i) => {
+                    <Card key={i} data={card} />
                 }) }
             </div>
         );

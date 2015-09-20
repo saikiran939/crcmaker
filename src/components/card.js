@@ -1,14 +1,20 @@
 import React from 'react';
 
 class Card extends React.Component {
+    constructor (props) {
+        super(props);
+    }
+
     render () {
+        var data = this.props.data;
+
         var type = '';
 
-        if (this.props.data.abstract) {
+        if (data.abstract) {
             type = 'Abstract';
         }
 
-        if (this.props.data.interface) {
+        if (data.interface) {
             type = 'Interface';
         }
 
@@ -16,23 +22,23 @@ class Card extends React.Component {
             <div className="card">
                 <header className='card-header'>
                     <span className='card-type'>{type}</span>
-                    <span className='card-superclass'>{this.props.data.super}</span>
-                    <div className='card-class'>{this.props.data.name}</div>
-                    <span className='card-subclass'>{this.props.data.sub}</span>
+                    <span className='card-superclass'>{data.super}</span>
+                    <div className='card-class'>{data.name}</div>
+                    <span className='card-subclass'>{data.sub}</span>
                 </header>
                 <section className='card-contents'>
                     <section className='card-responsibilities'>
                         <ul>
-                            {this.props.data.responsibilities.map(item => {
-                                <li>{item}</li>
-                            })}
+                            { data.responsibilities.map((item, i) => {
+                                <li key={i}>{item}</li>
+                            }) }
                         </ul>
                     </section>
                     <section className='card-collaborators'>
                         <ul>
-                            {this.props.data.collaborators.map(item => {
-                                <li>{item}</li>
-                            })}
+                            { data.collaborators.map((item, i) => {
+                                <li key={i}>{item}</li>
+                            }) }
                         </ul>
                     </section>
                 </section>
