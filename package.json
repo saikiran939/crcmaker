@@ -1,21 +1,21 @@
 {
-  "name": "autoboard",
+  "name": "crcmaker",
   "version": "1.0.0",
-  "description": "An intuitive car console.",
+  "description": "A simple tool for generating CRC cards.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkon/autoboard.git"
+    "url": "git+https://github.com/arkon/crcmaker.git"
   },
   "author": "Eugene Cheung",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arkon/autoboard/issues"
+    "url": "https://github.com/arkon/crcmaker/issues"
   },
-  "homepage": "https://github.com/arkon/autoboard#readme",
+  "homepage": "https://github.com/arkon/crcmaker#readme",
   "devDependencies": {
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",

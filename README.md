@@ -1,3 +1,3 @@
-# autoboard
+# CRC Maker
 
-Example project with a Gulpfile that handles ES6 modules with Babel and builds SCSS.
+A simple tool for generating CRC cards.
