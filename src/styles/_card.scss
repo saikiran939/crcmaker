@@ -1,4 +1,4 @@
-/* CRC Cards */
+// CRC Cards
 
 .card {
   border: 1px solid #000;
@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.card-header {
+.card__header {
   border-bottom: 1px solid #000;
   display: block;
   height: 5em;
@@ -15,34 +15,34 @@
   width: 100%;
 }
 
-  .card-class {
+  .card__header__class {
     font-size: 1.25em;
     font-weight: 600;
     line-height: 0.5rem;
     text-align: center;
   }
 
-  .card-superclass,
-  .card-subclass {
+  .card__header__superclass,
+  .card__header__subclass {
     position: absolute;
     right: 0.5em;
   }
 
-.card-contents {
+.card__contents {
   display: table;
   width: 100%;
 }
 
-  .card-responsibilities,
-  .card-collaborators {
+  .card__contents__responsibilities,
+  .card__contents__collaborators {
     display: table-cell;
     padding: 1em 1em 1em 1.5em;
   }
 
-  .card-responsibilities {
+  .card__contents__responsibilities {
     width: 70%;
   }
 
-  .card-collaborators {
+  .card__contents__collaborators {
     border-left: 1px solid #000;
   }

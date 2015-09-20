@@ -20,21 +20,21 @@ class Card extends React.Component {
 
         return (
             <div className="card">
-                <header className='card-header'>
-                    <span className='card-type'>{type}</span>
-                    <span className='card-superclass'>{data.super}</span>
-                    <div className='card-class'>{data.name}</div>
-                    <span className='card-subclass'>{data.sub}</span>
+                <header className='card__header'>
+                    <span className='card__header__type'>{type}</span>
+                    <span className='card__header__superclass'>{data.super}</span>
+                    <div className='card__header__class'>{data.name}</div>
+                    <span className='card__header__subclass'>{data.sub}</span>
                 </header>
-                <section className='card-contents'>
-                    <section className='card-responsibilities'>
+                <section className='card__contents'>
+                    <section className='card__contents__responsibilities'>
                         <ul>
                             { data.responsibilities.map((item, i) =>
                                 <li key={i}>{item}</li>
                             ) }
                         </ul>
                     </section>
-                    <section className='card-collaborators'>
+                    <section className='card__contents__collaborators'>
                         <ul>
                             { data.collaborators.map((item, i) =>
                                 <li key={i}>{item}</li>

@@ -62,8 +62,8 @@ class NewCardForm extends React.Component {
 
     render () {
         return (
-            <div id='new-card'>
-                <h2 className='title'>New card</h2>
+            <div className='new-card'>
+                <h2>New card</h2>
 
                 <label>Class name:</label>
                 <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
@@ -75,21 +75,21 @@ class NewCardForm extends React.Component {
                 <input type='text' value={this.state.sub} onChange={this.handleSub.bind(this)} />
 
                 <label>Type:</label>
-                <label className='new-type'>
+                <label className='new-card__type'>
                     <input type='radio' name='type'
                         checked={this.state.type == this.types.NORMAL}
                         value={this.types.NORMAL}
                         onChange={this.handleType.bind(this)} />
                     Normal
                 </label>
-                <label className='new-type'>
+                <label className='new-card__type'>
                     <input type='radio' name='type'
                         checked={this.state.type == this.types.ABSTRACT}
                         value={this.types.ABSTRACT}
                         onChange={this.handleType.bind(this)} />
                     Abstract
                 </label>
-                <label className='new-type'>
+                <label className='new-card__type'>
                     <input type='radio' name='type'
                         checked={this.state.type == this.types.INTERFACE}
                         value={this.types.INTERFACE}

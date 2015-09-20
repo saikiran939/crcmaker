@@ -14,15 +14,6 @@ class CRC extends React.Component {
         };
     }
 
-    componentDidMount () {
-        // Toggle print view on `T` key press
-        document.body.addEventListener('keydown', (evt) => {
-            if (evt.keyCode === 84) {
-                this.togglePrint();
-            }
-        });
-    }
-
     componentDidUpdate (prevProps, prevState) {
         // Sync cards in state object with localStorage
         localStorage.cards = JSON.stringify(this.state.cards);
@@ -83,20 +74,21 @@ class CRC extends React.Component {
 
     render () {
         return (
-            <div id='content'>
+            <div className='wrapper'>
                 { this.state.uiVisible ?
-                    <div>
-                        <h1 className='title edit'>CRC Card Generator</h1>
+                    <header className='header'>
+                        <h1 className='header__title'>CRC Card Maker</h1>
 
-                        <div id='actions'>
+                        <div className='header__actions'>
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
-                            <button onClick={this.togglePrint.bind(this)}>Toggle print view [T key]</button>
 
                             { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
                         </div>
-                    </div>
-                    : null }
+                    </header>
+                : null }
+
+                <button onClick={this.togglePrint.bind(this)}>Show/hide header</button>
 
                 { this.state.cards.map((cardData, i) =>
                     <Card key={i} data={cardData} onClick={this.removeCard.bind(this, i)} />
