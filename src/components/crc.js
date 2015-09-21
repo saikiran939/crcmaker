@@ -77,8 +77,11 @@ class CRC extends React.Component {
 
         return (
             <div className='wrapper'>
+
                 { this.state.uiVisible ?
                     <header className='header'>
+                        <span id='forkongithub'><a href='https://github.com/arkon/crcmaker'>Fork me on GitHub</a></span>
+
                         <h1 className='header__title'>CRC Card Maker</h1>
 
                         <div className='header__actions'>

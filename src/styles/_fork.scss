@@ -46,3 +46,9 @@
         }
     }
 }
+
+@media print {
+    #forkongithub {
+        display: none;
+    }
+}
