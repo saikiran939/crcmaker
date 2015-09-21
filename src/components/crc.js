@@ -95,7 +95,7 @@ class CRC extends React.Component {
                 { this.state.cards.map((cardData, i) =>
                     <div className='card-wrapper'>
                         <Card key={i} data={cardData} />
-                        <button onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
+                        <button key={i} onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
                     </div>
                 ) }
             </div>
