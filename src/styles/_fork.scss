@@ -1,0 +1,44 @@
+#forkongithub {
+    display: block;
+    height: 200px;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 275px;
+    z-index: 9999;
+
+    a {
+        background: #777;
+        color: #fff;
+        font-family: Arial;
+        line-height: 2rem;
+        padding: 5px 40px;
+        position: absolute;
+        right: -70px;
+        text-align: center;
+        text-decoration: none;
+        top: 40px;
+        transform: rotate(45deg);
+        width: 275px;
+
+        &::before,
+        &::after{
+            background: #fff;
+            content: '';
+            display: block;
+            height: 1px;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+        &::before {
+            top: 1px;
+        }
+
+        &::after{
+            bottom: 1px;
+        }
+    }
+}
