@@ -18,6 +18,11 @@
   width: 100%;
 }
 
+  .card__header__type {
+    display: inline-block;
+    height: 1.5em;
+  }
+
   .card__header__class {
     font-size: 1.25em;
     font-weight: 600;

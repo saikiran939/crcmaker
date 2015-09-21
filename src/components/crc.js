@@ -27,8 +27,8 @@ class CRC extends React.Component {
             sub              : data.sub,
             abstract         : data.type == 2,
             interface        : data.type == 3,
-            responsibilities : data.responsibilities.split('\n'),
-            collaborators    : data.collaborators.split('\n')
+            responsibilities : data.responsibilities !== '' ? data.responsibilities.split('\n') : [],
+            collaborators    : data.collaborators !== '' ? data.collaborators.split('\n') : []
         };
 
         // Add to array in state
@@ -94,7 +94,7 @@ class CRC extends React.Component {
 
                 { this.state.cards.map((cardData, i) =>
                     <div className='card-wrapper'>
-                        <Card key={i} data={cardData} />
+                        <Card key={cardData.name} data={cardData} />
                         <button key={i} onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
                     </div>
                 ) }
