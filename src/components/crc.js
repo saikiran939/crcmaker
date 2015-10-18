@@ -83,6 +83,32 @@ class CRC extends React.Component {
         }
     }
 
+    moveCardUp (index) {
+        var cardsData = this.state.cards;
+
+        var thisCard = cardsData[index];
+
+        cardsData[index] = cardsData[index - 1]
+        cardsData[index - 1] = thisCard;
+
+        this.setState({
+            cards: cardsData
+        });
+    }
+
+    moveCardDown (index) {
+        var cardsData = this.state.cards;
+
+        var thisCard = cardsData[index];
+
+        cardsData[index] = cardsData[index + 1]
+        cardsData[index + 1] = thisCard;
+
+        this.setState({
+            cards: cardsData
+        });
+    }
+
     render () {
         var scope = this;
 
@@ -111,8 +137,15 @@ class CRC extends React.Component {
                 { this.state.cards.map((editCard, i) =>
                     <div key={i} className='card-wrapper'>
                         <Card data={editCard} />
+
                         <button onClick={scope.editCard.bind(scope, i)}>Edit card #{i + 1}</button>
-                        <button onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
+                        <button onClick={scope.removeCard.bind(scope, i)}>✕</button>
+
+                        { i !== 0 &&
+                            <button onClick={scope.moveCardUp.bind(scope, i)}>↑</button> }
+
+                        { i !== this.state.cards.length - 1 &&
+                            <button onClick={scope.moveCardDown.bind(scope, i)}>↓</button> }
                     </div>
                 ) }
             </div>
