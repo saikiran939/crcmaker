@@ -1,50 +1,45 @@
 import React from 'react';
 
-class Card extends React.Component {
-    constructor (props) {
-        super(props);
+
+var Card = (props) => {
+    let data = props.data;
+
+    let type = '';
+
+    if (data.type == 2) {
+        type = 'Abstract';
     }
 
-    render () {
-        var data = this.props.data;
+    if (data.type == 3) {
+        type = 'Interface';
+    }
 
-        var type = '';
-
-        if (data.abstract) {
-            type = 'Abstract';
-        }
-
-        if (data.interface) {
-            type = 'Interface';
-        }
-
-        return (
-            <div className="card">
-                <header className='card__header'>
-                    <span className='card__header__type'>{type}</span>
-                    <span className='card__header__superclass'>{data.super}</span>
-                    <div className='card__header__class'>{data.name}</div>
-                    <span className='card__header__subclass'>{data.sub}</span>
-                </header>
-                <section className='card__contents'>
-                    <section className='card__contents__responsibilities'>
-                        <ul>
-                            { data.responsibilities.map((item, i) =>
-                                <li key={i}>{item}</li>
-                            ) }
-                        </ul>
-                    </section>
-                    <section className='card__contents__collaborators'>
-                        <ul>
-                            { data.collaborators.map((item, i) =>
-                                <li key={i}>{item}</li>
-                            ) }
-                        </ul>
-                    </section>
+    return (
+        <div className="card">
+            <header className='card__header'>
+                <span className='card__header__type'>{type}</span>
+                <span className='card__header__superclass'>{data.super}</span>
+                <div className='card__header__class'>{data.name}</div>
+                <span className='card__header__subclass'>{data.sub}</span>
+            </header>
+            <section className='card__contents'>
+                <section className='card__contents__responsibilities'>
+                    <ul>
+                        { data.responsibilities.split('\n').map((item, i) =>
+                            <li key={i}>{item}</li>
+                        ) }
+                    </ul>
                 </section>
-            </div>
-        );
-    }
-}
+                <section className='card__contents__collaborators'>
+                    <ul>
+                        { data.collaborators.split('\n').map((item, i) =>
+                            <li key={i}>{item}</li>
+                        ) }
+                    </ul>
+                </section>
+            </section>
+        </div>
+    );
+};
 
 export default Card;

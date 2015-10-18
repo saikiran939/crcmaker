@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class NewCardForm extends React.Component {
     constructor (props) {
         super(props);
@@ -10,14 +11,28 @@ class NewCardForm extends React.Component {
             INTERFACE : 3
         };
 
-        this.state = {
-            name             : '',
-            super            : '',
-            sub              : '',
-            type             : this.types.NORMAL,
-            responsibilities : '',
-            collaborators    : ''
-        };
+        if (this.props.data) {
+            this.state = {
+                index            : this.props.data.index,
+                name             : this.props.data.name,
+                super            : this.props.data.super,
+                sub              : this.props.data.sub,
+                type             : this.props.data.type,
+                responsibilities : this.props.data.responsibilities,
+                collaborators    : this.props.data.collaborators
+            };
+        } else {
+            this.state = {
+                index            : null,
+                name             : '',
+                super            : '',
+                sub              : '',
+                type             : this.types.NORMAL,
+                responsibilities : '',
+                collaborators    : ''
+            };
+        }
+
     }
 
     handleName (evt) {

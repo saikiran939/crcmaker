@@ -3,11 +3,13 @@ import React from 'react';
 import Card from './card';
 import NewCardForm from './newcardform';
 
+
 class CRC extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
+            editCard: null,
             cards: localStorage.cards ? JSON.parse(localStorage.cards) : [],
             newFormVisible: false,
             uiVisible: true,
@@ -19,25 +21,46 @@ class CRC extends React.Component {
         localStorage.cards = JSON.stringify(this.state.cards);
     }
 
-    addCard (data) {
-        // Parse data from form
-        var newCard = {
-            name             : data.name,
-            super            : data.super,
-            sub              : data.sub,
-            abstract         : data.type == 2,
-            interface        : data.type == 3,
-            responsibilities : data.responsibilities !== '' ? data.responsibilities.split('\n') : [],
-            collaborators    : data.collaborators !== '' ? data.collaborators.split('\n') : []
-        };
+    toggleNewCardForm () {
+        this.setState({
+            newFormVisible: !this.state.newFormVisible
+        });
+    }
 
-        // Add to array in state
-        var cardsData = this.state.cards;
-        cardsData.push(newCard);
+    togglePrint () {
+        this.setState({
+            uiVisible: !this.state.uiVisible
+        });
+    }
+
+    addCard (data) {
+        if (data.index !== null) {
+            // Replace existing card
+            var cardsData = this.state.cards;
+            cardsData[data.index] = data;
+        } else {
+            // Add to array in state
+            var cardsData = this.state.cards;
+            cardsData.push(data);
+        }
 
         this.setState({
+            editCard: null,
             cards: cardsData,
             newFormVisible: false
+        });
+    }
+
+    editCard (index) {
+        var cardsData = this.state.cards;
+
+        // Set index so it's replaced
+        var card = cardsData[index];
+        card.index = index;
+
+        this.setState({
+            editCard: card,
+            newFormVisible: !this.state.newFormVisible
         });
     }
 
@@ -52,24 +75,12 @@ class CRC extends React.Component {
         }
     }
 
-    toggleNewCardForm () {
-        this.setState({
-            newFormVisible: !this.state.newFormVisible
-        });
-    }
-
     removeAllCards () {
         if (confirm('Remove all cards?')) {
             this.setState({
                 cards: []
             });
         }
-    }
-
-    togglePrint () {
-        this.setState({
-            uiVisible: !this.state.uiVisible
-        });
     }
 
     render () {
@@ -88,17 +99,20 @@ class CRC extends React.Component {
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
 
-                            { this.state.newFormVisible ? <NewCardForm onAdd={this.addCard.bind(this)} /> : null }
+                            { this.state.newFormVisible ?
+                                <NewCardForm onAdd={this.addCard.bind(this)} data={this.state.editCard} /> :
+                                null }
                         </div>
                     </header>
                 : null }
 
                 <button onClick={this.togglePrint.bind(this)}>Show/hide header</button>
 
-                { this.state.cards.map((cardData, i) =>
-                    <div className='card-wrapper'>
-                        <Card key={cardData.name} data={cardData} />
-                        <button key={i} onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
+                { this.state.cards.map((editCard, i) =>
+                    <div key={i} className='card-wrapper'>
+                        <Card data={editCard} />
+                        <button onClick={scope.editCard.bind(scope, i)}>Edit card #{i + 1}</button>
+                        <button onClick={scope.removeCard.bind(scope, i)}>Remove card #{i + 1}</button>
                     </div>
                 ) }
             </div>
