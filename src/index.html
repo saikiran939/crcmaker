@@ -15,8 +15,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="main"></div>
+    <div id="main">
+        <p>Not loading? <a id="clearstorage">Try clearing the cached storage</a>.</p>
+    </div>
 
+    <script>
+        document.getElementById('clearstorage').onclick = function () {
+            localStorage.clear();
+        };
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

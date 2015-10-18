@@ -19,11 +19,8 @@
         text-align: center;
         text-decoration: none;
         top: 40px;
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg);
         transform: rotate(45deg);
+        transition: background 0.2s;
         width: 275px;
 
         &::before,
@@ -43,6 +40,10 @@
 
         &::after {
             bottom: 1px;
+        }
+
+        &:hover {
+            background: #888;
         }
     }
 }

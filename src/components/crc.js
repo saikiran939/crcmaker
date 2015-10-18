@@ -121,6 +121,8 @@ class CRC extends React.Component {
 
                         <h1 className='header__title'>CRC Card Maker</h1>
 
+                        <p className='header__info'>Tip: The header/buttons are hidden when printing!</p>
+
                         <div className='header__actions'>
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
@@ -139,13 +141,13 @@ class CRC extends React.Component {
                         <Card data={editCard} />
 
                         <button onClick={scope.editCard.bind(scope, i)}>Edit card #{i + 1}</button>
-                        <button onClick={scope.removeCard.bind(scope, i)}>✕</button>
+                        <button onClick={scope.removeCard.bind(scope, i)} title={`Remove card #${i + 1}`}>✕</button>
 
                         { i !== 0 &&
-                            <button onClick={scope.moveCardUp.bind(scope, i)}>↑</button> }
+                            <button onClick={scope.moveCardUp.bind(scope, i)} title='Move card up'>↑</button> }
 
                         { i !== this.state.cards.length - 1 &&
-                            <button onClick={scope.moveCardDown.bind(scope, i)}>↓</button> }
+                            <button onClick={scope.moveCardDown.bind(scope, i)}  title='Move card down'>↓</button> }
                     </div>
                 ) }
             </div>

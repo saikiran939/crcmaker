@@ -10,6 +10,12 @@ body {
   width: 100%;
 }
 
+a {
+  color: #2490ff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 label {
   display: block;
   font-weight: 600;
@@ -38,4 +44,13 @@ button {
   font: inherit;
   margin: 0.5em 1em 0.5em 0;
   padding: 0.5em 1em;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #e5e5e5;
+  }
+
+  &:focus {
+    background: #ddd;
+  }
 }

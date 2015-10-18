@@ -21,7 +21,12 @@
 }
 
   .header__title {
+  }
+
+  .header__info {
     border-bottom: 1px solid #777;
+    font-size: 0.85em;
+    font-style: italic;
     margin-bottom: 1em;
     padding-bottom: 1em;
   }
