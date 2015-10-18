@@ -1,15 +1,11 @@
 import React from 'react';
 
+import CardTypes from '../constants/cardtypes';
+
 
 class NewCardForm extends React.Component {
     constructor (props) {
         super(props);
-
-        this.types = {
-            NORMAL    : 1,
-            ABSTRACT  : 2,
-            INTERFACE : 3
-        };
 
         if (this.props.data) {
             this.state = {
@@ -27,7 +23,7 @@ class NewCardForm extends React.Component {
                 name             : '',
                 super            : '',
                 sub              : '',
-                type             : this.types.NORMAL,
+                type             : CardTypes.NORMAL,
                 responsibilities : '',
                 collaborators    : ''
             };
@@ -92,22 +88,22 @@ class NewCardForm extends React.Component {
                 <label>Type:</label>
                 <label className='new-card__type'>
                     <input type='radio' name='type'
-                        checked={this.state.type == this.types.NORMAL}
-                        value={this.types.NORMAL}
+                        checked={this.state.type == CardTypes.NORMAL}
+                        value={CardTypes.NORMAL}
                         onChange={this.handleType.bind(this)} />
                     Normal
                 </label>
                 <label className='new-card__type'>
                     <input type='radio' name='type'
-                        checked={this.state.type == this.types.ABSTRACT}
-                        value={this.types.ABSTRACT}
+                        checked={this.state.type == CardTypes.ABSTRACT}
+                        value={CardTypes.ABSTRACT}
                         onChange={this.handleType.bind(this)} />
                     Abstract
                 </label>
                 <label className='new-card__type'>
                     <input type='radio' name='type'
-                        checked={this.state.type == this.types.INTERFACE}
-                        value={this.types.INTERFACE}
+                        checked={this.state.type == CardTypes.INTERFACE}
+                        value={CardTypes.INTERFACE}
                         onChange={this.handleType.bind(this)} />
                     Interface
                 </label>

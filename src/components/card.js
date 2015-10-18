@@ -1,16 +1,18 @@
 import React from 'react';
 
+import CardTypes from '../constants/cardtypes';
+
 
 var Card = (props) => {
     let data = props.data;
 
     let type = '';
 
-    if (data.type == 2) {
+    if (data.type == CardTypes.ABSTRACT) {
         type = 'Abstract';
     }
 
-    if (data.type == 3) {
+    if (data.type == CardTypes.INTERFACE) {
         type = 'Interface';
     }
 
