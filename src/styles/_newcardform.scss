@@ -1,0 +1,24 @@
+// New card form
+
+.new-card {
+  background: rgba(0,0,0,0.8);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  padding: 2em 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100000;
+}
+
+  .new-card__form {
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 1em;
+  }
+
+  .new-card__type {
+    font-weight: 400;
+  }

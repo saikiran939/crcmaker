@@ -64,6 +64,13 @@ class CRC extends React.Component {
         });
     }
 
+    cancelAddCard () {
+        this.setState({
+            editCard: null,
+            newFormVisible: false
+        });
+    }
+
     removeCard (index) {
         if (confirm(`Remove card #${index + 1}?`)) {
             var cardsData = this.state.cards;
@@ -128,7 +135,8 @@ class CRC extends React.Component {
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
 
                             { this.state.newFormVisible ?
-                                <NewCardForm onAdd={this.addCard.bind(this)} data={this.state.editCard} /> :
+                                <NewCardForm onAdd={this.addCard.bind(this)} onCancel={this.cancelAddCard.bind(this)}
+                                    data={this.state.editCard} /> :
                                 null }
                         </div>
                     </header>

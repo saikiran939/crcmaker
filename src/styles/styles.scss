@@ -1,5 +1,6 @@
 @import 'core';
 @import 'card';
+@import 'newcardform';
 @import 'fork';
 
 
@@ -20,27 +21,10 @@
   }
 }
 
-  .header__title {
-  }
-
   .header__info {
     border-bottom: 1px solid #777;
     font-size: 0.85em;
     font-style: italic;
     margin-bottom: 1em;
     padding-bottom: 1em;
-  }
-
-
-// New card form
-
-.new-card {
-  border: 1px solid #777;
-  border-radius: 4px;
-  margin: 2em 0;
-  padding: 1em;
-}
-
-  .new-card__type {
-    font-weight: 400;
   }

@@ -71,50 +71,57 @@ class NewCardForm extends React.Component {
         this.props.onAdd(this.state);
     }
 
+    handleCancel () {
+        this.props.onCancel();
+    }
+
     render () {
         return (
             <div className='new-card'>
-                <h2>New card</h2>
+                <div className='new-card__form wrapper'>
+                    <h2>New card</h2>
 
-                <label>Class name:</label>
-                <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
+                    <label>Class name:</label>
+                    <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
 
-                <label>Superclasses:</label>
-                <input type='text' value={this.state.super} onChange={this.handleSuper.bind(this)} />
+                    <label>Superclasses:</label>
+                    <input type='text' value={this.state.super} onChange={this.handleSuper.bind(this)} />
 
-                <label>Subclasses:</label>
-                <input type='text' value={this.state.sub} onChange={this.handleSub.bind(this)} />
+                    <label>Subclasses:</label>
+                    <input type='text' value={this.state.sub} onChange={this.handleSub.bind(this)} />
 
-                <label>Type:</label>
-                <label className='new-card__type'>
-                    <input type='radio' name='type'
-                        checked={this.state.type == CardTypes.NORMAL}
-                        value={CardTypes.NORMAL}
-                        onChange={this.handleType.bind(this)} />
-                    Normal
-                </label>
-                <label className='new-card__type'>
-                    <input type='radio' name='type'
-                        checked={this.state.type == CardTypes.ABSTRACT}
-                        value={CardTypes.ABSTRACT}
-                        onChange={this.handleType.bind(this)} />
-                    Abstract
-                </label>
-                <label className='new-card__type'>
-                    <input type='radio' name='type'
-                        checked={this.state.type == CardTypes.INTERFACE}
-                        value={CardTypes.INTERFACE}
-                        onChange={this.handleType.bind(this)} />
-                    Interface
-                </label>
+                    <label>Type:</label>
+                    <label className='new-card__type'>
+                        <input type='radio' name='type'
+                            checked={this.state.type == CardTypes.NORMAL}
+                            value={CardTypes.NORMAL}
+                            onChange={this.handleType.bind(this)} />
+                        Normal
+                    </label>
+                    <label className='new-card__type'>
+                        <input type='radio' name='type'
+                            checked={this.state.type == CardTypes.ABSTRACT}
+                            value={CardTypes.ABSTRACT}
+                            onChange={this.handleType.bind(this)} />
+                        Abstract
+                    </label>
+                    <label className='new-card__type'>
+                        <input type='radio' name='type'
+                            checked={this.state.type == CardTypes.INTERFACE}
+                            value={CardTypes.INTERFACE}
+                            onChange={this.handleType.bind(this)} />
+                        Interface
+                    </label>
 
-                <label>Responsibilities (1 per line):</label>
-                <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities.bind(this)} />
+                    <label>Responsibilities (1 per line):</label>
+                    <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities.bind(this)} />
 
-                <label>Collaborators (1 per line):</label>
-                <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
+                    <label>Collaborators (1 per line):</label>
+                    <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
 
-                <button onClick={this.handleAdd.bind(this)}>Add card</button>
+                    <button onClick={this.handleAdd.bind(this)}>Add card</button>
+                    <button onClick={this.handleCancel.bind(this)}>Cancel</button>
+                </div>
             </div>
         );
     }
