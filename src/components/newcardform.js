@@ -7,63 +7,52 @@ class NewCardForm extends React.Component {
     constructor (props) {
         super(props);
 
-        if (this.props.data) {
-            this.state = {
-                index            : this.props.data.index,
-                name             : this.props.data.name,
-                super            : this.props.data.super,
-                sub              : this.props.data.sub,
-                type             : this.props.data.type,
-                responsibilities : this.props.data.responsibilities,
-                collaborators    : this.props.data.collaborators
-            };
-        } else {
-            this.state = {
-                index            : null,
-                name             : '',
-                super            : '',
-                sub              : '',
-                type             : CardTypes.NORMAL,
-                responsibilities : '',
-                collaborators    : ''
-            };
-        }
+        let data = this.props.data;
 
+        this.state = {
+            index            : data ? data.index : null,
+            name             : data ? data.name : '',
+            super            : data ? data.super : '',
+            sub              : data ? data.sub : '',
+            type             : data ? data.type : CardTypes.NORMAL,
+            responsibilities : data ? data.responsibilities : '',
+            collaborators    : data ? data.collaborators : ''
+        };
     }
 
-    handleName (evt) {
+    handleName (e) {
         this.setState({
-            name: evt.target.value
+            name: e.target.value
         });
     }
 
-    handleSuper (evt) {
+    handleSuper (e) {
         this.setState({
-            super: evt.target.value
+            super: e.target.value
         });
     }
 
-    handleSub (evt) {
+    handleSub (e) {
         this.setState({
-            sub: evt.target.value
+            sub: e.target.value
         });
     }
 
-    handleType (evt) {
+    handleType (e) {
         this.setState({
-            type: evt.target.value
+            type: e.target.value
         });
     }
 
-    handleResponsibilities (evt) {
+    handleResponsibilities (e) {
         this.setState({
-            responsibilities: evt.target.value
+            responsibilities: e.target.value
         });
     }
 
-    handleCollaborators (evt) {
+    handleCollaborators (e) {
         this.setState({
-            collaborators: evt.target.value
+            collaborators: e.target.value
         });
     }
 

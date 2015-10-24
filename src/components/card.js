@@ -24,6 +24,7 @@ var Card = (props) => {
                 <div className='card__header__class'>{data.name}</div>
                 <span className='card__header__subclass'>{data.sub}</span>
             </header>
+
             <section className='card__contents'>
                 <section className='card__contents__responsibilities'>
                     <ul>

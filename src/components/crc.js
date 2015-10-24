@@ -9,10 +9,10 @@ class CRC extends React.Component {
         super(props);
 
         this.state = {
-            editCard: null,
-            cards: localStorage.cards ? JSON.parse(localStorage.cards) : [],
-            newFormVisible: false,
-            uiVisible: true,
+            editCard       : null,
+            cards          : localStorage.cards ? JSON.parse(localStorage.cards) : [],
+            newFormVisible : false,
+            uiVisible      : true,
         };
     }
 
@@ -34,46 +34,46 @@ class CRC extends React.Component {
     }
 
     addCard (data) {
+        let cardsData = this.state.cards;
+
         if (data.index !== null) {
             // Replace existing card
-            var cardsData = this.state.cards;
             cardsData[data.index] = data;
         } else {
             // Add to array in state
-            var cardsData = this.state.cards;
             cardsData.push(data);
         }
 
         this.setState({
-            editCard: null,
-            cards: cardsData,
-            newFormVisible: false
+            editCard       : null,
+            cards          : cardsData,
+            newFormVisible : false
         });
     }
 
     editCard (index) {
-        var cardsData = this.state.cards;
+        let cardsData = this.state.cards;
 
         // Set index so it's replaced
-        var card = cardsData[index];
+        let card = cardsData[index];
         card.index = index;
 
         this.setState({
-            editCard: card,
-            newFormVisible: !this.state.newFormVisible
+            editCard       : card,
+            newFormVisible : !this.state.newFormVisible
         });
     }
 
     cancelAddCard () {
         this.setState({
-            editCard: null,
-            newFormVisible: false
+            editCard       : null,
+            newFormVisible : false
         });
     }
 
     removeCard (index) {
         if (confirm(`Remove card #${index + 1}?`)) {
-            var cardsData = this.state.cards;
+            let cardsData = this.state.cards;
             cardsData.splice(index, 1);
 
             this.setState({
@@ -91,9 +91,9 @@ class CRC extends React.Component {
     }
 
     moveCardUp (index) {
-        var cardsData = this.state.cards;
+        let cardsData = this.state.cards;
 
-        var thisCard = cardsData[index];
+        let thisCard = cardsData[index];
 
         cardsData[index] = cardsData[index - 1]
         cardsData[index - 1] = thisCard;
@@ -104,9 +104,9 @@ class CRC extends React.Component {
     }
 
     moveCardDown (index) {
-        var cardsData = this.state.cards;
+        let cardsData = this.state.cards;
 
-        var thisCard = cardsData[index];
+        let thisCard = cardsData[index];
 
         cardsData[index] = cardsData[index + 1]
         cardsData[index + 1] = thisCard;
@@ -117,12 +117,12 @@ class CRC extends React.Component {
     }
 
     render () {
-        var scope = this;
+        let scope = this;
 
         return (
             <div className='wrapper'>
 
-                { this.state.uiVisible ?
+                { this.state.uiVisible &&
                     <header className='header'>
                         <span id='forkongithub'><a href='https://github.com/arkon/crcmaker'>Fork me on GitHub</a></span>
 
@@ -134,13 +134,11 @@ class CRC extends React.Component {
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
 
-                            { this.state.newFormVisible ?
+                            { this.state.newFormVisible &&
                                 <NewCardForm onAdd={this.addCard.bind(this)} onCancel={this.cancelAddCard.bind(this)}
-                                    data={this.state.editCard} /> :
-                                null }
+                                    data={this.state.editCard} /> }
                         </div>
-                    </header>
-                : null }
+                    </header> }
 
                 <button onClick={this.togglePrint.bind(this)}>Show/hide header</button>
 

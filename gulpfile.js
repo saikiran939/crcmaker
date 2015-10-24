@@ -4,7 +4,7 @@
 // Dependencies                                                               //
 ////////////////////////////////////////////////////////////////////////////////
 
-var babel      = require('babelify'),
+var babelify   = require('babelify'),
     browserify = require('browserify'),
     buffer     = require('vinyl-buffer'),
     del        = require('del'),
@@ -21,7 +21,7 @@ var babel      = require('babelify'),
 ////////////////////////////////////////////////////////////////////////////////
 // Paths                                                                      //
 ////////////////////////////////////////////////////////////////////////////////
-///
+
 var paths = {
     src_html : './src/index.html',
     src_js   : './src/index.js',
@@ -35,7 +35,8 @@ var paths = {
 ////////////////////////////////////////////////////////////////////////////////
 
 var compile = function (watch) {
-    var bundler = watchify(browserify(paths.src_js, { debug: true }).transform(babel));
+    var bundler = watchify(browserify(paths.src_js, { debug: true })
+        .transform(babelify));
 
     var rebundle = function () {
         console.log('> Bundling...');
@@ -92,7 +93,9 @@ gulp.task('scss', function () {
 });
 
 // Compile files
-gulp.task('build', ['clean', 'html', 'scss'], function () { return compile(); });
+gulp.task('build', ['clean', 'html', 'scss'], function () {
+    return compile();
+});
 
 // Compile files and recompile on changes
 gulp.task('watch', ['clean', 'html', 'scss'], function () {
