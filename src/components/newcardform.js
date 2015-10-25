@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import CardTypes from '../constants/cardtypes';
 
@@ -18,6 +19,10 @@ class NewCardForm extends React.Component {
             responsibilities : data ? data.responsibilities : '',
             collaborators    : data ? data.collaborators : ''
         };
+    }
+
+    componentDidMount () {
+        this.elForm = ReactDOM.findDOMNode(this.refs.form);
     }
 
     handleName (e) {
@@ -64,10 +69,16 @@ class NewCardForm extends React.Component {
         this.props.onCancel();
     }
 
+    onOverlayClick (e) {
+        if (!this.elForm.contains(e.target)) {
+            this.props.onCancel();
+        }
+    }
+
     render () {
         return (
-            <div className='new-card'>
-                <div className='new-card__form wrapper'>
+            <div className='new-card' onClick={this.onOverlayClick.bind(this)}>
+                <div className='new-card__form wrapper' ref='form'>
                     <h2>New card</h2>
 
                     <label>Class name:</label>
