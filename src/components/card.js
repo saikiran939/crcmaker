@@ -27,18 +27,23 @@ var Card = (props) => {
 
             <section className='card__contents'>
                 <section className='card__contents__responsibilities'>
-                    <ul>
-                        { data.responsibilities.split('\n').map((item, i) =>
-                            <li key={i}>{item}</li>
-                        ) }
-                    </ul>
+                    { data.responsibilities !== '' &&
+                        <ul>
+                            { data.responsibilities.split('\n').map((item, i) =>
+                                <li key={i}>{item}</li>
+                            ) }
+                        </ul>
+                    }
                 </section>
+
                 <section className='card__contents__collaborators'>
-                    <ul>
-                        { data.collaborators.split('\n').map((item, i) =>
-                            <li key={i}>{item}</li>
-                        ) }
-                    </ul>
+                    { data.collaborators !== '' &&
+                        <ul>
+                            { data.collaborators.split('\n').map((item, i) =>
+                                <li key={i}>{item}</li>
+                            ) }
+                        </ul>
+                    }
                 </section>
             </section>
         </div>

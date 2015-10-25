@@ -136,9 +136,11 @@ class CRC extends React.Component {
 
                             { this.state.newFormVisible &&
                                 <NewCardForm onAdd={this.addCard.bind(this)} onCancel={this.cancelAddCard.bind(this)}
-                                    data={this.state.editCard} /> }
+                                    data={this.state.editCard} />
+                            }
                         </div>
-                    </header> }
+                    </header>
+                }
 
                 <button onClick={this.togglePrint.bind(this)}>Show/hide header</button>
 
@@ -150,10 +152,12 @@ class CRC extends React.Component {
                         <button onClick={scope.removeCard.bind(scope, i)} title={`Remove card #${i + 1}`}>✕</button>
 
                         { i !== 0 &&
-                            <button onClick={scope.moveCardUp.bind(scope, i)} title='Move card up'>↑</button> }
+                            <button onClick={scope.moveCardUp.bind(scope, i)} title='Move card up'>↑</button>
+                        }
 
                         { i !== this.state.cards.length - 1 &&
-                            <button onClick={scope.moveCardDown.bind(scope, i)}  title='Move card down'>↓</button> }
+                            <button onClick={scope.moveCardDown.bind(scope, i)}  title='Move card down'>↓</button>
+                        }
                     </div>
                 ) }
             </div>
