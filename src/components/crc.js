@@ -17,8 +17,13 @@ class CRC extends React.Component {
     }
 
     componentDidUpdate (prevProps, prevState) {
-        // Sync cards in state object with localStorage
-        localStorage.cards = JSON.stringify(this.state.cards);
+        if (this.state.cards.length > 0) {
+            // Sync cards in state object with localStorage
+            localStorage.cards = JSON.stringify(this.state.cards);
+        } else {
+            // Clear localStorage if there's no cards
+            localStorage.clear();
+        }
     }
 
     toggleNewCardForm () {

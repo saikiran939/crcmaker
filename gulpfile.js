@@ -47,7 +47,7 @@ var compile = function (watch) {
             .pipe(buffer())
             .pipe(uglify())
             .pipe(gulp.dest(paths.dest))
-            .on('end', function () { console.log('> Done bundling.'); });
+            .on('end', function () { console.log('> Done bundling'); });
     };
 
     if (watch) {
