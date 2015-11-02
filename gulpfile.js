@@ -23,10 +23,12 @@ var babelify   = require('babelify'),
 ////////////////////////////////////////////////////////////////////////////////
 
 var paths = {
-    src_html : './src/index.html',
-    src_js   : './src/index.js',
-    src_scss : './src/styles/**/*.scss',
-    dest     : './build/'
+    src_html   : './src/index.html',
+    src_js     : './src/index.js',
+    src_scss   : './src/styles/**/*.scss',
+
+    dest       : './build/',
+    dest_files : './build/**/*',
 };
 
 
@@ -92,8 +94,8 @@ gulp.task('scss', function () {
         .pipe(gulp.dest(paths.dest));
 });
 
-// Compile files
-gulp.task('build', ['clean', 'html', 'scss'], function () {
+// Default task: compile files
+gulp.task('default', ['clean', 'html', 'scss'], function () {
     return compile();
 });
 
@@ -105,10 +107,7 @@ gulp.task('watch', ['clean', 'html', 'scss'], function () {
 });
 
 // Deploy to GitHub Pages
-gulp.task('deploy', function() {
-    return gulp.src('./build/**/*')
+gulp.task('deploy', ['default'], function () {
+    return gulp.src(paths.dest_files)
         .pipe(ghPages());
 });
-
-// Default: watch task
-gulp.task('default', ['watch']);

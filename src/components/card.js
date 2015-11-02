@@ -3,6 +3,9 @@ import React from 'react';
 import CardTypes from '../constants/cardtypes';
 
 
+/**
+ * Renders a single card with the passed in data.
+ */
 var Card = (props) => {
     let data = props.data;
 
@@ -48,6 +51,17 @@ var Card = (props) => {
             </section>
         </div>
     );
+};
+
+Card.propTypes = {
+    data: React.PropTypes.shape({
+        name             : React.PropTypes.string,
+        super            : React.PropTypes.string,
+        sub              : React.PropTypes.string,
+        type             : React.PropTypes.number,
+        responsibilities : React.PropTypes.string,
+        collaborators    : React.PropTypes.string
+    }).isRequired
 };
 
 export default Card;

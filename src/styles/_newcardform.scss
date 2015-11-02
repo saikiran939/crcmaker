@@ -12,13 +12,20 @@
   z-index: 100000;
 }
 
-  .new-card__form {
-    background: #fff;
-    border: 1px solid #777;
-    border-radius: 4px;
-    padding: 1em;
-  }
+.new-card__form {
+  background: #fff;
+  border: 1px solid #777;
+  border-radius: 4px;
+  padding: 1em;
+}
 
-  .new-card__type {
-    font-weight: 400;
-  }
+.new-card__type {
+  font-weight: 400;
+}
+
+.new-card__actions {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}

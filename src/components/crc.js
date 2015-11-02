@@ -4,15 +4,26 @@ import Card from './card';
 import NewCardForm from './newcardform';
 
 
+/**
+ * The "entry point" of the app.
+ * This class maintains the main state, including the cards themselves.
+ */
 class CRC extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
+            // A card object that's being edited
             editCard       : null,
+
+            // An array of cards
             cards          : localStorage.cards ? JSON.parse(localStorage.cards) : [],
+
+            // Whether or not the card creation/editor form is visible
             newFormVisible : false,
-            uiVisible      : true,
+
+            // Whether or not the header UI is visible
+            headerVisible  : true
         };
     }
 
@@ -32,9 +43,9 @@ class CRC extends React.Component {
         });
     }
 
-    togglePrint () {
+    toggleHeader () {
         this.setState({
-            uiVisible: !this.state.uiVisible
+            headerVisible: !this.state.headerVisible
         });
     }
 
@@ -42,10 +53,10 @@ class CRC extends React.Component {
         let cardsData = this.state.cards;
 
         if (data.index !== null) {
-            // Replace existing card
+            // Replace existing card (used for editing)
             cardsData[data.index] = data;
         } else {
-            // Add to array in state
+            // Add to array in state (new card)
             cardsData.push(data);
         }
 
@@ -59,7 +70,7 @@ class CRC extends React.Component {
     editCard (index) {
         let cardsData = this.state.cards;
 
-        // Set index so it's replaced
+        // Set an index so it's replaced upon saving
         let card = cardsData[index];
         card.index = index;
 
@@ -122,12 +133,12 @@ class CRC extends React.Component {
     }
 
     render () {
-        let scope = this;
+        let context = this;
 
         return (
             <div className='wrapper'>
 
-                { this.state.uiVisible &&
+                { this.state.headerVisible &&
                     <header className='header'>
                         <span id='forkongithub'><a href='https://github.com/arkon/crcmaker'>Fork me on GitHub</a></span>
 
@@ -138,30 +149,30 @@ class CRC extends React.Component {
                         <div className='header__actions'>
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
-
-                            { this.state.newFormVisible &&
-                                <NewCardForm onAdd={this.addCard.bind(this)} onCancel={this.cancelAddCard.bind(this)}
-                                    data={this.state.editCard} />
-                            }
                         </div>
+
+                        { this.state.newFormVisible &&
+                            <NewCardForm onAdd={this.addCard.bind(this)} onCancel={this.cancelAddCard.bind(this)}
+                                data={this.state.editCard} />
+                        }
                     </header>
                 }
 
-                <button onClick={this.togglePrint.bind(this)}>Show/hide header</button>
+                <button onClick={this.toggleHeader.bind(this)}>Show/hide header</button>
 
                 { this.state.cards.map((editCard, i) =>
                     <div key={i} className='card-wrapper'>
                         <Card data={editCard} />
 
-                        <button onClick={scope.editCard.bind(scope, i)}>Edit card #{i + 1}</button>
-                        <button onClick={scope.removeCard.bind(scope, i)} title={`Remove card #${i + 1}`}>✕</button>
+                        <button onClick={context.editCard.bind(context, i)}>Edit card #{i + 1}</button>
+                        <button onClick={context.removeCard.bind(context, i)} title={`Remove card #${i + 1}`}>✕</button>
 
                         { i !== 0 &&
-                            <button onClick={scope.moveCardUp.bind(scope, i)} title='Move card up'>↑</button>
+                            <button onClick={context.moveCardUp.bind(context, i)} title='Move card up'>↑</button>
                         }
 
                         { i !== this.state.cards.length - 1 &&
-                            <button onClick={scope.moveCardDown.bind(scope, i)}  title='Move card down'>↓</button>
+                            <button onClick={context.moveCardDown.bind(context, i)}  title='Move card down'>↓</button>
                         }
                     </div>
                 ) }
