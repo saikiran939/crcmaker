@@ -4,7 +4,7 @@
 // Dependencies                                                               //
 ////////////////////////////////////////////////////////////////////////////////
 
-var babelify   = require('babelify'),
+var babel      = require('babelify'),
     browserify = require('browserify'),
     buffer     = require('vinyl-buffer'),
     del        = require('del'),
@@ -14,8 +14,7 @@ var babelify   = require('babelify'),
     minifyCss  = require('gulp-minify-css'),
     sass       = require('gulp-sass'),
     source     = require('vinyl-source-stream'),
-    uglify     = require('gulp-uglify'),
-    watchify   = require('watchify');
+    uglify     = require('gulp-uglify');
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,46 +22,13 @@ var babelify   = require('babelify'),
 ////////////////////////////////////////////////////////////////////////////////
 
 var paths = {
-    src_html   : './src/index.html',
-    src_js     : './src/index.js',
-    src_scss   : './src/styles/**/*.scss',
+    src_html    : 'src/index.html',
+    src_js      : 'src/index.js',
+    src_scripts : 'src/**/*.js',
+    src_scss    : 'src/styles/**/*.scss',
 
-    dest       : './build/',
-    dest_files : './build/**/*',
-};
-
-
-////////////////////////////////////////////////////////////////////////////////
-// JS compilers                                                               //
-////////////////////////////////////////////////////////////////////////////////
-
-var compile = function (watch) {
-    var bundler = watchify(browserify(paths.src_js, { debug: true })
-        .transform(babelify));
-
-    var rebundle = function () {
-        console.log('> Bundling...');
-
-        bundler.bundle()
-            .on('error', function (err) { console.error(err); this.emit('end'); })
-            .pipe(source('script.js'))
-            .pipe(buffer())
-            .pipe(uglify())
-            .pipe(gulp.dest(paths.dest))
-            .on('end', function () { console.log('> Done bundling'); });
-    };
-
-    if (watch) {
-        bundler.on('update', function() {
-            rebundle();
-        });
-    }
-
-    rebundle();
-};
-
-var watch = function () {
-    return compile(true);
+    dest        : 'build/',
+    dest_files  : 'build/**/*',
 };
 
 
@@ -94,16 +60,25 @@ gulp.task('scss', function () {
         .pipe(gulp.dest(paths.dest));
 });
 
-// Default task: compile files
-gulp.task('default', ['clean', 'html', 'scss'], function () {
-    return compile();
+// Process JS files
+gulp.task('js', function () {
+    return browserify(paths.src_js)
+        .transform(babel)
+        .bundle()
+        .pipe(source('script.js'))
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest(paths.dest));
 });
 
+// Default task: compile files
+gulp.task('default', ['clean', 'html', 'scss', 'js']);
+
 // Compile files and recompile on changes
-gulp.task('watch', ['clean', 'html', 'scss'], function () {
+gulp.task('watch', ['default'], function () {
     gulp.watch(paths.src_html, ['html']);
     gulp.watch(paths.src_scss, ['scss']);
-    return watch();
+    gulp.watch(paths.src_scripts, ['js']);
 });
 
 // Deploy to GitHub Pages
