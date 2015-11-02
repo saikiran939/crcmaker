@@ -4,10 +4,14 @@ import ReactDOM from 'react-dom';
 import CardTypes from '../constants/cardtypes';
 
 
+/**
+ * The form for creating a new card, or editing an existing one.
+ */
 class NewCardForm extends React.Component {
     constructor (props) {
         super(props);
 
+        // Card data is passed in if a card is being edited
         let data = this.props.data;
 
         this.state = {
@@ -70,6 +74,7 @@ class NewCardForm extends React.Component {
     }
 
     onOverlayClick (e) {
+        // Close (i.e. cancel) the form if the outer overlay is clicked
         if (!this.elForm.contains(e.target)) {
             this.props.onCancel();
         }
@@ -96,21 +101,21 @@ class NewCardForm extends React.Component {
                             checked={this.state.type == CardTypes.NORMAL}
                             value={CardTypes.NORMAL}
                             onChange={this.handleType.bind(this)} />
-                        Normal
+                        <span>Normal</span>
                     </label>
                     <label className='new-card__type'>
                         <input type='radio' name='type'
                             checked={this.state.type == CardTypes.ABSTRACT}
                             value={CardTypes.ABSTRACT}
                             onChange={this.handleType.bind(this)} />
-                        Abstract
+                        <span>Abstract</span>
                     </label>
                     <label className='new-card__type'>
                         <input type='radio' name='type'
                             checked={this.state.type == CardTypes.INTERFACE}
                             value={CardTypes.INTERFACE}
                             onChange={this.handleType.bind(this)} />
-                        Interface
+                        <span>Interface</span>
                     </label>
 
                     <label>Responsibilities (1 per line):</label>
@@ -119,7 +124,7 @@ class NewCardForm extends React.Component {
                     <label>Collaborators (1 per line):</label>
                     <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
 
-                    <button onClick={this.handleAdd.bind(this)}>Add card</button>
+                    <button onClick={this.handleAdd.bind(this)}>Save card</button>
                     <button onClick={this.handleCancel.bind(this)}>Cancel</button>
                 </div>
             </div>

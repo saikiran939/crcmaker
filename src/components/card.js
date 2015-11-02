@@ -3,6 +3,9 @@ import React from 'react';
 import CardTypes from '../constants/cardtypes';
 
 
+/**
+ * Renders a single card with the passed in data.
+ */
 var Card = (props) => {
     let data = props.data;
 
