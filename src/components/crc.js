@@ -12,22 +12,23 @@ class CRC extends React.Component {
     constructor (props) {
         super(props);
 
-        var findShare = new RegExp("[\\?&]share=([^&#]*)"),
-        results = findShare.exec(location.search);
+        // Parse URL for encoded data
+        let shareParamRegex = new RegExp('[\\?&]share=([^&#]*)'),
+            shareParamRes   = shareParamRegex.exec(location.search);
 
         // An array of cards from the url
-        let share = results ? JSON.parse(atob(decodeURIComponent(results[1].replace(/\+/g, " ")))) : null;
+        let shareData = shareParamRes ? JSON.parse(atob(decodeURIComponent(shareParamRes[1].replace(/\+/g, ' ')))) : null;
 
-        // An array of cards from local
+        // An array of cards from localStorage
         let cardsData = localStorage.cards ? JSON.parse(localStorage.cards) : []
 
-
+        // Initial state
         this.state = {
             // A card object that's being edited
             editCard       : null,
 
-            // Load cards from either local or url
-            cards          : share ? share : cardsData,
+            // Load cards from either localStorage or url
+            cards          : shareData ? shareData : cardsData,
 
             // Whether or not the card creation/editor form is visible
             newFormVisible : false,
@@ -35,10 +36,11 @@ class CRC extends React.Component {
             // Whether or not the header UI is visible
             headerVisible  : true,
 
-            //Load sharelink if it's in the url already
-            sharelink      : share ? window.location : null,
+            // Load shareLink if it's in the URL already
+            shareLink      : shareData ? window.location : null,
 
-            shareVisible   : share
+            // Whether or not to show the textbox with the share link
+            shareVisible   : shareData
         };
     }
 
@@ -147,16 +149,18 @@ class CRC extends React.Component {
         });
     }
 
-    generateShareLink(){
-        let cardsData = this.state.cards;
-        let encoded = btoa(JSON.stringify(cardsData));
-        let share = window.location.toString() + "?share="+encoded
-        this.setState(
-            {
-                sharelink: share,
-                shareVisible: true
-            }
-        );
+    generateshareLink () {
+        let encoded = btoa(JSON.stringify(this.state.cards));
+
+        this.setState({
+            shareLink    : `${window.location.toString()}?share=${encoded}`,
+            shareVisible : true
+        });
+    }
+
+    onShareLinkClick (e) {
+        // Select all text
+        e.target.select();
     }
 
     render () {
@@ -176,9 +180,10 @@ class CRC extends React.Component {
                         <div className='header__actions'>
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
-                            <button onClick={this.generateShareLink.bind(this)}>Share Link</button>    
-                            {this.state.shareVisible &&
-                                <input type="text" value={this.state.sharelink} readOnly="true"/>
+
+                            <button onClick={this.generateshareLink.bind(this)}>Share link</button>
+                            { this.state.shareVisible &&
+                                <input type='text' value={this.state.shareLink} onClick={this.onShareLinkClick.bind(this)} readOnly />
                             }
                         </div>
 
