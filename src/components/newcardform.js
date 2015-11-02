@@ -132,4 +132,16 @@ class NewCardForm extends React.Component {
     }
 }
 
+NewCardForm.propTypes = {
+    data: React.PropTypes.shape({
+        index            : React.PropTypes.number,
+        name             : React.PropTypes.string,
+        super            : React.PropTypes.string,
+        sub              : React.PropTypes.string,
+        type             : React.PropTypes.number,
+        responsibilities : React.PropTypes.string,
+        collaborators    : React.PropTypes.string
+    })
+};
+
 export default NewCardForm;

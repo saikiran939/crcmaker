@@ -53,4 +53,15 @@ var Card = (props) => {
     );
 };
 
+Card.propTypes = {
+    data: React.PropTypes.shape({
+        name             : React.PropTypes.string,
+        super            : React.PropTypes.string,
+        sub              : React.PropTypes.string,
+        type             : React.PropTypes.number,
+        responsibilities : React.PropTypes.string,
+        collaborators    : React.PropTypes.string
+    }).isRequired
+};
+
 export default Card;
