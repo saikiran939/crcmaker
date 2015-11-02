@@ -151,9 +151,9 @@ class CRC extends React.Component {
 
     generateshareLink () {
         let encoded = btoa(JSON.stringify(this.state.cards));
-
+        let cleanUrl = [location.protocol, '//', location.host, location.pathname].join('');
         this.setState({
-            shareLink    : `${window.location.toString()}?share=${encoded}`,
+            shareLink    : `${cleanUrl}?share=${encoded}`,
             shareVisible : true
         });
     }
