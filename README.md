@@ -42,4 +42,4 @@ If you want to automatically recompile on file changes, run:
 $ gulp watch
 ```
 
-The built files will be in `crcmaker/build/`.
+The built files will be located in `crcmaker/build/`.
