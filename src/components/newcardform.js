@@ -124,8 +124,10 @@ class NewCardForm extends React.Component {
                     <label>Collaborators (1 per line):</label>
                     <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
 
-                    <button onClick={this.handleAdd.bind(this)}>Save card</button>
-                    <button onClick={this.handleCancel.bind(this)}>Cancel</button>
+                    <div className='new-card__actions'>
+                        <button onClick={this.handleAdd.bind(this)}>Save card</button>
+                        <button onClick={this.handleCancel.bind(this)}>Cancel</button>
+                    </div>
                 </div>
             </div>
         );
