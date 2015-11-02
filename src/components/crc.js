@@ -33,7 +33,7 @@ class CRC extends React.Component {
             newFormVisible : false,
 
             // Whether or not the header UI is visible
-            headerVisible  : true
+            headerVisible  : true,
 
             //Load sharelink if it's in the url already
             sharelink      : share == "" ? "" : window.location
@@ -155,7 +155,7 @@ class CRC extends React.Component {
             }
         );
     }
-    
+
     render () {
         let context = this;
 
