@@ -149,11 +149,11 @@ class CRC extends React.Component {
         });
     }
 
-    generateshareLink () {
+    generateShareLink () {
         let encoded = btoa(JSON.stringify(this.state.cards));
-
+        let cleanUrl = [location.protocol, '//', location.host, location.pathname].join('');
         this.setState({
-            shareLink    : `${window.location.toString()}?share=${encoded}`,
+            shareLink    : `${cleanUrl}?share=${encoded}`,
             shareVisible : true
         });
     }
@@ -181,7 +181,7 @@ class CRC extends React.Component {
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
 
-                            <button onClick={this.generateshareLink.bind(this)}>Share link</button>
+                            <button onClick={this.generateShareLink.bind(this)}>Share link</button>
                             { this.state.shareVisible &&
                                 <input type='text' value={this.state.shareLink} onClick={this.onShareLinkClick.bind(this)} readOnly />
                             }
