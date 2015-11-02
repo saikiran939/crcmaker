@@ -12,18 +12,33 @@ class CRC extends React.Component {
     constructor (props) {
         super(props);
 
+        var findShare = new RegExp("[\\?&]share=([^&#]*)"),
+        results = findShare.exec(location.search);
+
+        // An array of cards from the url
+        let share = results ? JSON.parse(atob(decodeURIComponent(results[1].replace(/\+/g, " ")))) : null;
+
+        // An array of cards from local
+        let cardsData = localStorage.cards ? JSON.parse(localStorage.cards) : []
+
+
         this.state = {
             // A card object that's being edited
             editCard       : null,
 
-            // An array of cards
-            cards          : localStorage.cards ? JSON.parse(localStorage.cards) : [],
+            // Load cards from either local or url
+            cards          : share ? share : cardsData,
 
             // Whether or not the card creation/editor form is visible
             newFormVisible : false,
 
             // Whether or not the header UI is visible
-            headerVisible  : true
+            headerVisible  : true,
+
+            //Load sharelink if it's in the url already
+            sharelink      : share ? window.location : null,
+
+            shareVisible   : share
         };
     }
 
@@ -132,6 +147,18 @@ class CRC extends React.Component {
         });
     }
 
+    generateShareLink(){
+        let cardsData = this.state.cards;
+        let encoded = btoa(JSON.stringify(cardsData));
+        let share = window.location.toString() + "?share="+encoded
+        this.setState(
+            {
+                sharelink: share,
+                shareVisible: true
+            }
+        );
+    }
+
     render () {
         let context = this;
 
@@ -149,6 +176,10 @@ class CRC extends React.Component {
                         <div className='header__actions'>
                             <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
                             <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
+                            <button onClick={this.generateShareLink.bind(this)}>Share Link</button>    
+                            {this.state.shareVisible &&
+                                <input type="text" value={this.state.sharelink} readOnly="true"/>
+                            }
                         </div>
 
                         { this.state.newFormVisible &&
