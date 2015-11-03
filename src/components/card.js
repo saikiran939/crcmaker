@@ -32,9 +32,11 @@ var Card = (props) => {
                 <section className='card__contents__responsibilities'>
                     { data.responsibilities !== '' &&
                         <ul>
-                            { data.responsibilities.split('\n').map((item, i) =>
-                                <li key={i}>{item}</li>
-                            ) }
+                            { data.responsibilities.split('\n').map((item, i) => {
+                                if (item !== '') {
+                                    return <li key={i}>{item}</li>;
+                                }
+                            }) }
                         </ul>
                     }
                 </section>
@@ -42,9 +44,11 @@ var Card = (props) => {
                 <section className='card__contents__collaborators'>
                     { data.collaborators !== '' &&
                         <ul>
-                            { data.collaborators.split('\n').map((item, i) =>
-                                <li key={i}>{item}</li>
-                            ) }
+                            { data.collaborators.split('\n').map((item, i) => {
+                                if (item !== '') {
+                                    return <li key={i}>{item}</li>;
+                                }
+                            }) }
                         </ul>
                     }
                 </section>
