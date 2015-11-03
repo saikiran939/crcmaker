@@ -1,14 +1,15 @@
 import React from 'react';
 
-import Card from './card';
-import NewCardForm from './newcardform';
+import Card from './Card';
+import Dialog from './Dialog';
+import NewCardForm from './NewCardForm';
 
 
 /**
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
  */
-class CRC extends React.Component {
+class CRCMaker extends React.Component {
     constructor (props) {
         super(props);
 
@@ -16,19 +17,20 @@ class CRC extends React.Component {
         let shareParamRegex = new RegExp('[\\?&]share=([^&#]*)'),
             shareParamRes   = shareParamRegex.exec(location.search);
 
-        // An array of cards from the url
-        let shareData = shareParamRes ? JSON.parse(atob(decodeURIComponent(shareParamRes[1].replace(/\+/g, ' ')))) : null;
-
-        // An array of cards from localStorage
-        let cardsData = localStorage.cards ? JSON.parse(localStorage.cards) : []
+        // An array of cards from the URL or localStorage, if available
+        let cardsData = shareParamRes ?
+            JSON.parse(atob(decodeURIComponent(shareParamRes[1].replace(/\+/g, ' ')))) :
+            localStorage.cards ?
+                JSON.parse(localStorage.cards) :
+                [];
 
         // Initial state
         this.state = {
             // A card object that's being edited
             editCard       : null,
 
-            // Load cards from either localStorage or url
-            cards          : shareData ? shareData : cardsData,
+            // Load cards from either localStorage or URL param (defaults to empty array)
+            cards          : cardsData,
 
             // Whether or not the card creation/editor form is visible
             newFormVisible : false,
@@ -36,11 +38,11 @@ class CRC extends React.Component {
             // Whether or not the header UI is visible
             headerVisible  : true,
 
-            // Load shareLink if it's in the URL already
-            shareLink      : shareData ? window.location : null,
+            // The generated URL for sharing
+            shareLink      : '',
 
             // Whether or not to show the textbox with the share link
-            shareVisible   : shareData
+            shareVisible   : false
         };
     }
 
@@ -150,8 +152,9 @@ class CRC extends React.Component {
     }
 
     generateShareLink () {
-        let encoded = btoa(JSON.stringify(this.state.cards));
-        let cleanUrl = [location.protocol, '//', location.host, location.pathname].join('');
+        let cleanUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+            encoded  = btoa(JSON.stringify(this.state.cards));
+
         this.setState({
             shareLink    : `${cleanUrl}?share=${encoded}`,
             shareVisible : true
@@ -159,8 +162,14 @@ class CRC extends React.Component {
     }
 
     onShareLinkClick (e) {
-        // Select all text
+        // Selects all text in input box
         e.target.select();
+    }
+
+    onShareClose () {
+        this.setState({
+            shareVisible: false
+        });
     }
 
     render () {
@@ -183,7 +192,14 @@ class CRC extends React.Component {
 
                             <button onClick={this.generateShareLink.bind(this)}>Share link</button>
                             { this.state.shareVisible &&
-                                <input type='text' value={this.state.shareLink} onClick={this.onShareLinkClick.bind(this)} readOnly />
+                                <Dialog onClose={this.onShareClose.bind(this)}>
+                                    <h2>Share</h2>
+
+                                    <input className='share__url' type='text' value={this.state.shareLink}
+                                        onClick={this.onShareLinkClick.bind(this)} readOnly />
+
+                                    <button onClick={this.onShareClose.bind(this)}>Close</button>
+                                </Dialog>
                             }
                         </div>
 
@@ -217,4 +233,4 @@ class CRC extends React.Component {
     }
 }
 
-export default CRC;
+export default CRCMaker;

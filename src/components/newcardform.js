@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import CardTypes from '../constants/cardtypes';
+import CardTypes from '../constants/CardTypes';
+import Dialog from './Dialog';
 
 
 /**
@@ -73,77 +74,56 @@ class NewCardForm extends React.Component {
         this.props.onCancel();
     }
 
-    onOverlayClick (e) {
-        // Close (i.e. cancel) the form if the outer overlay is clicked
-        if (!this.elForm.contains(e.target)) {
-            this.props.onCancel();
-        }
-    }
-
     render () {
         return (
-            <div className='new-card' onClick={this.onOverlayClick.bind(this)}>
-                <div className='new-card__form wrapper' ref='form'>
-                    <h2>New card</h2>
+            <Dialog onClose={this.props.onCancel}>
+                <h2>New card</h2>
 
-                    <label>Class name:</label>
-                    <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
+                <label>Class name:</label>
+                <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
 
-                    <label>Superclasses:</label>
-                    <input type='text' value={this.state.super} onChange={this.handleSuper.bind(this)} />
+                <label>Superclasses:</label>
+                <input type='text' value={this.state.super} onChange={this.handleSuper.bind(this)} />
 
-                    <label>Subclasses:</label>
-                    <input type='text' value={this.state.sub} onChange={this.handleSub.bind(this)} />
+                <label>Subclasses:</label>
+                <input type='text' value={this.state.sub} onChange={this.handleSub.bind(this)} />
 
-                    <label>Type:</label>
-                    <label className='new-card__type'>
-                        <input type='radio' name='type'
-                            checked={this.state.type == CardTypes.NORMAL}
-                            value={CardTypes.NORMAL}
-                            onChange={this.handleType.bind(this)} />
-                        <span>Normal</span>
-                    </label>
-                    <label className='new-card__type'>
-                        <input type='radio' name='type'
-                            checked={this.state.type == CardTypes.ABSTRACT}
-                            value={CardTypes.ABSTRACT}
-                            onChange={this.handleType.bind(this)} />
-                        <span>Abstract</span>
-                    </label>
-                    <label className='new-card__type'>
-                        <input type='radio' name='type'
-                            checked={this.state.type == CardTypes.INTERFACE}
-                            value={CardTypes.INTERFACE}
-                            onChange={this.handleType.bind(this)} />
-                        <span>Interface</span>
-                    </label>
+                <label>Type:</label>
+                <label className='new-card__type'>
+                    <input type='radio' name='type'
+                        checked={this.state.type == CardTypes.NORMAL}
+                        value={CardTypes.NORMAL}
+                        onChange={this.handleType.bind(this)} />
+                    <span>Normal</span>
+                </label>
+                <label className='new-card__type'>
+                    <input type='radio' name='type'
+                        checked={this.state.type == CardTypes.ABSTRACT}
+                        value={CardTypes.ABSTRACT}
+                        onChange={this.handleType.bind(this)} />
+                    <span>Abstract</span>
+                </label>
+                <label className='new-card__type'>
+                    <input type='radio' name='type'
+                        checked={this.state.type == CardTypes.INTERFACE}
+                        value={CardTypes.INTERFACE}
+                        onChange={this.handleType.bind(this)} />
+                    <span>Interface</span>
+                </label>
 
-                    <label>Responsibilities (1 per line):</label>
-                    <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities.bind(this)} />
+                <label>Responsibilities (1 per line):</label>
+                <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities.bind(this)} />
 
-                    <label>Collaborators (1 per line):</label>
-                    <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
+                <label>Collaborators (1 per line):</label>
+                <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
 
-                    <div className='new-card__actions'>
-                        <button onClick={this.handleAdd.bind(this)}>Save card</button>
-                        <button onClick={this.handleCancel.bind(this)}>Cancel</button>
-                    </div>
+                <div className='new-card__actions'>
+                    <button onClick={this.handleAdd.bind(this)}>Save card</button>
+                    <button onClick={this.handleCancel.bind(this)}>Cancel</button>
                 </div>
-            </div>
+            </Dialog>
         );
     }
 }
-
-NewCardForm.propTypes = {
-    data: React.PropTypes.shape({
-        index            : React.PropTypes.number,
-        name             : React.PropTypes.string,
-        super            : React.PropTypes.string,
-        sub              : React.PropTypes.string,
-        type             : React.PropTypes.number,
-        responsibilities : React.PropTypes.string,
-        collaborators    : React.PropTypes.string
-    })
-};
 
 export default NewCardForm;

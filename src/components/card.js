@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CardTypes from '../constants/cardtypes';
+import CardTypes from '../constants/CardTypes';
 
 
 /**
@@ -24,7 +24,7 @@ var Card = (props) => {
             <header className='card__header'>
                 <span className='card__header__type'>{type}</span>
                 <span className='card__header__superclass'>{data.super}</span>
-                <div className='card__header__class'>{data.name}</div>
+                <span className='card__header__class'>{data.name}</span>
                 <span className='card__header__subclass'>{data.sub}</span>
             </header>
 
@@ -55,17 +55,6 @@ var Card = (props) => {
             </section>
         </div>
     );
-};
-
-Card.propTypes = {
-    data: React.PropTypes.shape({
-        name             : React.PropTypes.string,
-        super            : React.PropTypes.string,
-        sub              : React.PropTypes.string,
-        type             : React.PropTypes.number,
-        responsibilities : React.PropTypes.string,
-        collaborators    : React.PropTypes.string
-    }).isRequired
 };
 
 export default Card;

@@ -1,0 +1,12 @@
+// New card form
+
+.new-card__type {
+  font-weight: 400;
+}
+
+.new-card__actions {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}

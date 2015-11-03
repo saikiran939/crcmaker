@@ -1,6 +1,7 @@
 @import 'core';
 
-@import 'header';
-@import 'fork';
-@import 'newcardform';
-@import 'card';
+@import 'components/card';
+@import 'components/dialog';
+@import 'components/fork';
+@import 'components/header';
+@import 'components/newcardform';
