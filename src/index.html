@@ -16,7 +16,9 @@
 </head>
 <body>
     <div id="main">
-        <p>Not loading? <a id="clearstorage">Try clearing the cached storage</a>.</p>
+        <div id="troubleshoot" class="hidden">
+            <p>Not loading? <a id="clearstorage">Try clearing the cached storage</a>.</p>
+        </div>
     </div>
 
     <script>
@@ -30,7 +32,11 @@
         ga('send', 'pageview');
 
 
-        // Error message
+        // Troubleshooting message (appears after 2.5 seconds, assuming the main script failed)
+        setTimeout(function () {
+            document.getElementById('troubleshoot').classList.remove('hidden');
+        }, 2500);
+
         document.getElementById('clearstorage').onclick = function () {
             localStorage.clear();
             location.reload();
