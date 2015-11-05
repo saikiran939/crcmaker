@@ -25,6 +25,8 @@ class Dialog extends React.Component {
         return (
             <div className='dialog' onClick={this.onOverlayClick.bind(this)}>
                 <div className='dialog__window' ref='dialog'>
+                    <h2 className='dialog__title'>{this.props.title}</h2>
+
                     {this.props.children}
                 </div>
             </div>

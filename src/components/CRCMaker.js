@@ -192,9 +192,7 @@ class CRCMaker extends React.Component {
 
                             <button onClick={this.generateShareLink.bind(this)}>Share link</button>
                             { this.state.shareVisible &&
-                                <Dialog onClose={this.onShareClose.bind(this)}>
-                                    <h2>Share</h2>
-
+                                <Dialog title='Share' onClose={this.onShareClose.bind(this)}>
                                     <input className='share__url' type='text' value={this.state.shareLink}
                                         onClick={this.onShareLinkClick.bind(this)} readOnly />
 
@@ -210,24 +208,30 @@ class CRCMaker extends React.Component {
                     </header>
                 }
 
-                <button onClick={this.toggleHeader.bind(this)}>Show/hide header</button>
+                <button className='btn-small' onClick={this.toggleHeader.bind(this)}>Show/hide header</button>
 
-                { this.state.cards.map((editCard, i) =>
-                    <div key={i} className='card-wrapper'>
-                        <Card data={editCard} />
+                <main className='cards'>
+                    { this.state.cards.map((editCard, i) =>
+                        <div key={i} className='card-wrapper'>
+                            <Card data={editCard} />
 
-                        <button onClick={context.editCard.bind(context, i)}>Edit card #{i + 1}</button>
-                        <button onClick={context.removeCard.bind(context, i)} title={`Remove card #${i + 1}`}>✕</button>
+                            <button className='btn-small'
+                                onClick={context.editCard.bind(context, i)}>Edit card #{i + 1}</button>
+                            <button className='btn-small'
+                                onClick={context.removeCard.bind(context, i)} title={`Remove card #${i + 1}`}>✕</button>
 
-                        { i !== 0 &&
-                            <button onClick={context.moveCardUp.bind(context, i)} title='Move card up'>↑</button>
-                        }
+                            { i !== 0 &&
+                                <button className='btn-small'
+                                    onClick={context.moveCardUp.bind(context, i)} title='Move card up'>↑</button>
+                            }
 
-                        { i !== this.state.cards.length - 1 &&
-                            <button onClick={context.moveCardDown.bind(context, i)}  title='Move card down'>↓</button>
-                        }
-                    </div>
-                ) }
+                            { i !== this.state.cards.length - 1 &&
+                                <button className='btn-small'
+                                    onClick={context.moveCardDown.bind(context, i)} title='Move card down'>↓</button>
+                            }
+                        </div>
+                    ) }
+                </main>
             </div>
         );
     }

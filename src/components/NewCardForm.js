@@ -76,9 +76,7 @@ class NewCardForm extends React.Component {
 
     render () {
         return (
-            <Dialog onClose={this.props.onCancel}>
-                <h2>New card</h2>
-
+            <Dialog title='New card' onClose={this.props.onCancel}>
                 <label>Class name:</label>
                 <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
 

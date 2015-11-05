@@ -2,32 +2,33 @@
 
 #forkongithub {
     display: block;
-    height: 200px;
+    height: 14.25em;
     overflow: hidden;
     position: fixed;
     right: 0;
     top: 0;
-    width: 275px;
+    width: 19.5em;
     z-index: 9999;
 
     a {
-        background: #777;
-        color: #fff;
+        background: $accent;
+        box-shadow: 0 0.25em 0.5em rgba($black, 0.1);
+        color: $white;
         font-family: Arial;
         line-height: 2rem;
-        padding: 5px 40px;
+        padding: 0.35em 2.85em;
         position: absolute;
-        right: -70px;
+        right: -5em;
         text-align: center;
         text-decoration: none;
-        top: 40px;
+        top: 2.85em;
         transform: rotate(45deg);
         transition: background 0.2s;
-        width: 275px;
+        width: 19.5em;
 
         &::before,
         &::after {
-            background: #fff;
+            background: $white;
             content: '';
             display: block;
             height: 1px;
@@ -45,7 +46,7 @@
         }
 
         &:hover {
-            background: #888;
+            background: darken($accent, 5%);
         }
     }
 }

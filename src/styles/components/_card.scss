@@ -1,23 +1,30 @@
-// CRC card
+// CRC cards
 
-.card-wrapper {
-  margin-bottom: 2em;
+.cards {
+  background-color: $white;
+  border-radius: $radius;
+  box-shadow: 0 0.5em 2em rgba($black, 0.2);
+  padding: 1em;
 
-  button {
-    font-size: 0.85em;
-    margin-right: 0.75em;
-    padding: 0.3em 0.75em;
+  @media print {
+    background-color: none;
+    box-shadow: none;
+    padding: 0;
   }
 }
 
+.card-wrapper + .card-wrapper {
+  margin-top: 2em;
+}
+
 .card {
-  border: 1px solid #000;
+  border: 1px solid $black;
   page-break-inside: avoid;
   width: 100%;
 }
 
 .card__header {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid $black;
   display: block;
   height: 5em;
   padding: 0.5em;
@@ -60,5 +67,5 @@
   }
 
   .card__contents__collaborators {
-    border-left: 1px solid #000;
+    border-left: 1px solid $black;
   }

@@ -1,7 +1,7 @@
 // Dialog
 
 .dialog {
-  background: rgba(0,0,0,0.8);
+  background: rgba($black, 0.8);
   height: 100%;
   left: 0;
   overflow: auto;
@@ -14,8 +14,15 @@
 
 .dialog__window {
   @extend .wrapper;
-  background: #fff;
-  border: 1px solid #777;
-  border-radius: 4px;
+
+  background: $white;
+  border: 1px solid $dark-grey;
+  border-radius: $radius;
   padding: 1em;
+}
+
+.dialog__title {
+  border-bottom: 1px solid $accent;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
