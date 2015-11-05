@@ -5,13 +5,21 @@
 }
 
 html {
-  background: $light-grey;
+  background-color: $light-grey;
   font: 14px/1.75 'Open Sans', 'Arial', sans-serif;
+
+  @media print {
+    background-color: none;
+  }
 }
 
 body {
   padding: 2em;
   width: 100%;
+
+  @media print {
+    padding: 0;
+  }
 }
 
 a {
