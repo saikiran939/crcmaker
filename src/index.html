@@ -34,7 +34,9 @@
 
         // Troubleshooting message (appears after 2.5 seconds, assuming the main script failed)
         setTimeout(function () {
-            document.getElementById('troubleshoot').classList.remove('hidden');
+            if (document.getElementById('troubleshoot')) {
+                document.getElementById('troubleshoot').classList.remove('hidden');
+            }
         }, 2500);
 
         document.getElementById('clearstorage').onclick = function () {
