@@ -153,10 +153,10 @@ class CRCMaker extends React.Component {
 
     generateShareLink () {
         let cleanUrl = [location.protocol, '//', location.host, location.pathname].join(''),
-            encoded  = btoa(JSON.stringify(this.state.cards));
+            encoded  = this.state.cards.length > 0 ? btoa(JSON.stringify(this.state.cards)) : null;
 
         this.setState({
-            shareLink    : `${cleanUrl}?share=${encoded}`,
+            shareLink    : encoded ? `${cleanUrl}?share=${encoded}` : cleanUrl,
             shareVisible : true
         });
     }
