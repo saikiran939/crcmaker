@@ -13,7 +13,18 @@
   }
 }
 
-.card-wrapper + .card-wrapper {
+.cards__empty {
+  text-align: center;
+
+  p {
+    color: $dark-grey;
+    font-size: 1.75em;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+}
+
+.card__wrapper + .card__wrapper {
   margin-top: 2em;
 }
 

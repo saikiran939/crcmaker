@@ -211,8 +211,15 @@ class CRCMaker extends React.Component {
                 <button className='btn-small' onClick={this.toggleHeader.bind(this)}>Show/hide header</button>
 
                 <main className='cards'>
+                    { this.state.cards.length < 1 &&
+                        <div className='cards__empty'>
+                            <p>You don't have any cards yet.</p>
+                            <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
+                        </div>
+                    }
+
                     { this.state.cards.map((editCard, i) =>
-                        <div key={i} className='card-wrapper'>
+                        <div key={i} className='card__wrapper'>
                             <Card data={editCard} />
 
                             <button className='btn-small'
