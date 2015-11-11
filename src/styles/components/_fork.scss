@@ -1,30 +1,33 @@
 // Fork on GitHub ribbon
 
 #forkongithub {
+    box-shadow: 0 0.25em 0.5em rgba($black, 0.1);
     display: block;
-    height: 14.25em;
+    height: 2.65em;
+    opacity: 0.75;
     overflow: hidden;
     position: fixed;
-    right: 0;
-    top: 0;
-    width: 19.5em;
+    right: -6em;
+    top: -3em;
+    transform-origin: center left;
+    transform: rotate(45deg);
+    width: 16em;
     z-index: 9999;
+
+    &:hover {
+        opacity: 1;
+    }
 
     a {
         background: $accent;
-        box-shadow: 0 0.25em 0.5em rgba($black, 0.1);
         color: $white;
+        display: block;
         font-family: Arial;
         line-height: 2rem;
         padding: 0.35em 2.85em;
-        position: absolute;
-        right: -5em;
         text-align: center;
         text-decoration: none;
-        top: 2.85em;
-        transform: rotate(45deg);
         transition: background 0.2s;
-        width: 19.5em;
 
         &::before,
         &::after {
