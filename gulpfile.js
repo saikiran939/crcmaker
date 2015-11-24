@@ -4,7 +4,7 @@
 // Dependencies                                                               //
 ////////////////////////////////////////////////////////////////////////////////
 
-var babel      = require('babelify'),
+var babelify   = require('babelify'),
     browserify = require('browserify'),
     buffer     = require('vinyl-buffer'),
     del        = require('del'),
@@ -63,7 +63,7 @@ gulp.task('scss', function () {
 // Process JS files
 gulp.task('js', function () {
     return browserify(paths.src_js)
-        .transform(babel)
+        .transform(babelify, { presets: ['es2015', 'react'] })
         .bundle()
         .pipe(source('script.js'))
         .pipe(buffer())
