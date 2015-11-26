@@ -1,0 +1,29 @@
+.spinner {
+    animation: spin 1s linear infinite;
+    border-radius: 50%;
+    border: 0.2rem solid $accent;
+    border-right-width: 0;
+    border-top-width: 0;
+    display: block;
+    font-size: 0;
+    height: 2.5rem;
+    left: 50%;
+    margin: -1.25rem 0 0 -1.25rem;
+    position: absolute;
+    text-indent: -3000rem;
+    top: 50%;
+    width: 2.5rem;
+    will-change: transform;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

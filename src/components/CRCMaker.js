@@ -176,12 +176,10 @@ class CRCMaker extends React.Component {
         let context = this;
 
         return (
-            <div className='wrapper'>
+            <div>
 
                 { this.state.headerVisible &&
                     <header className='header'>
-                        <span id='forkongithub'><a href='https://github.com/arkon/crcmaker'>Fork me on GitHub</a></span>
-
                         <h1 className='header__title'>CRC Card Maker</h1>
 
                         <p className='header__info'>Tip: The header/buttons are hidden when printing!</p>

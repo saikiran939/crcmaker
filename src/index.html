@@ -18,7 +18,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="main">
+    <span id='forkongithub'><a href='https://github.com/arkon/crcmaker'>Fork me on GitHub</a></span>
+
+    <div id="main" class="wrapper">
+        <header class="header">
+            <h1 class="header__title">CRC Card Maker</h1>
+        </header>
+
+        <div class="spinner">Loading...</div>
+
         <div id="troubleshoot" class="hidden">
             <p>Not loading? <a id="clearstorage">Try clearing the cached storage</a>.</p>
         </div>
@@ -47,6 +55,6 @@
             location.reload();
         };
     </script>
-    <script src="script.js"></script>
+    <script src="script.js" async></script>
 </body>
 </html>
