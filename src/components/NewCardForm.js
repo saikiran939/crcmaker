@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import CardTypes from '../constants/CardTypes';
 import Dialog from './Dialog';
 
-
 /**
  * The form for creating a new card, or editing an existing one.
  */
@@ -13,7 +12,7 @@ class NewCardForm extends React.Component {
         super(props);
 
         // Card data is passed in if a card is being edited
-        let data = this.props.data;
+        var data = this.props.data;
 
         this.state = {
             index            : data ? data.index : null,

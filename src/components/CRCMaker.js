@@ -4,7 +4,6 @@ import Card from './Card';
 import Dialog from './Dialog';
 import NewCardForm from './NewCardForm';
 
-
 /**
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
@@ -14,11 +13,11 @@ class CRCMaker extends React.Component {
         super(props);
 
         // Parse URL for encoded data
-        let shareParamRegex = new RegExp('[\\?&]share=([^&#]*)'),
+        var shareParamRegex = new RegExp('[\\?&]share=([^&#]*)'),
             shareParamRes   = shareParamRegex.exec(location.search);
 
         // An array of cards from the URL or localStorage, if available
-        let cardsData = shareParamRes ?
+        var cardsData = shareParamRes ?
             JSON.parse(atob(decodeURIComponent(shareParamRes[1].replace(/\+/g, ' ')))) :
             localStorage.cards ?
                 JSON.parse(localStorage.cards) :
@@ -87,10 +86,10 @@ class CRCMaker extends React.Component {
     }
 
     editCard (index) {
-        let cardsData = this.state.cards;
+        var cardsData = this.state.cards;
 
         // Set an index so it's replaced upon saving
-        let card = cardsData[index];
+        var card = cardsData[index];
         card.index = index;
 
         this.setState({
@@ -108,7 +107,7 @@ class CRCMaker extends React.Component {
 
     removeCard (index) {
         if (confirm(`Remove card #${index + 1}?`)) {
-            let cardsData = this.state.cards;
+            var cardsData = this.state.cards;
             cardsData.splice(index, 1);
 
             this.setState({
@@ -126,9 +125,9 @@ class CRCMaker extends React.Component {
     }
 
     moveCardUp (index) {
-        let cardsData = this.state.cards;
+        var cardsData = this.state.cards;
 
-        let thisCard = cardsData[index];
+        var thisCard = cardsData[index];
 
         cardsData[index] = cardsData[index - 1]
         cardsData[index - 1] = thisCard;
@@ -139,9 +138,9 @@ class CRCMaker extends React.Component {
     }
 
     moveCardDown (index) {
-        let cardsData = this.state.cards;
+        var cardsData = this.state.cards;
 
-        let thisCard = cardsData[index];
+        var thisCard = cardsData[index];
 
         cardsData[index] = cardsData[index + 1]
         cardsData[index + 1] = thisCard;
@@ -152,7 +151,7 @@ class CRCMaker extends React.Component {
     }
 
     generateShareLink () {
-        let cleanUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+        var cleanUrl = `${location.protocol}//${location.host}${location.pathname}`,
             encoded  = this.state.cards.length > 0 ? btoa(JSON.stringify(this.state.cards)) : null;
 
         this.setState({
@@ -173,11 +172,10 @@ class CRCMaker extends React.Component {
     }
 
     render () {
-        let context = this;
+        var context = this;
 
         return (
             <div>
-
                 { this.state.headerVisible &&
                     <header className='header'>
                         <h1 className='header__title'>CRC Card Maker</h1>

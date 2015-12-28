@@ -2,14 +2,13 @@ import React from 'react';
 
 import CardTypes from '../constants/CardTypes';
 
-
 /**
  * Renders a single card with the passed in data.
  */
 var Card = (props) => {
-    let data = props.data;
+    var data = props.data;
 
-    let type = '';
+    var type = '';
 
     if (data.type == CardTypes.ABSTRACT) {
         type = 'Abstract';
@@ -20,7 +19,7 @@ var Card = (props) => {
     }
 
     return (
-        <div className="card">
+        <div className='card'>
             <header className='card__header'>
                 <span className='card__header__type'>{type}</span>
                 <span className='card__header__superclass'>{data.super}</span>

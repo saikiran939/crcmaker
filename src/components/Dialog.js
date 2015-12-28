@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
 /**
  * A modal dialog window.
  */
 class Dialog extends React.Component {
     constructor (props) {
         super(props);
+
+        this.onOverlayClick = this.onOverlayClick.bind(this);
     }
 
     componentDidMount () {
@@ -23,7 +24,7 @@ class Dialog extends React.Component {
 
     render () {
         return (
-            <div className='dialog' onClick={this.onOverlayClick.bind(this)}>
+            <div className='dialog' onClick={this.onOverlayClick}>
                 <div className='dialog__window' ref='dialog'>
                     <h2 className='dialog__title'>{this.props.title}</h2>
 
