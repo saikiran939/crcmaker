@@ -11,7 +11,7 @@ var babelify   = require('babelify'),
     ghPages    = require('gulp-gh-pages'),
     gulp       = require('gulp'),
     htmlmin    = require('gulp-htmlmin'),
-    minifyCss  = require('gulp-minify-css'),
+    nano       = require('gulp-cssnano'),
     sass       = require('gulp-sass'),
     source     = require('vinyl-source-stream'),
     uglify     = require('gulp-uglify');
@@ -37,8 +37,9 @@ var paths = {
 ////////////////////////////////////////////////////////////////////////////////
 
 // Delete generated files
-gulp.task('clean', function () {
+gulp.task('clean', function (cb) {
     del.sync(paths.dest, { force: true });
+    cb();
 });
 
 // Process main HTML file
@@ -56,7 +57,7 @@ gulp.task('html', function () {
 gulp.task('scss', function () {
     return gulp.src(paths.src_scss)
         .pipe(sass().on('error', sass.logError))
-        .pipe(minifyCss())
+        .pipe(nano())
         .pipe(gulp.dest(paths.dest));
 });
 
