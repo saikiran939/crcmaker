@@ -1,3 +1,4 @@
+import autobind from 'autobind-decorator';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -7,6 +8,7 @@ import Dialog from './Dialog';
 /**
  * The form for creating a new card, or editing an existing one.
  */
+@autobind
 class NewCardForm extends React.Component {
     constructor (props) {
         super(props);
@@ -77,46 +79,46 @@ class NewCardForm extends React.Component {
         return (
             <Dialog title='New card' onClose={this.props.onCancel}>
                 <label>Class name:</label>
-                <input type='text' value={this.state.name} onChange={this.handleName.bind(this)} />
+                <input type='text' value={this.state.name} onChange={this.handleName} />
 
                 <label>Superclasses:</label>
-                <input type='text' value={this.state.super} onChange={this.handleSuper.bind(this)} />
+                <input type='text' value={this.state.super} onChange={this.handleSuper} />
 
                 <label>Subclasses:</label>
-                <input type='text' value={this.state.sub} onChange={this.handleSub.bind(this)} />
+                <input type='text' value={this.state.sub} onChange={this.handleSub} />
 
                 <label>Type:</label>
                 <label className='new-card__type'>
                     <input type='radio' name='type'
                         checked={this.state.type == CardTypes.NORMAL}
                         value={CardTypes.NORMAL}
-                        onChange={this.handleType.bind(this)} />
+                        onChange={this.handleType} />
                     <span>Normal</span>
                 </label>
                 <label className='new-card__type'>
                     <input type='radio' name='type'
                         checked={this.state.type == CardTypes.ABSTRACT}
                         value={CardTypes.ABSTRACT}
-                        onChange={this.handleType.bind(this)} />
+                        onChange={this.handleType} />
                     <span>Abstract</span>
                 </label>
                 <label className='new-card__type'>
                     <input type='radio' name='type'
                         checked={this.state.type == CardTypes.INTERFACE}
                         value={CardTypes.INTERFACE}
-                        onChange={this.handleType.bind(this)} />
+                        onChange={this.handleType} />
                     <span>Interface</span>
                 </label>
 
                 <label>Responsibilities (1 per line):</label>
-                <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities.bind(this)} />
+                <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities} />
 
                 <label>Collaborators (1 per line):</label>
-                <textarea value={this.state.collaborators} onChange={this.handleCollaborators.bind(this)} />
+                <textarea value={this.state.collaborators} onChange={this.handleCollaborators} />
 
                 <div className='new-card__actions'>
-                    <button onClick={this.handleAdd.bind(this)}>Save card</button>
-                    <button onClick={this.handleCancel.bind(this)}>Cancel</button>
+                    <button onClick={this.handleAdd}>Save card</button>
+                    <button onClick={this.handleCancel}>Cancel</button>
                 </div>
             </Dialog>
         );

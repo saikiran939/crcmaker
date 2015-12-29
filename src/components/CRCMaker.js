@@ -1,3 +1,4 @@
+import autobind from 'autobind-decorator';
 import React from 'react';
 
 import Card from './Card';
@@ -8,6 +9,7 @@ import NewCardForm from './NewCardForm';
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
  */
+@autobind
 class CRCMaker extends React.Component {
     constructor (props) {
         super(props);
@@ -183,34 +185,34 @@ class CRCMaker extends React.Component {
                         <p className='header__info'>Tip: The header/buttons are hidden when printing!</p>
 
                         <div className='header__actions'>
-                            <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
-                            <button onClick={this.removeAllCards.bind(this)}>Remove all</button>
+                            <button onClick={this.toggleNewCardForm}>New card</button>
+                            <button onClick={this.removeAllCards}>Remove all</button>
 
-                            <button onClick={this.generateShareLink.bind(this)}>Share link</button>
+                            <button onClick={this.generateShareLink}>Share link</button>
                             { this.state.shareVisible &&
-                                <Dialog title='Share' onClose={this.onShareClose.bind(this)}>
+                                <Dialog title='Share' onClose={this.onShareClose}>
                                     <input className='share__url' type='text' value={this.state.shareLink}
-                                        onClick={this.onShareLinkClick.bind(this)} readOnly />
+                                        onClick={this.onShareLinkClick} readOnly />
 
-                                    <button onClick={this.onShareClose.bind(this)}>Close</button>
+                                    <button onClick={this.onShareClose}>Close</button>
                                 </Dialog>
                             }
                         </div>
 
                         { this.state.newFormVisible &&
-                            <NewCardForm onAdd={this.addCard.bind(this)} onCancel={this.cancelAddCard.bind(this)}
+                            <NewCardForm onAdd={this.addCard} onCancel={this.cancelAddCard}
                                 data={this.state.editCard} />
                         }
                     </header>
                 }
 
-                <button className='btn-small' onClick={this.toggleHeader.bind(this)}>Show/hide header</button>
+                <button className='btn-small' onClick={this.toggleHeader}>Show/hide header</button>
 
                 <main className='cards'>
                     { this.state.cards.length < 1 &&
                         <div className='cards__empty'>
                             <p>You don't have any cards yet.</p>
-                            <button onClick={this.toggleNewCardForm.bind(this)}>New card</button>
+                            <button onClick={this.toggleNewCardForm}>New card</button>
                         </div>
                     }
 

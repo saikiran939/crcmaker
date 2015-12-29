@@ -1,14 +1,14 @@
+import autobind from 'autobind-decorator';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 /**
  * A modal dialog window.
  */
+@autobind
 class Dialog extends React.Component {
     constructor (props) {
         super(props);
-
-        this.onOverlayClick = this.onOverlayClick.bind(this);
     }
 
     componentDidMount () {

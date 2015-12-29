@@ -64,7 +64,10 @@ gulp.task('scss', function () {
 // Process JS files
 gulp.task('js', function () {
     return browserify(paths.src_js)
-        .transform(babelify, { presets: ['es2015', 'react'] })
+        .transform(babelify, {
+            presets: ['es2015', 'react'],
+            plugins: ['transform-decorators-legacy'],
+        })
         .bundle()
         .pipe(source('script.js'))
         .pipe(buffer())
