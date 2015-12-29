@@ -174,8 +174,6 @@ class CRCMaker extends React.Component {
     }
 
     render () {
-        var context = this;
-
         return (
             <div>
                 { this.state.headerVisible &&
@@ -216,23 +214,23 @@ class CRCMaker extends React.Component {
                         </div>
                     }
 
-                    { this.state.cards.map((editCard, i) =>
+                    { this.state.cards.map((card, i) =>
                         <div key={i} className='card__wrapper'>
-                            <Card data={editCard} />
+                            <Card data={card} />
 
                             <button className='btn-small'
-                                onClick={context.editCard.bind(context, i)}>Edit card #{i + 1}</button>
+                                onClick={this.editCard.bind(this, i)}>Edit card #{i + 1}</button>
                             <button className='btn-small'
-                                onClick={context.removeCard.bind(context, i)} title={`Remove card #${i + 1}`}>✕</button>
+                                onClick={this.removeCard.bind(this, i)} title={`Remove card #${i + 1}`}>✕</button>
 
                             { i !== 0 &&
                                 <button className='btn-small'
-                                    onClick={context.moveCardUp.bind(context, i)} title='Move card up'>↑</button>
+                                    onClick={this.moveCardUp.bind(this, i)} title='Move card up'>↑</button>
                             }
 
                             { i !== this.state.cards.length - 1 &&
                                 <button className='btn-small'
-                                    onClick={context.moveCardDown.bind(context, i)} title='Move card down'>↓</button>
+                                    onClick={this.moveCardDown.bind(this, i)} title='Move card down'>↓</button>
                             }
                         </div>
                     ) }
