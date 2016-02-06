@@ -195,6 +195,8 @@ class CRCMaker extends React.Component {
                                     <button onClick={this.onShareClose}>Close</button>
                                 </Dialog>
                             }
+
+                            <button onClick={(e) => { window.print(); }}>Print</button>
                         </div>
 
                         { this.state.newFormVisible &&
