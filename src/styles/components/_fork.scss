@@ -1,55 +1,59 @@
 // Fork on GitHub ribbon
 
 #forkongithub {
-    box-shadow: 0 0.25em 0.5em rgba($black, 0.1);
+  box-shadow: 0 0.25em 0.5em rgba($black, 0.1);
+  display: block;
+  height: 2.65em;
+  opacity: 0.75;
+  overflow: hidden;
+  position: fixed;
+  right: -6em;
+  top: -3em;
+  transform-origin: center left;
+  transform: rotate(45deg);
+  width: 16em;
+  z-index: 9999;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  a {
+    background: $accent;
+    color: $white;
     display: block;
-    height: 2.65em;
-    opacity: 0.75;
-    overflow: hidden;
-    position: fixed;
-    right: -6em;
-    top: -3em;
-    transform-origin: center left;
-    transform: rotate(45deg);
-    width: 16em;
-    z-index: 9999;
+    font-family: Arial;
+    line-height: 2rem;
+    padding: 0.35em 2.85em;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+
+    &::before,
+    &::after {
+      background: $white;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+
+    &::before {
+      top: 1px;
+    }
+
+    &::after {
+      bottom: 1px;
+    }
 
     &:hover {
-        opacity: 1;
+      background: darken($accent, 5%);
     }
+  }
 
-    a {
-        background: $accent;
-        color: $white;
-        display: block;
-        font-family: Arial;
-        line-height: 2rem;
-        padding: 0.35em 2.85em;
-        text-align: center;
-        text-decoration: none;
-        transition: background 0.2s;
-
-        &::before,
-        &::after {
-            background: $white;
-            content: '';
-            display: block;
-            height: 1px;
-            left: 0;
-            position: absolute;
-            width: 100%;
-        }
-
-        &::before {
-            top: 1px;
-        }
-
-        &::after {
-            bottom: 1px;
-        }
-
-        &:hover {
-            background: darken($accent, 5%);
-        }
-    }
+  @media print {
+    display: none !important;
+  }
 }
