@@ -173,6 +173,10 @@ class CRCMaker extends React.Component {
         });
     }
 
+    exportJSON () {
+        console.log(JSON.stringify(this.state.cards));
+    }
+
     render () {
         return (
             <div>
@@ -195,6 +199,8 @@ class CRCMaker extends React.Component {
                                     <button onClick={this.onShareClose}>Close</button>
                                 </Dialog>
                             }
+
+                            <button onClick={this.exportJSON}>Export</button>
 
                             <button onClick={(e) => { window.print(); }}>Print</button>
                         </div>
