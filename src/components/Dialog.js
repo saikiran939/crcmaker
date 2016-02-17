@@ -1,18 +1,14 @@
 import autobind from 'autobind-decorator';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 
 /**
  * A modal dialog window.
  */
 @autobind
 class Dialog extends React.Component {
-    constructor (props) {
-        super(props);
-    }
-
     componentDidMount () {
-        this.elDialog = ReactDOM.findDOMNode(this.refs.dialog);
+        this.elDialog = findDOMNode(this.refs.dialog);
     }
 
     onOverlayClick (e) {
@@ -25,7 +21,7 @@ class Dialog extends React.Component {
     render () {
         return (
             <div className='dialog' onClick={this.onOverlayClick}>
-                <div className='dialog__window' ref='dialog'>
+                <div ref='dialog' className='dialog__window'>
                     <h2 className='dialog__title'>{this.props.title}</h2>
 
                     {this.props.children}

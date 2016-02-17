@@ -199,7 +199,7 @@ class CRCMaker extends React.Component {
 
                             <button onClick={this.exportJSON}>Export</button>
 
-                            <button onClick={(e) => { window.print(); }}>Print</button>
+                            <button onClick={() => { window.print(); }}>Print</button>
                         </div>
 
                         { this.state.formVisible &&
