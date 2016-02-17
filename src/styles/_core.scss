@@ -86,6 +86,10 @@ button {
 .wrapper {
   max-width: 844px; // 8.5in + 0.2em;
   margin: 0 auto;
+
+  @media print {
+    max-width: none;
+  }
 }
 
 .hidden {
