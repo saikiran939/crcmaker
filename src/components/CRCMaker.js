@@ -212,7 +212,7 @@ class CRCMaker extends React.Component {
                     </header>
                 }
 
-                <button className='btn-small' onClick={this.toggleHeader}>Show/hide header</button>
+                <button className='btn--small' onClick={this.toggleHeader}>Show/hide header</button>
 
                 <main className='cards'>
                     { this.state.cards.length < 1 &&
@@ -226,18 +226,18 @@ class CRCMaker extends React.Component {
                         <div key={i} className='card__wrapper'>
                             <Card data={card} />
 
-                            <button className='btn-small'
+                            <button className='btn--small'
                                 onClick={this.editCard.bind(this, i)}>Edit card #{i + 1}</button>
-                            <button className='btn-small'
+                            <button className='btn--small'
                                 onClick={this.removeCard.bind(this, i)} title={`Remove card #${i + 1}`}>✕</button>
 
                             { i !== 0 &&
-                                <button className='btn-small'
+                                <button className='btn--small'
                                     onClick={this.moveCardUp.bind(this, i)} title='Move card up'>↑</button>
                             }
 
                             { i !== this.state.cards.length - 1 &&
-                                <button className='btn-small'
+                                <button className='btn--small'
                                     onClick={this.moveCardDown.bind(this, i)} title='Move card down'>↓</button>
                             }
                         </div>
