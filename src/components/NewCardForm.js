@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 
 import CardTypes from '../constants/CardTypes';
 import Dialog from './Dialog';
@@ -11,17 +11,17 @@ import Dialog from './Dialog';
 @autobind
 class NewCardForm extends React.Component {
     componentDidMount () {
-        this.elName             = ReactDOM.findDOMNode(this.refs.name);
-        this.elSuper            = ReactDOM.findDOMNode(this.refs.super);
-        this.elSub              = ReactDOM.findDOMNode(this.refs.sub);
-        this.elTypeNormal       = ReactDOM.findDOMNode(this.refs.type_normal);
-        this.elTypeAbstract     = ReactDOM.findDOMNode(this.refs.type_abstract);
-        this.elTypeInterface    = ReactDOM.findDOMNode(this.refs.type_interface);
-        this.elResponsibilities = ReactDOM.findDOMNode(this.refs.responsibilities);
-        this.elCollaborators    = ReactDOM.findDOMNode(this.refs.collaborators);
+        this.elName             = findDOMNode(this.refs.name);
+        this.elSuper            = findDOMNode(this.refs.superclasses);
+        this.elSub              = findDOMNode(this.refs.subclasses);
+        this.elTypeNormal       = findDOMNode(this.refs.type_normal);
+        this.elTypeAbstract     = findDOMNode(this.refs.type_abstract);
+        this.elTypeInterface    = findDOMNode(this.refs.type_interface);
+        this.elResponsibilities = findDOMNode(this.refs.responsibilities);
+        this.elCollaborators    = findDOMNode(this.refs.collaborators);
     }
 
-    handleAdd () {
+    add () {
         var type = CardTypes.NORMAL;
         if (this.elTypeAbstract.checked) {
             type = CardTypes.ABSTRACT;
@@ -31,15 +31,15 @@ class NewCardForm extends React.Component {
 
         this.props.onAdd({
             name             : this.elName.value,
-            super            : this.elSuper.value,
-            sub              : this.elSub.value,
+            superclasses     : this.elSuper.value,
+            subclasses       : this.elSub.value,
             type             : type,
             responsibilities : this.elResponsibilities.value.split('\n'),
             collaborators    : this.elCollaborators.value.split('\n')
         });
     }
 
-    handleCancel () {
+    cancel () {
         this.props.onCancel();
     }
 
@@ -52,10 +52,10 @@ class NewCardForm extends React.Component {
                 <input ref='name' type='text' defaultValue={data ? data.name : ''} />
 
                 <label>Superclasses:</label>
-                <input ref='super' type='text' defaultValue={data ? data.super : ''} />
+                <input ref='superclasses' type='text' defaultValue={data ? data.super : ''} />
 
                 <label>Subclasses:</label>
-                <input ref='sub' type='text' defaultValue={data ? data.sub : ''} />
+                <input ref='subclasses' type='text' defaultValue={data ? data.sub : ''} />
 
                 <label>Type:</label>
                 <label className='new-card__type'>
@@ -84,8 +84,8 @@ class NewCardForm extends React.Component {
                 <textarea ref='collaborators' defaultValue={data ? data.collaborators : ''} />
 
                 <div className='new-card__actions'>
-                    <button onClick={this.handleAdd}>Save card</button>
-                    <button onClick={this.handleCancel}>Cancel</button>
+                    <button onClick={this.add}>Save card</button>
+                    <button onClick={this.cancel}>Cancel</button>
                 </div>
             </Dialog>
         );

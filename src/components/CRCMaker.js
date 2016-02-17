@@ -15,8 +15,7 @@ class CRCMaker extends React.Component {
         super(props);
 
         // Parse URL for encoded data
-        var shareParamRegex = new RegExp('[\\?&]share=([^&#]*)'),
-            shareParamRes   = shareParamRegex.exec(location.search);
+        const shareParamRes = new RegExp('[\\?&]share=([^&#]*)').exec(location.search);
 
         // An array of cards from the URL or localStorage, if available
         var cardsData = shareParamRes ?
@@ -93,7 +92,7 @@ class CRCMaker extends React.Component {
         this.setState({
             editCard    : this.state.cards[index],
             editIndex   : index,
-            formVisible : !this.state.formVisible
+            formVisible : true
         });
     }
 

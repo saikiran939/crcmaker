@@ -6,7 +6,7 @@ import CardTypes from '../constants/CardTypes';
  * Renders a single card with the passed in data.
  */
 const Card = (props) => {
-    var data = props.data;
+    const data = props.data;
 
     var type = '';
     if (data.type == CardTypes.ABSTRACT) {
@@ -19,9 +19,9 @@ const Card = (props) => {
         <div className='card'>
             <header className='card__header'>
                 <span className='card__header__type'>{type}</span>
-                <span className='card__header__superclass'>{data.super}</span>
+                <span className='card__header__superclass'>{data.superclasses}</span>
                 <span className='card__header__class'>{data.name}</span>
-                <span className='card__header__subclass'>{data.sub}</span>
+                <span className='card__header__subclass'>{data.subclasses}</span>
             </header>
 
             <section className='card__contents'>
