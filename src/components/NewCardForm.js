@@ -10,64 +10,33 @@ import Dialog from './Dialog';
  */
 @autobind
 class NewCardForm extends React.Component {
-    constructor (props) {
-        super(props);
-
-        // Card data is passed in if a card is being edited
-        var data = this.props.data;
-
-        this.state = {
-            name             : data ? data.name : '',
-            super            : data ? data.super : '',
-            sub              : data ? data.sub : '',
-            type             : data ? data.type : CardTypes.NORMAL,
-            responsibilities : data ? data.responsibilities : '',
-            collaborators    : data ? data.collaborators : ''
-        };
-    }
-
     componentDidMount () {
-        this.elForm = ReactDOM.findDOMNode(this.refs.form);
-    }
-
-    handleName (e) {
-        this.setState({
-            name: e.target.value
-        });
-    }
-
-    handleSuper (e) {
-        this.setState({
-            super: e.target.value
-        });
-    }
-
-    handleSub (e) {
-        this.setState({
-            sub: e.target.value
-        });
-    }
-
-    handleType (e) {
-        this.setState({
-            type: e.target.value
-        });
-    }
-
-    handleResponsibilities (e) {
-        this.setState({
-            responsibilities: e.target.value
-        });
-    }
-
-    handleCollaborators (e) {
-        this.setState({
-            collaborators: e.target.value
-        });
+        this.elName             = ReactDOM.findDOMNode(this.refs.name);
+        this.elSuper            = ReactDOM.findDOMNode(this.refs.super);
+        this.elSub              = ReactDOM.findDOMNode(this.refs.sub);
+        this.elTypeNormal       = ReactDOM.findDOMNode(this.refs.type_normal);
+        this.elTypeAbstract     = ReactDOM.findDOMNode(this.refs.type_abstract);
+        this.elTypeInterface    = ReactDOM.findDOMNode(this.refs.type_interface);
+        this.elResponsibilities = ReactDOM.findDOMNode(this.refs.responsibilities);
+        this.elCollaborators    = ReactDOM.findDOMNode(this.refs.collaborators);
     }
 
     handleAdd () {
-        this.props.onAdd(this.state);
+        var type = CardTypes.NORMAL;
+        if (this.elTypeAbstract.checked) {
+            type = CardTypes.ABSTRACT;
+        } else if (this.elTypeInterface.checked) {
+            type = CardTypes.INTERFACE;
+        }
+
+        this.props.onAdd({
+            name             : this.elName.value,
+            super            : this.elSuper.value,
+            sub              : this.elSub.value,
+            type             : type,
+            responsibilities : this.elResponsibilities.value.split('\n'),
+            collaborators    : this.elCollaborators.value.split('\n')
+        });
     }
 
     handleCancel () {
@@ -75,45 +44,44 @@ class NewCardForm extends React.Component {
     }
 
     render () {
+        const data = this.props.data;
+
         return (
             <Dialog title='New card' onClose={this.props.onCancel}>
                 <label>Class name:</label>
-                <input type='text' value={this.state.name} onChange={this.handleName} />
+                <input ref='name' type='text' defaultValue={data ? data.name : ''} />
 
                 <label>Superclasses:</label>
-                <input type='text' value={this.state.super} onChange={this.handleSuper} />
+                <input ref='super' type='text' defaultValue={data ? data.super : ''} />
 
                 <label>Subclasses:</label>
-                <input type='text' value={this.state.sub} onChange={this.handleSub} />
+                <input ref='sub' type='text' defaultValue={data ? data.sub : ''} />
 
                 <label>Type:</label>
                 <label className='new-card__type'>
-                    <input type='radio' name='type'
-                        checked={this.state.type == CardTypes.NORMAL}
-                        value={CardTypes.NORMAL}
-                        onChange={this.handleType} />
+                    <input ref='type_normal' type='radio' name='type'
+                        defaultChecked={data ? data.type == CardTypes.NORMAL : true}
+                        value={CardTypes.NORMAL} />
                     <span>Normal</span>
                 </label>
                 <label className='new-card__type'>
-                    <input type='radio' name='type'
-                        checked={this.state.type == CardTypes.ABSTRACT}
-                        value={CardTypes.ABSTRACT}
-                        onChange={this.handleType} />
+                    <input ref='type_abstract' type='radio' name='type'
+                        defaultChecked={data ? data.type == CardTypes.ABSTRACT : false}
+                        value={CardTypes.ABSTRACT} />
                     <span>Abstract</span>
                 </label>
                 <label className='new-card__type'>
-                    <input type='radio' name='type'
-                        checked={this.state.type == CardTypes.INTERFACE}
-                        value={CardTypes.INTERFACE}
-                        onChange={this.handleType} />
+                    <input ref='type_interface' type='radio' name='type'
+                        defaultChecked={data ? data.type == CardTypes.INTERFACE : false}
+                        value={CardTypes.INTERFACE} />
                     <span>Interface</span>
                 </label>
 
                 <label>Responsibilities (1 per line):</label>
-                <textarea value={this.state.responsibilities} onChange={this.handleResponsibilities} />
+                <textarea ref='responsibilities' defaultValue={data ? data.responsibilities : ''} />
 
                 <label>Collaborators (1 per line):</label>
-                <textarea value={this.state.collaborators} onChange={this.handleCollaborators} />
+                <textarea ref='collaborators' defaultValue={data ? data.collaborators : ''} />
 
                 <div className='new-card__actions'>
                     <button onClick={this.handleAdd}>Save card</button>

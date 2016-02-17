@@ -5,16 +5,13 @@ import CardTypes from '../constants/CardTypes';
 /**
  * Renders a single card with the passed in data.
  */
-var Card = (props) => {
+const Card = (props) => {
     var data = props.data;
 
     var type = '';
-
     if (data.type == CardTypes.ABSTRACT) {
         type = 'Abstract';
-    }
-
-    if (data.type == CardTypes.INTERFACE) {
+    } else if (data.type == CardTypes.INTERFACE) {
         type = 'Interface';
     }
 
@@ -29,27 +26,23 @@ var Card = (props) => {
 
             <section className='card__contents'>
                 <section className='card__contents__responsibilities'>
-                    { data.responsibilities !== '' &&
-                        <ul>
-                            { data.responsibilities.split('\n').map((item, i) => {
-                                if (item !== '') {
-                                    return <li key={i}>{item}</li>;
-                                }
-                            }) }
-                        </ul>
-                    }
+                    <ul>
+                        { data.responsibilities && data.responsibilities.map((item, i) => {
+                            if (item) {
+                                return <li key={i}>{item}</li>;
+                            }
+                        }) }
+                    </ul>
                 </section>
 
                 <section className='card__contents__collaborators'>
-                    { data.collaborators !== '' &&
-                        <ul>
-                            { data.collaborators.split('\n').map((item, i) => {
-                                if (item !== '') {
-                                    return <li key={i}>{item}</li>;
-                                }
-                            }) }
-                        </ul>
-                    }
+                    <ul>
+                        { data.collaborators && data.collaborators.map((item, i) => {
+                            if (item) {
+                                return <li key={i}>{item}</li>;
+                            }
+                        }) }
+                    </ul>
                 </section>
             </section>
         </div>
