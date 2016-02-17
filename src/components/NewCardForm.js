@@ -17,7 +17,6 @@ class NewCardForm extends React.Component {
         var data = this.props.data;
 
         this.state = {
-            index            : data ? data.index : null,
             name             : data ? data.name : '',
             super            : data ? data.super : '',
             sub              : data ? data.sub : '',

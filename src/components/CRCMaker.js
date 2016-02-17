@@ -27,23 +27,24 @@ class CRCMaker extends React.Component {
 
         // Initial state
         this.state = {
-            // A card object that's being edited
-            editCard       : null,
+            // Card object + index that's being edited
+            editCard      : null,
+            editIndex     : null,
 
             // Load cards from either localStorage or URL param (defaults to empty array)
-            cards          : cardsData,
+            cards         : cardsData,
 
             // Whether or not the card creation/editor form is visible
-            newFormVisible : false,
+            formVisible   : false,
 
             // Whether or not the header UI is visible
-            headerVisible  : true,
+            headerVisible : true,
 
             // The generated URL for sharing
-            shareLink      : '',
+            shareLink     : '',
 
             // Whether or not to show the textbox with the share link
-            shareVisible   : false
+            shareVisible  : false
         };
     }
 
@@ -59,7 +60,7 @@ class CRCMaker extends React.Component {
 
     toggleNewCardForm () {
         this.setState({
-            newFormVisible: !this.state.newFormVisible
+            formVisible: !this.state.formVisible
         });
     }
 
@@ -70,40 +71,37 @@ class CRCMaker extends React.Component {
     }
 
     addCard (data) {
-        let cardsData = this.state.cards;
+        var cardsData = this.state.cards;
 
-        if (data.index !== null) {
+        if (this.state.editIndex !== null) {
             // Replace existing card (used for editing)
-            cardsData[data.index] = data;
+            cardsData[this.state.editIndex] = data;
         } else {
             // Add to array in state (new card)
             cardsData.push(data);
         }
 
         this.setState({
-            editCard       : null,
-            cards          : cardsData,
-            newFormVisible : false
+            editCard    : null,
+            editIndex   : null,
+            cards       : cardsData,
+            formVisible : false
         });
     }
 
     editCard (index) {
-        var cardsData = this.state.cards;
-
-        // Set an index so it's replaced upon saving
-        var card = cardsData[index];
-        card.index = index;
-
         this.setState({
-            editCard       : card,
-            newFormVisible : !this.state.newFormVisible
+            editCard    : this.state.cards[index],
+            editIndex   : index,
+            formVisible : !this.state.formVisible
         });
     }
 
     cancelAddCard () {
         this.setState({
-            editCard       : null,
-            newFormVisible : false
+            editCard    : null,
+            editIndex   : null,
+            formVisible : false
         });
     }
 
@@ -205,7 +203,7 @@ class CRCMaker extends React.Component {
                             <button onClick={(e) => { window.print(); }}>Print</button>
                         </div>
 
-                        { this.state.newFormVisible &&
+                        { this.state.formVisible &&
                             <NewCardForm onAdd={this.addCard} onCancel={this.cancelAddCard}
                                 data={this.state.editCard} />
                         }
