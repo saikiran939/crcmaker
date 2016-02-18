@@ -43,7 +43,10 @@ class CRCMaker extends React.Component {
             shareLink     : '',
 
             // Whether or not to show the textbox with the share link
-            shareVisible  : false
+            shareVisible  : false,
+
+            // Export JSON dialog
+            exportVisible : false
         };
     }
 
@@ -159,7 +162,7 @@ class CRCMaker extends React.Component {
         });
     }
 
-    onShareLinkClick (e) {
+    onDialogTextClick (e) {
         // Selects all text in input box
         e.target.select();
     }
@@ -170,8 +173,10 @@ class CRCMaker extends React.Component {
         });
     }
 
-    exportJSON () {
-        console.log(JSON.stringify(this.state.cards));
+    toggleExport () {
+        this.setState({
+            exportVisible: !this.state.exportVisible
+        });
     }
 
     render () {
@@ -190,14 +195,22 @@ class CRCMaker extends React.Component {
                             <button onClick={this.generateShareLink}>Share link</button>
                             { this.state.shareVisible &&
                                 <Dialog title='Share' onClose={this.onShareClose}>
-                                    <input className='share__url' type='text' value={this.state.shareLink}
-                                        onClick={this.onShareLinkClick} readOnly />
+                                    <input className='dialog__text' type='text' value={this.state.shareLink}
+                                        onClick={this.onDialogTextClick} readOnly />
 
                                     <button onClick={this.onShareClose}>Close</button>
                                 </Dialog>
                             }
 
-                            <button onClick={this.exportJSON}>Export</button>
+                            <button onClick={this.toggleExport}>Export</button>
+                            { this.state.exportVisible &&
+                                <Dialog title='Export JSON' onClose={this.toggleExport}>
+                                    <textarea className='dialog__text' value={JSON.stringify(this.state.cards)}
+                                        onClick={this.onDialogTextClick} readOnly />
+
+                                    <button onClick={this.toggleExport}>Close</button>
+                                </Dialog>
+                            }
 
                             <button onClick={() => { window.print(); }}>Print</button>
                         </div>
