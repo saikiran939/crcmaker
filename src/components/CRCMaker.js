@@ -50,6 +50,10 @@ class CRCMaker extends React.Component {
         };
     }
 
+    componentDidMount () {
+        new Clipboard('.copy');
+    }
+
     componentDidUpdate (prevProps, prevState) {
         if (this.state.cards.length > 0) {
             // Sync cards in state object with localStorage
