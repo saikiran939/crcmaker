@@ -42,7 +42,6 @@
         ga('create', 'UA-60198737-2', 'auto');
         ga('send', 'pageview');
 
-
         // Troubleshooting message (appears after 2.5 seconds, assuming the main script failed)
         setTimeout(function () {
             if (document.getElementById('troubleshoot')) {
@@ -55,6 +54,7 @@
             location.reload();
         };
     </script>
-    <script src="script.js" async></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js"></script>
+    <script async src="script.js"></script>
 </body>
 </html>
