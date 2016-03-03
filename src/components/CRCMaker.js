@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import React from 'react';
+import Clipboard from 'clipboard';
 
 import Card from './Card';
 import Dialog from './Dialog';
