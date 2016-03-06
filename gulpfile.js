@@ -4,17 +4,18 @@
 // Dependencies                                                               //
 ////////////////////////////////////////////////////////////////////////////////
 
-var babelify   = require('babelify'),
-    browserify = require('browserify'),
-    buffer     = require('vinyl-buffer'),
-    del        = require('del'),
-    ghPages    = require('gulp-gh-pages'),
-    gulp       = require('gulp'),
-    htmlmin    = require('gulp-htmlmin'),
-    nano       = require('gulp-cssnano'),
-    sass       = require('gulp-sass'),
-    source     = require('vinyl-source-stream'),
-    uglify     = require('gulp-uglify');
+var babelify    = require('babelify'),
+    browserify  = require('browserify'),
+    browserSync = require('browser-sync').create(),
+    buffer      = require('vinyl-buffer'),
+    del         = require('del'),
+    ghPages     = require('gulp-gh-pages'),
+    gulp        = require('gulp'),
+    htmlmin     = require('gulp-htmlmin'),
+    nano        = require('gulp-cssnano'),
+    sass        = require('gulp-sass'),
+    source      = require('vinyl-source-stream'),
+    uglify      = require('gulp-uglify');
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,6 +81,12 @@ gulp.task('default', ['clean', 'html', 'scss', 'js']);
 
 // Compile files and recompile on changes
 gulp.task('watch', ['default'], function () {
+    browserSync.init({
+        server: {
+            baseDir: './build'
+        }
+    });
+
     gulp.watch(paths.src_html, ['html']);
     gulp.watch(paths.src_scss, ['scss']);
     gulp.watch(paths.src_scripts, ['js']);
