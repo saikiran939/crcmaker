@@ -38,7 +38,7 @@ class CRCMaker extends React.Component {
       formVisible   : false,
 
       // Whether or not the header UI is visible
-      headerVisible : true,
+      controlsVisible : true,
 
       // The generated URL for sharing
       shareLink     : '',
@@ -85,7 +85,7 @@ class CRCMaker extends React.Component {
 
   toggleHeader () {
     this.setState({
-      headerVisible: !this.state.headerVisible
+      controlsVisible: !this.state.controlsVisible
     });
   }
 
@@ -199,7 +199,7 @@ class CRCMaker extends React.Component {
   render () {
     return (
       <div>
-        { this.state.headerVisible &&
+        { this.state.controlsVisible &&
           <header className='header'>
             <h1 className='header__title'>CRC Card Maker</h1>
 
@@ -241,10 +241,10 @@ class CRCMaker extends React.Component {
           </header>
         }
 
-        <button className='btn--small' onClick={this.toggleHeader}>Show/hide header</button>
+        <button className='btn--small' onClick={this.toggleHeader}>Show/hide controls</button>
 
         <main className='cards'>
-          { this.state.cards.length < 1 &&
+          { this.state.cards.length === 0 &&
             <div className='cards__empty'>
               <p>You don't have any cards yet.</p>
               <button onClick={this.toggleNewCardForm}>New card</button>
@@ -255,19 +255,23 @@ class CRCMaker extends React.Component {
             <div key={i} className='card__wrapper'>
               <Card data={card} />
 
-              <button className='btn--small'
-                onClick={this.editCard.bind(this, i)}>Edit card #{i + 1}</button>
-              <button className='btn--small'
-                onClick={this.removeCard.bind(this, i)} title={`Remove card #${i + 1}`}>✕</button>
+              { this.state.controlsVisible &&
+                <div>
+                  <button className='btn--small'
+                    onClick={this.editCard.bind(this, i)}>Edit card #{i + 1}</button>
+                  <button className='btn--small'
+                    onClick={this.removeCard.bind(this, i)} title={`Remove card #${i + 1}`}>✕</button>
 
-              { i !== 0 &&
-                <button className='btn--small'
-                  onClick={this.moveCardUp.bind(this, i)} title='Move card up'>↑</button>
-              }
+                  { i !== 0 &&
+                    <button className='btn--small'
+                      onClick={this.moveCardUp.bind(this, i)} title='Move card up'>↑</button>
+                  }
 
-              { i !== this.state.cards.length - 1 &&
-                <button className='btn--small'
-                  onClick={this.moveCardDown.bind(this, i)} title='Move card down'>↓</button>
+                  { i !== this.state.cards.length - 1 &&
+                    <button className='btn--small'
+                      onClick={this.moveCardDown.bind(this, i)} title='Move card down'>↓</button>
+                  }
+                </div>
               }
             </div>
           ) }
