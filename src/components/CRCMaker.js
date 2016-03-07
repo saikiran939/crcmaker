@@ -5,6 +5,7 @@ import Clipboard from 'clipboard';
 import Card from './Card';
 import Dialog from './Dialog';
 import NewCardForm from './NewCardForm';
+import Toast from './Toast';
 
 /**
  * The "entry point" of the app.
@@ -28,42 +29,50 @@ class CRCMaker extends React.Component {
     // Initial state
     this.state = {
       // Card object + index that's being edited
-      editCard      : null,
-      editIndex     : null,
+      editCard        : null,
+      editIndex       : null,
 
       // Load cards from either localStorage or URL param (defaults to empty array)
-      cards         : cardsData,
+      cards           : cardsData,
 
       // Whether or not the card creation/editor form is visible
-      formVisible   : false,
+      formVisible     : false,
 
       // Whether or not the header UI is visible
       controlsVisible : true,
 
       // The generated URL for sharing
-      shareLink     : '',
+      shareLink       : '',
 
       // Whether or not to show the textbox with the share link
-      shareVisible  : false,
+      shareVisible    : false,
 
       // Export JSON dialog
-      exportVisible : false
+      exportVisible   : false,
+
+      // Show toast message indicating copy action
+      toastVisible    : false,
+
+      // Message to show in toast
+      toastText       : ''
     };
   }
 
   componentDidMount () {
     const clipboard = new Clipboard('.copy');
 
-    // TODO: show messages in UI
-    clipboard.on('success', function(e) {
-      console.info('Action:', e.action);
-      console.info('Text:', e.text);
-      console.info('Trigger:', e.trigger);
+    clipboard.on('success', (e) => {
+      this.setState({
+        toastVisible : true,
+        toastText    : 'Copied to clipboard!'
+      });
     });
 
-    clipboard.on('error', function(e) {
-      console.error('Action:', e.action);
-      console.error('Trigger:', e.trigger);
+    clipboard.on('error', (e) => {
+      this.setState({
+        toastVisible : true,
+        toastText    : 'Copy failed, try copying it manually.'
+      });
     });
   }
 
@@ -197,9 +206,11 @@ class CRCMaker extends React.Component {
   }
 
   render () {
+    const state = this.state;
+
     return (
       <div>
-        { this.state.controlsVisible &&
+        { state.controlsVisible &&
           <header className='header'>
             <h1 className='header__title'>CRC Card Maker</h1>
 
@@ -210,9 +221,9 @@ class CRCMaker extends React.Component {
               <button onClick={this.removeAllCards}>Remove all</button>
 
               <button onClick={this.generateShareLink}>Share link</button>
-              { this.state.shareVisible &&
+              { state.shareVisible &&
                 <Dialog title='Share' onClose={this.onShareClose}>
-                  <input id='text-share' className='dialog__text' type='text' value={this.state.shareLink}
+                  <input id='text-share' className='dialog__text' type='text' value={state.shareLink}
                     onClick={this.onDialogTextClick} readOnly />
 
                   <button className='copy' data-clipboard-target='#text-share'>Copy</button>
@@ -221,9 +232,9 @@ class CRCMaker extends React.Component {
               }
 
               <button onClick={this.toggleExport}>Export</button>
-              { this.state.exportVisible &&
+              { state.exportVisible &&
                 <Dialog title='Export JSON' onClose={this.toggleExport}>
-                  <textarea id='text-export' className='dialog__text' value={JSON.stringify(this.state.cards)}
+                  <textarea id='text-export' className='dialog__text' value={JSON.stringify(state.cards)}
                     onClick={this.onDialogTextClick} readOnly />
 
                   <button className='copy' data-clipboard-target='#text-export'>Copy</button>
@@ -234,9 +245,9 @@ class CRCMaker extends React.Component {
               <button onClick={() => { window.print(); }}>Print</button>
             </div>
 
-            { this.state.formVisible &&
+            { state.formVisible &&
               <NewCardForm onAdd={this.addCard} onCancel={this.cancelAddCard}
-                data={this.state.editCard} />
+                data={state.editCard} />
             }
           </header>
         }
@@ -244,18 +255,18 @@ class CRCMaker extends React.Component {
         <button className='btn--small' onClick={this.toggleHeader}>Show/hide controls</button>
 
         <main className='cards'>
-          { this.state.cards.length === 0 &&
+          { state.cards.length === 0 &&
             <div className='cards__empty'>
               <p>You don't have any cards yet.</p>
               <button onClick={this.toggleNewCardForm}>New card</button>
             </div>
           }
 
-          { this.state.cards.map((card, i) =>
+          { state.cards.map((card, i) =>
             <div key={i} className='card__wrapper'>
               <Card data={card} />
 
-              { this.state.controlsVisible &&
+              { state.controlsVisible &&
                 <div>
                   <button className='btn--small'
                     onClick={this.editCard.bind(this, i)}>Edit card #{i + 1}</button>
@@ -267,7 +278,7 @@ class CRCMaker extends React.Component {
                       onClick={this.moveCardUp.bind(this, i)} title='Move card up'>↑</button>
                   }
 
-                  { i !== this.state.cards.length - 1 &&
+                  { i !== state.cards.length - 1 &&
                     <button className='btn--small'
                       onClick={this.moveCardDown.bind(this, i)} title='Move card down'>↓</button>
                   }
@@ -276,6 +287,8 @@ class CRCMaker extends React.Component {
             </div>
           ) }
         </main>
+
+        <Toast visible={state.toastVisible}>{state.toastText}</Toast>
       </div>
     );
   }
