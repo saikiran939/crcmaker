@@ -1,59 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CRC Maker</title>
+  <title>CRC Maker</title>
 
-    <meta name="description" content="A simple tool for generating CRC cards.">
-    <meta name="keywords" content="CRC,maker,generator">
+  <meta name="description" content="A simple tool for generating CRC cards.">
+  <meta name="keywords" content="CRC,maker,generator">
 
-    <meta property="og:url" content="http://echeung.me/crcmaker">
-    <meta property="og:title" content="CRC Card Maker">
-    <meta property="og:description" content="A simple tool for generating CRC cards.">
-    <meta property="og:type" content="website">
+  <meta property="og:url" content="http://echeung.me/crcmaker">
+  <meta property="og:title" content="CRC Card Maker">
+  <meta property="og:description" content="A simple tool for generating CRC cards.">
+  <meta property="og:type" content="website">
 
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600">
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <span id='forkongithub'><a href='https://github.com/arkon/crcmaker'>Fork me on GitHub</a></span>
+  <span id="forkongithub"><a href="https://github.com/arkon/crcmaker">Fork me on GitHub</a></span>
 
-    <div id="main" class="wrapper">
-        <header class="header">
-            <h1 class="header__title">CRC Card Maker</h1>
-        </header>
+  <div id="main" class="wrapper">
+    <header class="header">
+      <h1 class="header__title">CRC Card Maker</h1>
+    </header>
 
-        <div class="spinner">Loading...</div>
+    <div class="spinner">Loading...</div>
 
-        <div id="troubleshoot" class="hidden">
-            <p>Not loading? <a id="clearstorage">Try clearing the cached storage</a> (saved data will be lost).</p>
-        </div>
+    <div id="troubleshoot" class="hidden">
+      <p>Not loading? <a id="clearstorage">Try clearing the cached storage</a> (saved data will be lost).</p>
     </div>
+  </div>
 
-    <script>
-        // Google Analytics
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script>
+    // Google Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-60198737-2', 'auto');
-        ga('send', 'pageview');
+    ga('create', 'UA-60198737-2', 'auto');
+    ga('send', 'pageview');
 
-        // Troubleshooting message (appears after 2.5 seconds, assuming the main script failed)
-        setTimeout(function () {
-            if (document.getElementById('troubleshoot')) {
-                document.getElementById('troubleshoot').classList.remove('hidden');
-            }
-        }, 2500);
+    // Troubleshooting message (appears after 2.5 seconds, assuming the main script failed)
+    setTimeout(function () {
+      var elTroubleshoot = document.getElementById('troubleshoot');
+      if (elTroubleshoot) {
+        elTroubleshoot.classList.remove('hidden');
+      }
+    }, 2500);
 
-        document.getElementById('clearstorage').onclick = function () {
-            localStorage.clear();
-            location.reload();
-        };
-    </script>
-    <script async src="script.js"></script>
+    document.getElementById('clearstorage').onclick = function () {
+      localStorage.clear();
+      location.reload();
+    };
+  </script>
+  <script async src="script.js"></script>
 </body>
 </html>
