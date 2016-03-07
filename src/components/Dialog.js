@@ -9,6 +9,19 @@ import { findDOMNode } from 'react-dom';
 class Dialog extends React.Component {
   componentDidMount () {
     this.elDialog = findDOMNode(this.refs.dialog);
+
+    document.body.addEventListener('keydown', this.onEsc);
+  }
+
+  componentWillUnmount () {
+    document.body.removeEventListener('keydown', this.onEsc);
+  }
+
+  onEsc (e) {
+    e = e || window.event;
+    if (e.keyCode == 27) {
+      this.props.onClose();
+    }
   }
 
   onOverlayClick (e) {
