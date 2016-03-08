@@ -9,6 +9,7 @@ const babelify  = require('babelify'),
   browserSync = require('browser-sync').create(),
   buffer      = require('vinyl-buffer'),
   del         = require('del'),
+  envify      = require('envify/custom'),
   ghPages     = require('gulp-gh-pages'),
   gulp        = require('gulp'),
   htmlmin     = require('gulp-htmlmin'),
@@ -21,6 +22,10 @@ const babelify  = require('babelify'),
 // ========================================================================== //
 // Paths                                                                      //
 // ========================================================================== //
+
+const config = {
+  development: false
+};
 
 const paths = {
   src_html   : 'src/index.html',
@@ -36,6 +41,12 @@ const paths = {
 // ========================================================================== //
 // Gulp tasks                                                                 //
 // ========================================================================== //
+
+// Set development flag to true for dev mode
+gulp.task('set-development', (cb) => {
+  config.development = true;
+  cb();
+});
 
 // Delete generated files
 gulp.task('clean', (cb) => {
@@ -59,12 +70,16 @@ gulp.task('scss', () => {
   return gulp.src(paths.src_scss)
     .pipe(sass().on('error', sass.logError))
     .pipe(nano())
-      .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(paths.dest));
 });
 
 // Process JS files
 gulp.task('js', () => {
   return browserify(paths.src_js)
+    .transform(envify({
+      NODE_ENV: 'production'
+      // NODE_ENV: config.development ? 'development' : 'production'
+    }))
     .transform(babelify, {
       presets: ['es2015', 'react'],
       plugins: ['transform-decorators-legacy'],
@@ -80,7 +95,7 @@ gulp.task('js', () => {
 gulp.task('default', ['clean', 'html', 'scss', 'js']);
 
 // Compile files and recompile on changes
-gulp.task('watch', ['default'], () => {
+gulp.task('watch', ['set-development', 'default'], () => {
   browserSync.init({
     server: {
       baseDir: './build'
@@ -89,7 +104,7 @@ gulp.task('watch', ['default'], () => {
 
   gulp.watch(paths.src_html, ['html']);
   gulp.watch(paths.src_scss, ['scss']);
-  gulp.watch(paths.src_js_all, ['js']);
+  gulp.watch(paths.src_js_all, ['set-development', 'js']);
 });
 
 // Deploy to GitHub Pages
