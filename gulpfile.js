@@ -9,7 +9,6 @@ const babelify  = require('babelify'),
   browserSync = require('browser-sync').create(),
   buffer      = require('vinyl-buffer'),
   del         = require('del'),
-  envify      = require('envify/custom'),
   ghPages     = require('gulp-gh-pages'),
   gulp        = require('gulp'),
   htmlmin     = require('gulp-htmlmin'),
@@ -42,12 +41,6 @@ const paths = {
 // Gulp tasks                                                                 //
 // ========================================================================== //
 
-// Set development flag to true for dev mode
-gulp.task('set-development', (cb) => {
-  config.development = true;
-  cb();
-});
-
 // Delete generated files
 gulp.task('clean', (cb) => {
   del.sync(paths.dest, { force: true });
@@ -76,10 +69,6 @@ gulp.task('scss', () => {
 // Process JS files
 gulp.task('js', () => {
   return browserify(paths.src_js)
-    .transform(envify({
-      NODE_ENV: 'production'
-      // NODE_ENV: config.development ? 'development' : 'production'
-    }))
     .transform(babelify, {
       presets: ['es2015', 'react'],
       plugins: ['transform-decorators-legacy'],
@@ -95,7 +84,7 @@ gulp.task('js', () => {
 gulp.task('default', ['clean', 'html', 'scss', 'js']);
 
 // Compile files and recompile on changes
-gulp.task('watch', ['set-development', 'default'], () => {
+gulp.task('watch', ['default'], () => {
   browserSync.init({
     server: {
       baseDir: './build'
@@ -104,7 +93,7 @@ gulp.task('watch', ['set-development', 'default'], () => {
 
   gulp.watch(paths.src_html, ['html']);
   gulp.watch(paths.src_scss, ['scss']);
-  gulp.watch(paths.src_js_all, ['set-development', 'js']);
+  gulp.watch(paths.src_js_all, ['js']);
 });
 
 // Deploy to GitHub Pages
