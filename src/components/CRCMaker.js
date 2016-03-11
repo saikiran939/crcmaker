@@ -1,4 +1,4 @@
-import autobind from 'autobind-decorator';
+import { bind } from 'decko';
 import React from 'react';
 import Clipboard from 'clipboard';
 
@@ -11,7 +11,6 @@ import Toast from './Toast';
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
  */
-@autobind
 class CRCMaker extends React.Component {
   constructor (props) {
     super(props);
@@ -86,18 +85,21 @@ class CRCMaker extends React.Component {
     }
   }
 
+  @bind
   toggleNewCardForm () {
     this.setState({
       formVisible: !this.state.formVisible
     });
   }
 
+  @bind
   toggleHeader () {
     this.setState({
       controlsVisible: !this.state.controlsVisible
     });
   }
 
+  @bind
   addCard (data) {
     var cardsData = this.state.cards;
 
@@ -117,6 +119,7 @@ class CRCMaker extends React.Component {
     });
   }
 
+  @bind
   editCard (index) {
     this.setState({
       editCard    : this.state.cards[index],
@@ -125,6 +128,7 @@ class CRCMaker extends React.Component {
     });
   }
 
+  @bind
   cancelAddCard () {
     this.setState({
       editCard    : null,
@@ -133,6 +137,7 @@ class CRCMaker extends React.Component {
     });
   }
 
+  @bind
   removeCard (index) {
     if (confirm(`Remove card #${index + 1}?`)) {
       var cardsData = this.state.cards;
@@ -144,6 +149,7 @@ class CRCMaker extends React.Component {
     }
   }
 
+  @bind
   removeAllCards () {
     if (confirm('Remove all cards?')) {
       this.setState({
@@ -152,6 +158,7 @@ class CRCMaker extends React.Component {
     }
   }
 
+  @bind
   moveCardUp (index) {
     var cardsData = this.state.cards;
 
@@ -165,6 +172,7 @@ class CRCMaker extends React.Component {
     });
   }
 
+  @bind
   moveCardDown (index) {
     var cardsData = this.state.cards;
 
@@ -178,6 +186,7 @@ class CRCMaker extends React.Component {
     });
   }
 
+  @bind
   generateShareLink () {
     var cleanUrl = `${location.protocol}//${location.host}${location.pathname}`,
       encoded  = this.state.cards.length > 0 ? btoa(JSON.stringify(this.state.cards)) : null;
@@ -193,12 +202,14 @@ class CRCMaker extends React.Component {
     e.target.select();
   }
 
+  @bind
   onShareClose () {
     this.setState({
       shareVisible: false
     });
   }
 
+  @bind
   toggleExport () {
     this.setState({
       exportVisible: !this.state.exportVisible

@@ -1,7 +1,6 @@
-import autobind from 'autobind-decorator';
+import { bind } from 'decko';
 import React from 'react';
 
-@autobind
 class Toast extends React.Component {
   static defaultProps = {
     duration: 2500
@@ -31,6 +30,7 @@ class Toast extends React.Component {
     }
   }
 
+  @bind
   timeout () {
     setTimeout(() => {
       this.setState({

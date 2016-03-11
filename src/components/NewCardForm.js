@@ -1,4 +1,4 @@
-import autobind from 'autobind-decorator';
+import { bind } from 'decko';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 
@@ -8,7 +8,6 @@ import Dialog from './Dialog';
 /**
  * The form for creating a new card, or editing an existing one.
  */
-@autobind
 class NewCardForm extends React.Component {
   componentDidMount () {
     this.elName             = findDOMNode(this.refs.name);
@@ -21,6 +20,7 @@ class NewCardForm extends React.Component {
     this.elCollaborators    = findDOMNode(this.refs.collaborators);
   }
 
+  @bind
   add () {
     var type = CardTypes.NORMAL;
     if (this.elTypeAbstract.checked) {
@@ -39,6 +39,7 @@ class NewCardForm extends React.Component {
     });
   }
 
+  @bind
   cancel () {
     this.props.onCancel();
   }
