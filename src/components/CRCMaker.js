@@ -71,7 +71,7 @@ class CRCMaker extends React.Component {
     clipboard.on('error', (e) => {
       this.setState({
         toastVisible : true,
-        toastText    : 'Copy failed, try copying it manually.'
+        toastText    : 'Press Ctrl/⌘+C to copy.'
       });
     });
   }

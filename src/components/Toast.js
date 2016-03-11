@@ -3,6 +3,10 @@ import React from 'react';
 
 @autobind
 class Toast extends React.Component {
+  static defaultProps = {
+    duration: 2500
+  };
+
   constructor (props) {
     super(props);
 
@@ -10,13 +14,29 @@ class Toast extends React.Component {
       visible: props.visible
     };
 
-    // TODO: Handle timeout
+    if (props.visible) {
+      this.timeout();
+    }
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.visible !== this.props.visible) {
-      // TODO: Handle visibility change
+    if (nextProps.visible !== this.state.visible) {
+      this.setState({
+        visible: nextProps.visible
+      });
+
+      if (nextProps.visible) {
+        this.timeout();
+      }
     }
+  }
+
+  timeout () {
+    setTimeout(() => {
+      this.setState({
+        visible: false
+      });
+    }, this.props.duration);
   }
 
   render () {
