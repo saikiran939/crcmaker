@@ -1,34 +1,48 @@
-import autobind from 'autobind-decorator';
+import { bind } from 'decko';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 
 /**
  * A modal dialog window.
  */
-@autobind
 class Dialog extends React.Component {
-    componentDidMount () {
-        this.elDialog = findDOMNode(this.refs.dialog);
-    }
+  componentDidMount () {
+    this.elDialog = findDOMNode(this.refs.dialog);
 
-    onOverlayClick (e) {
-        // Close (i.e. cancel) the dialog if the outer overlay is clicked
-        if (!this.elDialog.contains(e.target)) {
-            this.props.onClose();
-        }
-    }
+    document.body.addEventListener('keydown', this.onEsc);
+  }
 
-    render () {
-        return (
-            <div className='dialog' onClick={this.onOverlayClick}>
-                <div ref='dialog' className='dialog__window'>
-                    <h2 className='dialog__title'>{this.props.title}</h2>
+  componentWillUnmount () {
+    document.body.removeEventListener('keydown', this.onEsc);
+  }
 
-                    {this.props.children}
-                </div>
-            </div>
-        );
+  @bind
+  onEsc (e) {
+    e = e || window.event;
+    if (e.keyCode == 27) {
+      this.props.onClose();
     }
+  }
+
+  @bind
+  onOverlayClick (e) {
+    // Close (i.e. cancel) the dialog if the outer overlay is clicked
+    if (!this.elDialog.contains(e.target)) {
+      this.props.onClose();
+    }
+  }
+
+  render () {
+    return (
+      <div className='dialog' onClick={this.onOverlayClick}>
+        <div ref='dialog' className='dialog__window'>
+          <h2 className='dialog__title'>{this.props.title}</h2>
+
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Dialog;
