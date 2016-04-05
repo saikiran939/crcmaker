@@ -13,7 +13,7 @@ A simple CRC card generator. Check it out live [here](http://echeung.me/crcmaker
 To install the required dependencies, simply run the following commands in the root directory of the project.
 
 ```shell
-$ npm install -g gulp
+$ npm install -g gulp-cli
 $ npm install
 ```
 
