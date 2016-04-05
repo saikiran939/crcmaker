@@ -1,30 +1,20 @@
-'use strict';
-
-// ========================================================================== //
-// Dependencies                                                               //
-// ========================================================================== //
-
-const babelify  = require('babelify'),
-  browserify  = require('browserify'),
-  browserSync = require('browser-sync').create(),
-  buffer      = require('vinyl-buffer'),
-  del         = require('del'),
-  ghPages     = require('gulp-gh-pages'),
-  gulp        = require('gulp'),
-  htmlmin     = require('gulp-htmlmin'),
-  nano        = require('gulp-cssnano'),
-  sass        = require('gulp-sass'),
-  source      = require('vinyl-source-stream'),
-  uglify      = require('gulp-uglify');
+import babelify from 'babelify';
+import browserify from 'browserify';
+import browserSync from 'browser-sync';
+import buffer from 'vinyl-buffer';
+import del from 'del';
+import ghPages from 'gulp-gh-pages';
+import gulp from 'gulp';
+import htmlmin from 'gulp-htmlmin';
+import nano from 'gulp-cssnano';
+import sass from 'gulp-sass';
+import source from 'vinyl-source-stream';
+import uglify from 'gulp-uglify';
 
 
 // ========================================================================== //
-// Paths                                                                      //
+// Configuration                                                              //
 // ========================================================================== //
-
-const config = {
-  development: false
-};
 
 const paths = {
   src_html   : 'src/index.html',
@@ -42,13 +32,11 @@ const paths = {
 // ========================================================================== //
 
 // Delete generated files
-gulp.task('clean', (cb) => {
-  del.sync(paths.dest, { force: true });
-  cb();
-});
+const clean = () => del(paths.dest, { force: true });
+export { clean };
 
 // Process main HTML file
-gulp.task('html', () => {
+export function html () {
   return gulp.src(paths.src_html)
     .pipe(htmlmin({
       removeComments: true,
@@ -56,18 +44,18 @@ gulp.task('html', () => {
       minifyJS: true
     }))
     .pipe(gulp.dest(paths.dest));
-});
+}
 
 // Process SCSS files
-gulp.task('scss', () => {
+export function scss () {
   return gulp.src(paths.src_scss)
     .pipe(sass().on('error', sass.logError))
     .pipe(nano())
     .pipe(gulp.dest(paths.dest));
-});
+}
 
 // Process JS files
-gulp.task('js', () => {
+export function js () {
   return browserify(paths.src_js)
     .transform(babelify, {
       presets: ['es2015', 'react'],
@@ -78,26 +66,32 @@ gulp.task('js', () => {
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(paths.dest));
-});
+}
 
-// Default task: compile files
-gulp.task('default', ['clean', 'html', 'scss', 'js']);
+// Build all files
+const build = gulp.series(clean, html, scss, js);
+export { build };
 
 // Compile files and recompile on changes
-gulp.task('watch', ['default'], () => {
-  browserSync.init({
+const watch = gulp.series(build, () => {
+  browserSync.create().init({
     server: {
       baseDir: './build'
     }
   });
 
-  gulp.watch(paths.src_html, ['html']);
-  gulp.watch(paths.src_scss, ['scss']);
-  gulp.watch(paths.src_js_all, ['js']);
+  gulp.watch(paths.src_html, html);
+  gulp.watch(paths.src_scss, scss);
+  gulp.watch(paths.src_js_all, js);
 });
+export { watch };
 
 // Deploy to GitHub Pages
-gulp.task('deploy', ['default'], () => {
+const deploy = gulp.series(build, () => {
   return gulp.src(paths.dest_files)
     .pipe(ghPages());
 });
+export { deploy };
+
+// Export default task
+export default build;
