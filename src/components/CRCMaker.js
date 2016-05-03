@@ -196,7 +196,7 @@ class CRCMaker extends React.Component {
 
   @bind
   generateShareLink () {
-    var cleanUrl = `${location.protocol}//${location.host}${location.pathname}`,
+    const cleanUrl = `${location.protocol}//${location.host}${location.pathname}`,
       encoded  = this.state.cards.length > 0 ? btoa(JSON.stringify(this.state.cards)) : null;
 
     this.setState({
@@ -254,39 +254,37 @@ class CRCMaker extends React.Component {
 
             <p className='header__info'>Tip: The header/buttons are hidden when printing!</p>
 
-            <div className='header__actions'>
-              <button onClick={this.toggleNewCardForm}>New card</button>
+            { state.cards.length > 0 && (
+              <div className='header__actions'>
+                <button onClick={this.toggleNewCardForm}>New card</button>
 
-              { state.cards.length > 0 && (
-                <span>
-                  <button onClick={this.removeAllCards}>Remove all</button>
+                <button onClick={this.removeAllCards}>Remove all</button>
 
-                  <button onClick={this.generateShareLink}>Share link</button>
-                  { state.shareVisible &&
-                    <Dialog title='Share' onClose={this.onShareClose}>
-                      <input id='text-share' className='dialog__text' type='text' value={state.shareLink}
-                        onClick={this.onDialogTextClick} readOnly />
+                <button onClick={this.generateShareLink}>Share link</button>
+                { state.shareVisible &&
+                  <Dialog title='Share' onClose={this.onShareClose}>
+                    <input id='text-share' className='dialog__text' type='text' value={state.shareLink}
+                      onClick={this.onDialogTextClick} readOnly />
 
-                      <button className='copy' data-clipboard-target='#text-share'>Copy</button>
-                      <button onClick={this.onShareClose}>Close</button>
-                    </Dialog>
-                  }
+                    <button className='copy' data-clipboard-target='#text-share'>Copy</button>
+                    <button onClick={this.onShareClose}>Close</button>
+                  </Dialog>
+                }
 
-                  <button onClick={this.toggleExport}>Export</button>
-                  { state.exportVisible &&
-                    <Dialog title='Export JSON' onClose={this.toggleExport}>
-                      <pre id='text-export' className='syntax'
-                        dangerouslySetInnerHTML={{__html: this.syntaxHighlight(state.cards)}} />
+                <button onClick={this.toggleExport}>Export</button>
+                { state.exportVisible &&
+                  <Dialog title='Export JSON' onClose={this.toggleExport}>
+                    <pre id='text-export' className='syntax'
+                      dangerouslySetInnerHTML={{__html: this.syntaxHighlight(state.cards)}} />
 
-                      <button className='copy' data-clipboard-target='#text-export'>Copy</button>
-                      <button onClick={this.toggleExport}>Close</button>
-                    </Dialog>
-                  }
+                    <button className='copy' data-clipboard-target='#text-export'>Copy</button>
+                    <button onClick={this.toggleExport}>Close</button>
+                  </Dialog>
+                }
 
-                  <button onClick={() => { window.print(); }}>Print</button>
-                </span>
-              ) }
-            </div>
+                <button onClick={() => { window.print(); }}>Print</button>
+              </div>
+            ) }
 
             { state.formVisible &&
               <NewCardForm onAdd={this.addCard} onCancel={this.cancelAddCard}
