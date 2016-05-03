@@ -61,17 +61,11 @@ class CRCMaker extends React.Component {
     const clipboard = new Clipboard('.copy');
 
     clipboard.on('success', (e) => {
-      this.setState({
-        toastVisible : true,
-        toastText    : 'Copied to clipboard!'
-      });
+      this.displayToast('Copied to clipboard!');
     });
 
     clipboard.on('error', (e) => {
-      this.setState({
-        toastVisible : true,
-        toastText    : 'Press Ctrl/⌘+C to copy.'
-      });
+      this.displayToast('Press Ctrl/⌘+C to copy.');
     });
   }
 
@@ -83,6 +77,20 @@ class CRCMaker extends React.Component {
       // Clear localStorage if there's no cards
       localStorage.clear();
     }
+  }
+
+  @bind
+  displayToast (text, duration = 2500) {
+      this.setState({
+        toastVisible : true,
+        toastText    : text
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            toastVisible: false
+          });
+        }, duration);
+      });
   }
 
   @bind
@@ -248,31 +256,36 @@ class CRCMaker extends React.Component {
 
             <div className='header__actions'>
               <button onClick={this.toggleNewCardForm}>New card</button>
-              <button onClick={this.removeAllCards}>Remove all</button>
 
-              <button onClick={this.generateShareLink}>Share link</button>
-              { state.shareVisible &&
-                <Dialog title='Share' onClose={this.onShareClose}>
-                  <input id='text-share' className='dialog__text' type='text' value={state.shareLink}
-                    onClick={this.onDialogTextClick} readOnly />
+              { state.cards.length > 0 && (
+                <span>
+                  <button onClick={this.removeAllCards}>Remove all</button>
 
-                  <button className='copy' data-clipboard-target='#text-share'>Copy</button>
-                  <button onClick={this.onShareClose}>Close</button>
-                </Dialog>
-              }
+                  <button onClick={this.generateShareLink}>Share link</button>
+                  { state.shareVisible &&
+                    <Dialog title='Share' onClose={this.onShareClose}>
+                      <input id='text-share' className='dialog__text' type='text' value={state.shareLink}
+                        onClick={this.onDialogTextClick} readOnly />
 
-              <button onClick={this.toggleExport}>Export</button>
-              { state.exportVisible &&
-                <Dialog title='Export JSON' onClose={this.toggleExport}>
-                  <pre id='text-export' className='syntax'
-                    dangerouslySetInnerHTML={{__html: this.syntaxHighlight(state.cards)}} />
+                      <button className='copy' data-clipboard-target='#text-share'>Copy</button>
+                      <button onClick={this.onShareClose}>Close</button>
+                    </Dialog>
+                  }
 
-                  <button className='copy' data-clipboard-target='#text-export'>Copy</button>
-                  <button onClick={this.toggleExport}>Close</button>
-                </Dialog>
-              }
+                  <button onClick={this.toggleExport}>Export</button>
+                  { state.exportVisible &&
+                    <Dialog title='Export JSON' onClose={this.toggleExport}>
+                      <pre id='text-export' className='syntax'
+                        dangerouslySetInnerHTML={{__html: this.syntaxHighlight(state.cards)}} />
 
-              <button onClick={() => { window.print(); }}>Print</button>
+                      <button className='copy' data-clipboard-target='#text-export'>Copy</button>
+                      <button onClick={this.toggleExport}>Close</button>
+                    </Dialog>
+                  }
+
+                  <button onClick={() => { window.print(); }}>Print</button>
+                </span>
+              ) }
             </div>
 
             { state.formVisible &&
