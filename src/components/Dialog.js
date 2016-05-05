@@ -27,8 +27,10 @@ class Dialog extends React.Component {
   @bind
   onOverlayClick (e) {
     // Close (i.e. cancel) the dialog if the outer overlay is clicked
-    if (!this.elDialog.contains(e.target)) {
-      this.props.onClose();
+    if (!this.elDialog.contains(e.target) &&
+      confirm("Are you sure you want to exit the editor " +
+        "and lose all progress on your current CRC card?")) {
+        this.props.onClose();
     }
   }
 
