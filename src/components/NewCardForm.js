@@ -41,14 +41,16 @@ class NewCardForm extends React.Component {
 
   @bind
   cancel () {
-    this.props.onCancel();
+    if (window.confirm('Are you sure you want to close the editor? You will lose any progress.')) {
+      this.props.onCancel();
+    }
   }
 
   render () {
     const data = this.props.data;
 
     return (
-      <Dialog title='New card' onClose={this.props.onCancel}>
+      <Dialog title='New card' onClose={this.cancel}>
         <label>Class name:</label>
         <input ref='name' type='text' defaultValue={data ? data.name : ''} />
 
