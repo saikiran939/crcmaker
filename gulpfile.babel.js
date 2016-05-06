@@ -86,8 +86,13 @@ const watch = gulp.series(build, () => {
 });
 export { watch };
 
+export function prod (done) {
+  process.env.NODE_ENV = 'production';
+  done();
+}
+
 // Deploy to GitHub Pages
-const deploy = gulp.series(build, () => {
+const deploy = gulp.series(prod, build, () => {
   return gulp.src(paths.dest_files)
     .pipe(ghPages());
 });

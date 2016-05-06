@@ -9,10 +9,6 @@
   },
   "license": "MIT",
   "private": true,
-  "scripts": {
-    "deploy": "NODE_ENV=production gulp deploy",
-    "deploy-windows": "set NODE_ENV=production&&gulp deploy"
-  },
   "dependencies": {
     "clipboard": "^1.5.10",
     "decko": "^1.1.3",
