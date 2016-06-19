@@ -243,6 +243,20 @@ class CRCMaker extends React.Component {
     });
   }
 
+  generatePDF () {
+    window.scrollTo(0, 0);
+    var cards = document.getElementById('cards');
+
+    html2canvas(cards).then((canvas) => {
+      console.log(canvas);
+      var img = canvas.toDataUrl('image/png');
+
+      var doc = new jsPDF();
+      doc.addImage(img, 'JPEG', 20, 20);
+      doc.save('test_img.pdf');
+    });
+  }
+
   render () {
     const state = this.state;
 
@@ -283,6 +297,8 @@ class CRCMaker extends React.Component {
                 }
 
                 <button onClick={() => { window.print(); }}>Print</button>
+
+                <button onClick={this.generatePDF}>PDF</button>
               </div>
             ) }
 
@@ -295,7 +311,7 @@ class CRCMaker extends React.Component {
 
         <button className='btn--small' onClick={this.toggleHeader}>Show/hide controls</button>
 
-        <main className='cards'>
+        <main className='cards' id='cards'>
           { state.cards.length === 0 &&
             <div className='cards__empty'>
               <p>You don't have any cards yet.</p>
