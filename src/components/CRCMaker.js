@@ -243,19 +243,19 @@ class CRCMaker extends React.Component {
     });
   }
 
-  generatePDF () {
-    window.scrollTo(0, 0);
-    var cards = document.getElementById('cards');
+  // generatePDF () {
+  //   window.scrollTo(0, 0);
+  //   var cards = document.getElementById('cards');
 
-    html2canvas(cards).then((canvas) => {
-      console.log(canvas);
-      var img = canvas.toDataUrl('image/png');
+  //   html2canvas(cards).then((canvas) => {
+  //     console.log(canvas);
+  //     var img = canvas.toDataUrl('image/png');
 
-      var doc = new jsPDF();
-      doc.addImage(img, 'JPEG', 20, 20);
-      doc.save('test_img.pdf');
-    });
-  }
+  //     var doc = new jsPDF();
+  //     doc.addImage(img, 'JPEG', 20, 20);
+  //     doc.save('test_img.pdf');
+  //   });
+  // }
 
   render () {
     const state = this.state;
@@ -297,8 +297,6 @@ class CRCMaker extends React.Component {
                 }
 
                 <button onClick={() => { window.print(); }}>Print</button>
-
-                <button onClick={this.generatePDF}>PDF</button>
               </div>
             ) }
 

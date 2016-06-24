@@ -16,7 +16,7 @@ import uglify from 'gulp-uglify';
 // Configuration                                                              //
 // ========================================================================== //
 
-const paths = {
+const PATHS = {
   src_html   : 'src/index.html',
   src_js     : 'src/script.js',
   src_js_all : 'src/**/*.js',
@@ -32,31 +32,30 @@ const paths = {
 // ========================================================================== //
 
 // Delete generated files
-const clean = () => del(paths.dest, { force: true });
-export { clean };
+export const clean = () => del(PATHS.dest, { force: true });
 
 // Process main HTML file
 export function html () {
-  return gulp.src(paths.src_html)
+  return gulp.src(PATHS.src_html)
     .pipe(htmlmin({
       removeComments: true,
       collapseWhitespace: true,
       minifyJS: true
     }))
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(PATHS.dest));
 }
 
 // Process SCSS files
 export function scss () {
-  return gulp.src(paths.src_scss)
+  return gulp.src(PATHS.src_scss)
     .pipe(sass().on('error', sass.logError))
     .pipe(nano())
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(PATHS.dest));
 }
 
 // Process JS files
 export function js () {
-  return browserify(paths.src_js)
+  return browserify(PATHS.src_js)
     .transform(babelify, {
       presets: ['es2015', 'react'],
       plugins: ['transform-class-properties', 'transform-decorators-legacy']
@@ -65,26 +64,24 @@ export function js () {
     .pipe(source('script.js'))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(PATHS.dest));
 }
 
 // Build all files
-const build = gulp.series(clean, html, scss, js);
-export { build };
+export const build = gulp.series(clean, html, scss, js);
 
 // Compile files and recompile on changes
-const watch = gulp.series(build, () => {
+export const watch = gulp.series(build, () => {
   browserSync.create().init({
     server: {
       baseDir: './build'
     }
   });
 
-  gulp.watch(paths.src_html, html);
-  gulp.watch(paths.src_scss, scss);
-  gulp.watch(paths.src_js_all, js);
+  gulp.watch(PATHS.src_html, html);
+  gulp.watch(PATHS.src_scss, scss);
+  gulp.watch(PATHS.src_js_all, js);
 });
-export { watch };
 
 export function prod (done) {
   process.env.NODE_ENV = 'production';
@@ -92,11 +89,10 @@ export function prod (done) {
 }
 
 // Deploy to GitHub Pages
-const deploy = gulp.series(prod, build, () => {
-  return gulp.src(paths.dest_files)
+export const deploy = gulp.series(prod, build, () => {
+  return gulp.src(PATHS.dest_files)
     .pipe(ghPages());
 });
-export { deploy };
 
 // Export default task
 export default build;

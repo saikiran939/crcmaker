@@ -81,10 +81,10 @@ class NewCardForm extends React.Component {
         </label>
 
         <label>Responsibilities (1 per line):</label>
-        <textarea ref='responsibilities' defaultValue={data ? data.responsibilities : ''} />
+        <textarea ref='responsibilities' defaultValue={data ? data.responsibilities.join('\n') : ''} />
 
         <label>Collaborators (1 per line):</label>
-        <textarea ref='collaborators' defaultValue={data ? data.collaborators : ''} />
+        <textarea ref='collaborators' defaultValue={data ? data.collaborators.join('\n') : ''} />
 
         <div className='new-card__actions'>
           <button onClick={this.add}>Save card</button>
