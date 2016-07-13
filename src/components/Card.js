@@ -5,10 +5,8 @@ import CardTypes from '../constants/CardTypes';
 /**
  * Renders a single card with the passed in data.
  */
-const Card = (props) => {
-  const data = props.data;
-
-  var type = '';
+const Card = ({ data }) => {
+  let type = '';
   if (data.type == CardTypes.ABSTRACT) {
     type = 'Abstract';
   } else if (data.type == CardTypes.INTERFACE) {

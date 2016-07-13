@@ -1,11 +1,17 @@
-import { bind } from 'decko';
-import React from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 /**
  * A modal dialog window.
  */
-class Dialog extends React.Component {
+class Dialog extends Component {
+  constructor (props) {
+    super(props);
+
+    this.onEsc = this.onEsc.bind(this);
+    this.onOverlayClick = this.onOverlayClick.bind(this);
+  }
+
   componentDidMount () {
     this.elDialog = findDOMNode(this.refs.dialog);
 
@@ -16,7 +22,6 @@ class Dialog extends React.Component {
     document.body.removeEventListener('keydown', this.onEsc);
   }
 
-  @bind
   onEsc (e) {
     e = e || window.event;
     if (e.keyCode == 27) {
@@ -24,7 +29,6 @@ class Dialog extends React.Component {
     }
   }
 
-  @bind
   onOverlayClick (e) {
     // Close (i.e. cancel) the dialog if the outer overlay is clicked
     if (!this.elDialog.contains(e.target)) {

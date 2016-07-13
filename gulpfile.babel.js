@@ -58,7 +58,7 @@ export function js () {
   return browserify(PATHS.src_js)
     .transform(babelify, {
       presets: ['es2015', 'react'],
-      plugins: ['transform-class-properties', 'transform-decorators-legacy']
+      plugins: ['transform-class-properties']
     })
     .bundle()
     .pipe(source('script.js'))

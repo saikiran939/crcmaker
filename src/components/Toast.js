@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Toast = (props) => {
-  return props.visible ?
-    <div className='toast'>{props.children}</div> :
+const Toast = ({ visible, children }) => {
+  return visible ?
+    <div className='toast'>{children}</div> :
     null;
 };
 

@@ -1,5 +1,4 @@
-import { bind } from 'decko';
-import React from 'react';
+import React, { Component } from 'react';
 import Clipboard from 'clipboard';
 
 import Card from './Card';
@@ -11,7 +10,7 @@ import Toast from './Toast';
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
  */
-class CRCMaker extends React.Component {
+class CRCMaker extends Component {
   constructor (props) {
     super(props);
 
@@ -55,6 +54,20 @@ class CRCMaker extends React.Component {
       // Message to show in toast
       toastText       : ''
     };
+
+    this.displayToast = this.displayToast.bind(this);
+    this.toggleNewCardForm = this.toggleNewCardForm.bind(this);
+    this.toggleHeader = this.toggleHeader.bind(this);
+    this.addCard = this.addCard.bind(this);
+    this.editCard = this.editCard.bind(this);
+    this.cancelAddCard = this.cancelAddCard.bind(this);
+    this.removeCard = this.removeCard.bind(this);
+    this.removeAllCards = this.removeAllCards.bind(this);
+    this.moveCardUp = this.moveCardUp.bind(this);
+    this.moveCardDown = this.moveCardDown.bind(this);
+    this.generateShareLink = this.generateShareLink.bind(this);
+    this.onShareClose = this.onShareClose.bind(this);
+    this.toggleExport = this.toggleExport.bind(this);
   }
 
   componentDidMount () {
@@ -79,35 +92,31 @@ class CRCMaker extends React.Component {
     }
   }
 
-  @bind
   displayToast (text, duration = 2500) {
-      this.setState({
-        toastVisible : true,
-        toastText    : text
-      }, () => {
-        setTimeout(() => {
-          this.setState({
-            toastVisible: false
-          });
-        }, duration);
-      });
+    this.setState({
+      toastVisible : true,
+      toastText    : text
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          toastVisible: false
+        });
+      }, duration);
+    });
   }
 
-  @bind
   toggleNewCardForm () {
     this.setState({
       formVisible: !this.state.formVisible
     });
   }
 
-  @bind
   toggleHeader () {
     this.setState({
       controlsVisible: !this.state.controlsVisible
     });
   }
 
-  @bind
   addCard (data) {
     var cardsData = this.state.cards;
 
@@ -127,7 +136,6 @@ class CRCMaker extends React.Component {
     });
   }
 
-  @bind
   editCard (index) {
     this.setState({
       editCard    : this.state.cards[index],
@@ -136,7 +144,6 @@ class CRCMaker extends React.Component {
     });
   }
 
-  @bind
   cancelAddCard () {
     this.setState({
       editCard    : null,
@@ -145,7 +152,6 @@ class CRCMaker extends React.Component {
     });
   }
 
-  @bind
   removeCard (index) {
     if (confirm(`Remove card #${index + 1}?`)) {
       var cardsData = this.state.cards;
@@ -157,7 +163,6 @@ class CRCMaker extends React.Component {
     }
   }
 
-  @bind
   removeAllCards () {
     if (confirm('Remove all cards?')) {
       this.setState({
@@ -166,7 +171,6 @@ class CRCMaker extends React.Component {
     }
   }
 
-  @bind
   moveCardUp (index) {
     var cardsData = this.state.cards;
 
@@ -180,7 +184,6 @@ class CRCMaker extends React.Component {
     });
   }
 
-  @bind
   moveCardDown (index) {
     var cardsData = this.state.cards;
 
@@ -194,7 +197,6 @@ class CRCMaker extends React.Component {
     });
   }
 
-  @bind
   generateShareLink () {
     const cleanUrl = `${location.protocol}//${location.host}${location.pathname}`,
       encoded  = this.state.cards.length > 0 ? btoa(JSON.stringify(this.state.cards)) : null;
@@ -210,14 +212,12 @@ class CRCMaker extends React.Component {
     e.target.select();
   }
 
-  @bind
   onShareClose () {
     this.setState({
       shareVisible: false
     });
   }
 
-  @bind
   toggleExport () {
     this.setState({
       exportVisible: !this.state.exportVisible

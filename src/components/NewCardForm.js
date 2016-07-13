@@ -1,5 +1,4 @@
-import { bind } from 'decko';
-import React from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 import CardTypes from '../constants/CardTypes';
@@ -8,7 +7,14 @@ import Dialog from './Dialog';
 /**
  * The form for creating a new card, or editing an existing one.
  */
-class NewCardForm extends React.Component {
+class NewCardForm extends Component {
+  constructor (props) {
+    super(props);
+
+    this.add = this.add.bind(this);
+    this.cancel = this.cancel.bind(this);
+  }
+
   componentDidMount () {
     this.elName             = findDOMNode(this.refs.name);
     this.elSuper            = findDOMNode(this.refs.superclasses);
@@ -20,7 +26,6 @@ class NewCardForm extends React.Component {
     this.elCollaborators    = findDOMNode(this.refs.collaborators);
   }
 
-  @bind
   add () {
     var type = CardTypes.NORMAL;
     if (this.elTypeAbstract.checked) {
@@ -39,7 +44,6 @@ class NewCardForm extends React.Component {
     });
   }
 
-  @bind
   cancel () {
     if (window.confirm('Are you sure you want to close the editor? You will lose any progress.')) {
       this.props.onCancel();
