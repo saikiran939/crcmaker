@@ -4,7 +4,7 @@ import { findDOMNode } from 'react-dom';
 /**
  * A modal dialog window.
  */
-class Dialog extends Component {
+export default class Dialog extends Component {
   constructor (props) {
     super(props);
 
@@ -48,5 +48,3 @@ class Dialog extends Component {
     );
   }
 }
-
-export default Dialog;

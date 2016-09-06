@@ -7,7 +7,7 @@ import Dialog from './Dialog';
 /**
  * The form for creating a new card, or editing an existing one.
  */
-class NewCardForm extends Component {
+export default class NewCardForm extends Component {
   constructor (props) {
     super(props);
 
@@ -98,5 +98,3 @@ class NewCardForm extends Component {
     );
   }
 }
-
-export default NewCardForm;

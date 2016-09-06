@@ -10,7 +10,7 @@ import Toast from './Toast';
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
  */
-class CRCMaker extends Component {
+export default class CRCMaker extends Component {
   constructor (props) {
     super(props);
 
@@ -348,5 +348,3 @@ class CRCMaker extends Component {
     );
   }
 }
-
-export default CRCMaker;
