@@ -13,6 +13,7 @@ export default class NewCardForm extends Component {
 
     this.add = this.add.bind(this);
     this.cancel = this.cancel.bind(this);
+    this._checkForm = this._checkForm.bind(this);
   }
 
   componentDidMount () {
@@ -45,9 +46,19 @@ export default class NewCardForm extends Component {
   }
 
   cancel () {
-    if (window.confirm('Are you sure you want to close the editor? You will lose any progress.')) {
+    const hasChanges = this._checkForm();
+
+    if (!hasChanges || (hasChanges && window.confirm('Are you sure you want to close the editor? You will lose any progress.'))) {
       this.props.onCancel();
     }
+  }
+
+  _checkForm () {
+      return this.elName.value ||
+        this.elSuper.value ||
+        this.elSub.value ||
+        this.elResponsibilities.value ||
+        this.elCollaborators.value;
   }
 
   render () {
