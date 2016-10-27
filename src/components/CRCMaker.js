@@ -7,6 +7,7 @@ import NewCardForm from './NewCardForm';
 import Toast from './Toast';
 
 import createPDF from '../modules/pdf';
+import syntaxHighlight from '../modules/syntax';
 
 /**
  * The "entry point" of the app.
@@ -226,25 +227,6 @@ export default class CRCMaker extends Component {
     });
   }
 
-  // http://stackoverflow.com/a/7220510
-  syntaxHighlight (json) {
-    if (typeof json !== 'string') {
-      json = JSON.stringify(json, undefined, 2);
-    }
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
-      let cls = 'number';
-      if (/^"/.test(match)) {
-        cls = /:$/.test(match) ? 'key' : 'string';
-      } else if (/true|false/.test(match)) {
-        cls = 'boolean';
-      } else if (/null/.test(match)) {
-        cls = 'null';
-      }
-      return `<span class="${cls}">${match}</span>`;
-    });
-  }
-
   render () {
     const state = this.state;
 
@@ -278,7 +260,7 @@ export default class CRCMaker extends Component {
                 { state.exportVisible &&
                   <Dialog title='Export JSON' onClose={this.toggleExport}>
                     <pre id='text-export' className='syntax'
-                      dangerouslySetInnerHTML={{__html: this.syntaxHighlight(state.cards)}} />
+                      dangerouslySetInnerHTML={{__html: syntaxHighlight(state.cards)}} />
 
                     <button className='copy' data-clipboard-target='#text-export'>Copy</button>
                     <button onClick={this.toggleExport}>Close</button>
