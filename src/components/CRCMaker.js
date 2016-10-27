@@ -6,6 +6,8 @@ import Dialog from './Dialog';
 import NewCardForm from './NewCardForm';
 import Toast from './Toast';
 
+import createPDF from '../modules/pdf';
+
 /**
  * The "entry point" of the app.
  * This class maintains the main state, including the cards themselves.
@@ -243,20 +245,6 @@ export default class CRCMaker extends Component {
     });
   }
 
-  // generatePDF () {
-  //   window.scrollTo(0, 0);
-  //   var cards = document.getElementById('cards');
-
-  //   html2canvas(cards).then((canvas) => {
-  //     console.log(canvas);
-  //     var img = canvas.toDataUrl('image/png');
-
-  //     var doc = new jsPDF();
-  //     doc.addImage(img, 'JPEG', 20, 20);
-  //     doc.save('test_img.pdf');
-  //   });
-  // }
-
   render () {
     const state = this.state;
 
@@ -286,6 +274,7 @@ export default class CRCMaker extends Component {
                 }
 
                 <button onClick={this.toggleExport}>Export</button>
+                <button onClick={() => createPDF(this.state.cards)}>Download PDF (beta)</button>
                 { state.exportVisible &&
                   <Dialog title='Export JSON' onClose={this.toggleExport}>
                     <pre id='text-export' className='syntax'
