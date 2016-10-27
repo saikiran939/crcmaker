@@ -6,3 +6,4 @@ dist/
 cert.pem
 key.pem
 yarn.lock
+.DS_Store
