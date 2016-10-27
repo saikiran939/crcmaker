@@ -1,5 +1,8 @@
 .publish/
-build/
 etc/
 node_modules/
 npm-debug.log
+dist/
+cert.pem
+key.pem
+yarn.lock
