@@ -1,12 +1,12 @@
 # CRC Maker
 
-A simple CRC card generator. Check it out live [here](http://echeung.me/crcmaker/).
+A simple CRC card generator. Check it out live [here](https://echeung.me/crcmaker/).
 
 
 ## Development
 
 ### Prerequisites
-- [Node.js v4+](https://nodejs.org/)
+- [Node.js v6+](https://nodejs.org/)
 
 ### Dependencies
 
@@ -30,4 +30,4 @@ If you want to launch a development server and automatically recompile on file c
 $ npm run dev
 ```
 
-This will automatically open up <http://localhost:3000/> in your default browser.
+You can then load up <http://localhost:3000/> in browser.

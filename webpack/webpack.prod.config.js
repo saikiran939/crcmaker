@@ -7,25 +7,26 @@ const OfflinePlugin = require('offline-plugin');
 module.exports = require('./webpack.base.config.js')({
   output: {
     filename: 'app.[hash].js',
-    path: path.resolve(process.cwd(), 'dist'),
+    path: path.resolve(process.cwd(), 'dist')
   },
   babelQuery: {
     presets: ['es2015', 'react'],
+    plugins: ['transform-class-properties']
   },
   sassLoader: ExtractTextPlugin.extract({
-    fallbackLoader: 'style-loader',
-    loader: 'css!sass',
+    fallbackLoader: 'style',
+    loader: 'css!sass'
   }),
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false, // ...but do not show warnings in the console (there is a lot of them)
-      },
+        warnings: false
+      }
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+        NODE_ENV: 'production'
+      }
     }),
     new ExtractTextPlugin('style.[hash].css'),
     new HtmlWebpackPlugin({
@@ -40,15 +41,15 @@ module.exports = require('./webpack.base.config.js')({
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true,
+        minifyURLs: true
       },
-      inject: true,
+      inject: true
     }),
     new OfflinePlugin({
       publicPath: '/',
       relativePaths: false,
       safeToUseOptionalCaches: true,
-      AppCache: false,
-    }),
-  ],
+      AppCache: false
+    })
+  ]
 });
