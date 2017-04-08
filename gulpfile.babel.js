@@ -70,6 +70,9 @@ export function js () {
 // Build all files
 export const build = gulp.series(clean, html, scss, js);
 
+// Build all files in prod mode
+export const build_prod = gulp.series(prod, clean, html, scss, js);
+
 // Compile files and recompile on changes
 export const watch = gulp.series(build, () => {
   browserSync.create().init({
@@ -89,10 +92,7 @@ export function prod (done) {
 }
 
 // Deploy to GitHub Pages
-export const deploy = gulp.series(prod, build, () => {
-  return gulp.src(PATHS.dest_files)
-    .pipe(ghPages());
-});
+export const deploy = gulp.series(build_prod, () => gulp.src(PATHS.dest_files).pipe(ghPages()));
 
 // Export default task
 export default build;
