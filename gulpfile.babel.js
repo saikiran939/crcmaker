@@ -57,7 +57,7 @@ export function scss () {
 export function js () {
   return browserify(PATHS.src_js)
     .transform(babelify, {
-      presets: ['es2015', 'react'],
+      presets: ['env', 'react'],
       plugins: ['transform-class-properties']
     })
     .bundle()
