@@ -1,9 +1,11 @@
-.publish/
-etc/
+# Node
 node_modules/
 npm-debug.log
-dist/
-cert.pem
-key.pem
 yarn.lock
+
+# Built files
+.publish/
+dist/
+
+# OS
 .DS_Store

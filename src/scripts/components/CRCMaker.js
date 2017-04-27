@@ -6,7 +6,6 @@ import Dialog from './Dialog';
 import NewCardForm from './NewCardForm';
 import Toast from './Toast';
 
-import createPDF from '../modules/pdf';
 import syntaxHighlight from '../modules/syntax';
 
 /**
@@ -256,7 +255,6 @@ export default class CRCMaker extends Component {
                 }
 
                 <button onClick={this.toggleExport}>Export</button>
-                <button onClick={() => createPDF(this.state.cards)}>Download PDF (beta)</button>
                 { state.exportVisible &&
                   <Dialog title='Export JSON' onClose={this.toggleExport}>
                     <pre id='text-export' className='syntax'
