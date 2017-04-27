@@ -15,7 +15,8 @@
   "scripts": {
     "dev": "node ./webpack/webpack.server.js",
     "build": "rimraf ./dist && webpack -p --config ./webpack/webpack.prod.js",
-    "preview": "http-server -p 3001 ./dist -c-1 -o"
+    "preview": "http-server -p 3001 ./dist -c-1 -o",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "clipboard": "^1.6.1",
@@ -33,6 +34,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "2.1.0",
+    "gh-pages": "^0.12.0",
     "html-webpack-plugin": "^2.28.0",
     "http-server": "^0.9.0",
     "node-sass": "^4.5.2",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { install } from 'offline-plugin/runtime';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 
 import CRCMaker from './components/CRCMaker';
 
@@ -9,4 +9,4 @@ import '../styles/styles.scss';
 render(<CRCMaker />, document.getElementById('main'));
 
 // Install the service worker after everything instantiates correctly
-install();
+OfflinePluginRuntime.install();

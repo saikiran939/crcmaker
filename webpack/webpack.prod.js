@@ -17,15 +17,15 @@ module.exports = merge(commonConfig, {
 
     new webpack.optimize.UglifyJsPlugin(),
 
+    new CopyWebpackPlugin([{
+      from: helpers.root('src/public')
+    }]),
+
     new OfflinePlugin({
-      publicPath: '/',
+      publicPath: '/crcmaker/',
       relativePaths: false,
       safeToUseOptionalCaches: true,
       AppCache: false
-    }),
-
-    new CopyWebpackPlugin([{
-      from: helpers.root('src/public')
-    }])
+    })
   ]
 });
