@@ -50,6 +50,9 @@ export default class CRCMaker extends Component {
       // Export JSON dialog
       exportVisible   : false,
 
+      //Import JSON dialog
+      importVisible   : false,
+
       // Show toast message indicating copy action
       toastVisible    : false,
 
@@ -70,6 +73,8 @@ export default class CRCMaker extends Component {
     this.generateShareLink = this.generateShareLink.bind(this);
     this.onShareClose = this.onShareClose.bind(this);
     this.toggleExport = this.toggleExport.bind(this);
+    this.toggleImport = this.toggleImport.bind(this);
+    this.importCards = this.importCards.bind(this);
   }
 
   componentDidMount () {
@@ -226,6 +231,37 @@ export default class CRCMaker extends Component {
     });
   }
 
+  toggleImport () {
+    this.setState({
+      importVisible: !this.state.importVisible
+    });
+  }
+
+ importCards(){
+
+   if(!this.state.importVisible || !this.state.importedJSON){
+     return null;
+   }
+
+   let cardsData;
+   try{
+     cardsData = JSON.parse(this.state.importedJSON);
+   }catch(e){
+     cardsData = [];
+   }
+
+   this.setState({
+     cards: [...this.state.cards, ...cardsData],
+     importVisible: !this.state.importVisible
+   });
+ }
+
+  handleChange(e){
+    const json = e.target.value;
+    console.log(json);
+    this.setState({importedJSON: json})
+  }
+
   render () {
     const state = this.state;
 
@@ -253,6 +289,16 @@ export default class CRCMaker extends Component {
                     <button onClick={this.onShareClose}>Close</button>
                   </Dialog>
                 }
+                <button onClick={this.toggleImport}>Import</button>
+                { state.importVisible &&
+                    <Dialog title='Import JSON' onClose={this.toggleImport}>
+                      <textarea id='text-import' className='syntax' value={state.importedJSON}
+                      onChange={(e) => this.handleChange(e)}/>
+
+                      <button className='save' onClick={this.importCards}>Save</button>
+                      <button onClick={this.toggleImport}>Close</button>
+                    </Dialog>
+                }
 
                 <button onClick={this.toggleExport}>Export</button>
                 { state.exportVisible &&
@@ -277,7 +323,6 @@ export default class CRCMaker extends Component {
         }
 
         <button className='btn--small' onClick={this.toggleHeader}>Show/hide controls</button>
-
         <main className='cards' id='cards'>
           { state.cards.length === 0 &&
             <div className='cards__empty'>
