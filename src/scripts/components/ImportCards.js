@@ -41,9 +41,8 @@ export default class ImportCards extends Component {
   render () {
     return (
       <Dialog title='Import JSON' onClose={this.close}>
-        <textarea id='text-import' className='syntax' ref='importCardsJSON'/>
-
-        <button className='save' onClick={this.save}>Save</button>
+        <div contentEditable='true' id='text-import' className='syntax expandable-textarea' ref='importCardsJSON' />
+        <button className='copy' onClick={this.save}>Save</button>
         <button onClick={this.close}>Close</button>
       </Dialog>
     );

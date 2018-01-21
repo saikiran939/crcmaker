@@ -309,7 +309,9 @@ export default class CRCMaker extends Component {
         }
 
         { state.importVisible &&
+          <div className='header__actions'>
             <ImportCards onClose={this.toggleImport} onSave={this.importCards}/>
+          </div>
         }
 
         <main className='cards' id='cards'>
