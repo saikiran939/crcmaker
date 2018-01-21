@@ -5,7 +5,7 @@ import Card from './Card';
 import Dialog from './Dialog';
 import NewCardForm from './NewCardForm';
 import Toast from './Toast';
-
+import ImportCards from './ImportCards';
 import syntaxHighlight from '../modules/syntax';
 
 /**
@@ -50,6 +50,9 @@ export default class CRCMaker extends Component {
       // Export JSON dialog
       exportVisible   : false,
 
+      //Import JSON dialog
+      importVisible   : false,
+
       // Show toast message indicating copy action
       toastVisible    : false,
 
@@ -70,6 +73,8 @@ export default class CRCMaker extends Component {
     this.generateShareLink = this.generateShareLink.bind(this);
     this.onShareClose = this.onShareClose.bind(this);
     this.toggleExport = this.toggleExport.bind(this);
+    this.toggleImport = this.toggleImport.bind(this);
+    this.importCards = this.importCards.bind(this);
   }
 
   componentDidMount () {
@@ -226,6 +231,26 @@ export default class CRCMaker extends Component {
     });
   }
 
+  toggleImport () {
+    this.setState({
+      importVisible: !this.state.importVisible
+    });
+  }
+
+  importCards(json){
+    let cardsData;
+    try{
+      cardsData = JSON.parse(json);
+    }catch(e){
+      cardsData = [];
+    }
+
+    this.setState({
+      cards: [...this.state.cards, ...cardsData],
+      importVisible: !this.state.importVisible
+    });
+  }
+
   render () {
     const state = this.state;
 
@@ -253,6 +278,7 @@ export default class CRCMaker extends Component {
                     <button onClick={this.onShareClose}>Close</button>
                   </Dialog>
                 }
+                <button onClick={this.toggleImport}>Import</button>
 
                 <button onClick={this.toggleExport}>Export</button>
                 { state.exportVisible &&
@@ -277,6 +303,14 @@ export default class CRCMaker extends Component {
         }
 
         <button className='btn--small' onClick={this.toggleHeader}>Show/hide controls</button>
+        {
+          state.cards.length === 0 &&
+            <button className='btn--small' onClick={this.toggleImport}>Import</button>
+        }
+
+        { state.importVisible &&
+            <ImportCards onClose={this.toggleImport} onSave={this.importCards}/>
+        }
 
         <main className='cards' id='cards'>
           { state.cards.length === 0 &&
