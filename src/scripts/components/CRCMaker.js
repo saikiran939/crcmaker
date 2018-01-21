@@ -5,7 +5,7 @@ import Card from './Card';
 import Dialog from './Dialog';
 import NewCardForm from './NewCardForm';
 import Toast from './Toast';
-
+import ImportCards from './ImportCards';
 import syntaxHighlight from '../modules/syntax';
 
 /**
@@ -237,29 +237,18 @@ export default class CRCMaker extends Component {
     });
   }
 
- importCards(){
+  importCards(json){
+    let cardsData;
+    try{
+      cardsData = JSON.parse(json);
+    }catch(e){
+      cardsData = [];
+    }
 
-   if(!this.state.importVisible || !this.state.importedJSON){
-     return null;
-   }
-
-   let cardsData;
-   try{
-     cardsData = JSON.parse(this.state.importedJSON);
-   }catch(e){
-     cardsData = [];
-   }
-
-   this.setState({
-     cards: [...this.state.cards, ...cardsData],
-     importVisible: !this.state.importVisible
-   });
- }
-
-  handleChange(e){
-    const json = e.target.value;
-    console.log(json);
-    this.setState({importedJSON: json})
+    this.setState({
+      cards: [...this.state.cards, ...cardsData],
+      importVisible: !this.state.importVisible
+    });
   }
 
   render () {
@@ -290,15 +279,6 @@ export default class CRCMaker extends Component {
                   </Dialog>
                 }
                 <button onClick={this.toggleImport}>Import</button>
-                { state.importVisible &&
-                    <Dialog title='Import JSON' onClose={this.toggleImport}>
-                      <textarea id='text-import' className='syntax' value={state.importedJSON}
-                      onChange={(e) => this.handleChange(e)}/>
-
-                      <button className='save' onClick={this.importCards}>Save</button>
-                      <button onClick={this.toggleImport}>Close</button>
-                    </Dialog>
-                }
 
                 <button onClick={this.toggleExport}>Export</button>
                 { state.exportVisible &&
@@ -323,6 +303,15 @@ export default class CRCMaker extends Component {
         }
 
         <button className='btn--small' onClick={this.toggleHeader}>Show/hide controls</button>
+        {
+          state.cards.length === 0 &&
+            <button className='btn--small' onClick={this.toggleImport}>Import</button>
+        }
+
+        { state.importVisible &&
+            <ImportCards onClose={this.toggleImport} onSave={this.importCards}/>
+        }
+
         <main className='cards' id='cards'>
           { state.cards.length === 0 &&
             <div className='cards__empty'>
